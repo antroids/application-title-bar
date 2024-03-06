@@ -1,6 +1,4 @@
-# Project Title
-
-Application Title Bar
+# Application Title Bar
 
 ## Description
 
