@@ -4,9 +4,6 @@ Application Title Bar
 
 ## Description
 
-[![Video]](docs/application-title-bar.webm "Video")
-
-
 KDE plasmoid compatible with Qt6 with window title and buttons, only top-left aligned for now.
 I like minimalistic display layout and used Active Window Control plasmoid, but it's abandoned for several years and now incompatible with Plasma6.
 So, I decided to create my own widget with the minimal set of features.
