@@ -36,7 +36,7 @@ PlasmoidItem {
     }
 
     Component {
-        id: buttonWindowClose
+        id: windowCloseButton
 
         PlasmaComponents.ToolButton {
             height: root.controlHeight
@@ -49,7 +49,7 @@ PlasmoidItem {
     }
 
     Component {
-        id: buttonWindowMinimize
+        id: windowMinimizeButton
 
         PlasmaComponents.ToolButton {
             height: root.controlHeight
@@ -62,7 +62,7 @@ PlasmoidItem {
     }
 
     Component {
-        id: buttonWindowMaximize
+        id: windowMaximizeButton
 
         PlasmaComponents.ToolButton {
             height: root.controlHeight
@@ -75,7 +75,7 @@ PlasmoidItem {
     }
 
     Component {
-        id: textWindowTitle
+        id: windowTitle
 
         PlasmaComponents.Label {
             anchors.left: parent.left
@@ -185,7 +185,29 @@ PlasmoidItem {
         Repeater {
             id: titleBarList
 
-            model: [buttonWindowClose, buttonWindowMinimize, buttonWindowMaximize, textWindowTitle]
+            property var elements: plasmoid.configuration.widgetElements
+
+            function getElementComponent(value) {
+                switch (value) {
+                case "windowCloseButton":
+                    return windowCloseButton;
+                case "windowMinimizeButton":
+                    return windowMinimizeButton;
+                case "windowMaximizeButton":
+                    return windowMaximizeButton;
+                case "windowTitle":
+                    return windowTitle;
+                }
+            }
+
+            onElementsChanged: function() {
+                let array = [];
+                for (var i = 0; i < elements.length; i++) {
+                    array.push(getElementComponent(elements[i]));
+                }
+                model = array;
+            }
+            model: []
             delegate: titleBarListDelegete
         }
 

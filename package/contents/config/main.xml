@@ -50,6 +50,9 @@
         <entry name="windowTitleMarginsRight" type="Int">
             <default>0</default>
         </entry>
+        <entry name="widgetElements" type="StringList">
+            <default>windowCloseButton,windowMinimizeButton,windowMaximizeButton,windowTitle</default>
+        </entry>
     </group>
 
     <group name="Behavior">

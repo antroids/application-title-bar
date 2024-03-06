@@ -25,6 +25,7 @@ KCM.SimpleKCM {
     property alias cfg_windowTitleMarginsTop: windowTitleMargins.topValue
     property alias cfg_windowTitleMarginsBottom: windowTitleMargins.bottomValue
     property alias cfg_windowTitleMarginsRight: windowTitleMargins.rightValue
+    property var cfg_widgetElements: ["windowCloseButton", "windowMinimizeButton", "windowMaximizeButton", "windowTitle"]
     property int cfg_widgetMarginsDefault: 0
     property int cfg_windowTitleWidthDefault: 200
     property int cfg_windowTitleFontSizeDefault: 10
@@ -130,6 +131,28 @@ KCM.SimpleKCM {
             id: windowTitleMargins
 
             text: i18n("Window title margins:")
+        }
+
+        WidgetElements {
+            id: widgetElements
+
+            Component.onCompleted: function() {
+                for (var i = 0; i < cfg_widgetElements.length; i++) {
+                    model.append({
+                        "value": cfg_widgetElements[i]
+                    });
+                }
+            }
+
+            model: ListModel {
+                onRowsMoved: function() {
+                    cfg_widgetElements = [];
+                    for (var i = 0; i < count; i++) {
+                        cfg_widgetElements.push(get(i).value);
+                    }
+                }
+            }
+
         }
 
     }
