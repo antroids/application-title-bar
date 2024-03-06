@@ -43,7 +43,7 @@ PlasmoidItem {
             width: height
             icon.name: "window-close"
             onClicked: tasksModel.requestCloseActiveTask()
-            visible: tasksModel.isActiveTaskClosable()
+            visible: tasksModel.activeTaskModel.closable
         }
 
     }
@@ -56,7 +56,7 @@ PlasmoidItem {
             width: height
             icon.name: "window-minimize"
             onClicked: tasksModel.requestMinimizeActiveTask()
-            visible: tasksModel.isActiveTaskMinimizable()
+            visible: tasksModel.activeTaskModel.minimizable
         }
 
     }
@@ -69,7 +69,7 @@ PlasmoidItem {
             width: height
             icon.name: "window-maximize"
             onClicked: tasksModel.requestMaximizeActiveTask()
-            visible: tasksModel.isActiveTaskMaximizable()
+            visible: tasksModel.activeTaskModel.maximizable
         }
 
     }
@@ -83,7 +83,7 @@ PlasmoidItem {
             anchors.topMargin: plasmoid.configuration.windowTitleMarginsTop
             anchors.bottomMargin: plasmoid.configuration.windowTitleMarginsBottom
             anchors.rightMargin: plasmoid.configuration.windowTitleMarginsRight
-            text: tasksModel.activeTaskName() || plasmoid.configuration.windowTitleUndefined
+            text: (plasmoid.configuration.windowTitleSource == 1 ? tasksModel.activeTaskModel.decoration : tasksModel.activeTaskModel.appName) || plasmoid.configuration.windowTitleUndefined
             font.pointSize: plasmoid.configuration.windowTitleFontSize
             font.bold: plasmoid.configuration.windowTitleFontBold
             fontSizeMode: plasmoid.configuration.windowTitleFontSizeMode
@@ -104,7 +104,7 @@ PlasmoidItem {
                 dragThreshold: plasmoid.configuration.windowTitleDragThreshold
                 acceptedButtons: Qt.LeftButton
                 onActiveChanged: function() {
-                    if (active && tasksModel.isActiveTaskMaximized() && tasksModel.isActiveTaskMovable())
+                    if (active && tasksModel.activeTaskModel.maximized && tasksModel.activeTaskModel.movable)
                         dragInProgress = true;
 
                 }
@@ -125,67 +125,54 @@ PlasmoidItem {
     tasksModel: TaskManager.TasksModel {
         id: tasksModel
 
-        function getActiveTask() {
-            return tasksModel.activeTask;
-        }
+        property ActiveTaskModel activeTaskModel
 
         function requestCloseActiveTask() {
-            let activeTask = tasksModel.getActiveTask();
             if (activeTask)
                 requestClose(activeTask);
 
         }
 
         function requestMinimizeActiveTask() {
-            let activeTask = tasksModel.getActiveTask();
             if (activeTask)
                 requestToggleMinimized(activeTask);
 
         }
 
         function requestMaximizeActiveTask() {
-            let activeTask = tasksModel.getActiveTask();
             if (activeTask)
                 requestToggleMaximized(activeTask);
 
         }
 
         function requestMoveActiveTask() {
-            let activeTask = tasksModel.getActiveTask();
             if (activeTask)
                 requestMove(activeTask);
 
         }
 
-        function isActiveTaskClosable() {
-            let activeTask = tasksModel.getActiveTask();
-            return activeTask && tasksModel.data(activeTask, TaskManager.AbstractTasksModel.IsClosable) || false;
-        }
+        onDataChanged: function(from, to, roles) {
+            if (activeTask && activeTask >= from && activeTask <= to)
+                activeTaskModel.update();
 
-        function isActiveTaskMinimizable() {
-            let activeTask = tasksModel.getActiveTask();
-            return activeTask && tasksModel.data(activeTask, TaskManager.AbstractTasksModel.IsMinimizable) || false;
         }
+        onModelReset: activeTaskModel.update()
 
-        function isActiveTaskMaximizable() {
-            let activeTask = tasksModel.getActiveTask();
-            return activeTask && tasksModel.data(activeTask, TaskManager.AbstractTasksModel.IsMaximizable) || false;
-        }
+        activeTaskModel: ActiveTaskModel {
+            function update() {
+                activeTask = tasksModel.activeTask;
+                minimizable = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.IsMinimizable) || false;
+                maximizable = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.IsMaximizable) || false;
+                closable = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.IsClosable) || false;
+                movable = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.IsMovable) || false;
+                minimized = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.IsMinimized) || false;
+                maximized = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.IsMaximized) || false;
+                appName = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.AppName);
+                decoration = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.Decoration);
+            }
 
-        function isActiveTaskMovable() {
-            let activeTask = tasksModel.getActiveTask();
-            return activeTask && tasksModel.data(activeTask, TaskManager.AbstractTasksModel.IsMovable) || false;
-        }
-
-        function isActiveTaskMaximized() {
-            let activeTask = tasksModel.getActiveTask();
-            return activeTask && tasksModel.data(activeTask, TaskManager.AbstractTasksModel.IsMaximized) || false;
-        }
-
-        function activeTaskName() {
-            let activeTask = tasksModel.getActiveTask();
-            let source = plasmoid.configuration.windowTitleSource == 1 ? TaskManager.AbstractTasksModel.Decoration : TaskManager.AbstractTasksModel.AppName;
-            return activeTask && tasksModel.data(activeTask, source);
+            activeTask: tasksModel.activeTask
+            Component.onCompleted: update()
         }
 
     }
