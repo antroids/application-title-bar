@@ -1,0 +1,24 @@
+{
+    "KPlugin": {
+        "Authors": [
+            {
+                "Email": "publicantroids@gmail.com",
+                "Name": "Anton Kharuzhy"
+            }
+        ],
+        "Category": "Windows and Tasks",
+        "Description": "A widget with buttons to control active task",
+        "Icon": "window-close",
+        "Id": "com.github.antroids.application-title-bar",
+        "Name": "Application Title Bar",
+        "License": "GPL-3.0+",
+        "Version": "0.1",
+        "Website": "https://github.com/antroids/application-title-bar",
+        "FormFactors": [
+            "desktop"
+        ]
+    },
+    "X-Plasma-API": "declarativeappletscript",
+    "KPackageStructure": "Plasma/Applet",
+    "X-Plasma-API-Minimum-Version": "6.0"
+}
