@@ -23,33 +23,24 @@ KCM.SimpleKCM {
         anchors.left: parent.left
         anchors.right: parent.right
 
-        RowLayout {
-            anchors.left: parent.left
+        Kirigami.Separator {
+            Kirigami.FormData.isSection: true
+            Kirigami.FormData.label: i18n("Window title drag")
+        }
 
-            Label {
-                Layout.alignment: Qt.AlignLeft
-                text: i18n("Window title drag:")
-            }
+        CheckBox {
+            id: windowTitleDragEnabled
 
-            CheckBox {
-                id: windowTitleDragEnabled
+            text: i18n("enabled")
+        }
 
-                text: i18n("enabled")
-            }
+        SpinBox {
+            id: windowTitleDragThreshold
 
-            Label {
-                Layout.alignment: Qt.AlignLeft
-                text: i18n("Threshold:")
-            }
-
-            SpinBox {
-                id: windowTitleDragThreshold
-
-                Layout.alignment: Qt.AlignLeft
-                from: 0
-                to: 512
-            }
-
+            Kirigami.FormData.label: i18n("Threshold:")
+            Layout.alignment: Qt.AlignLeft
+            from: 0
+            to: 512
         }
 
     }

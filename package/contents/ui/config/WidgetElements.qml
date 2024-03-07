@@ -16,13 +16,9 @@ RowLayout {
 
     property alias model: sortableItemsRow.model
 
-    anchors.left: parent.left
-    anchors.right: parent.right
-
-    Label {
-        Layout.alignment: Qt.AlignLeft
-        text: i18n("Elements:")
-    }
+    Layout.fillWidth: true
+    Kirigami.FormData.label: i18n("Elements:")
+    Layout.preferredWidth: Kirigami.Units.gridUnit * 20
 
     Rectangle {
         border.color: Kirigami.Theme.textColor

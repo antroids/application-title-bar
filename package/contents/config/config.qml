@@ -11,13 +11,13 @@ ConfigModel {
     ConfigCategory {
         name: i18n("Appearance")
         icon: "preferences-desktop-color"
-        source: "ConfigAppearance.qml"
+        source: "config/ConfigAppearance.qml"
     }
 
     ConfigCategory {
         name: i18n("Behavior")
         icon: "preferences-desktop"
-        source: "ConfigBehavior.qml"
+        source: "config/ConfigBehavior.qml"
     }
 
 }
