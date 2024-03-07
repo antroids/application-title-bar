@@ -1,0 +1,17 @@
+name: Releases
+
+on: 
+  push:
+    tags:
+    - '*'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Archive Release
+      uses: thedoctor0/zip-release@0.7.5
+      with:
+        type: 'zip'
+        filename: 'application-title-bar.plasmoid'
+        directory: 'package'
