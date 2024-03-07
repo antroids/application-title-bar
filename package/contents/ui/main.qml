@@ -75,15 +75,38 @@ PlasmoidItem {
     }
 
     Component {
+        id: windowIcon
+
+        Kirigami.Icon {
+            height: root.controlHeight
+            width: height
+            source: tasksModel.activeTaskModel.icon
+            visible: tasksModel.activeTaskModel && tasksModel.activeTaskModel.icon
+        }
+
+    }
+
+    Component {
         id: windowTitle
 
         PlasmaComponents.Label {
+            function titleText(activeTaskModel, windowTitleSource) {
+                switch (windowTitleSource) {
+                case 0:
+                    return tasksModel.activeTaskModel.appName;
+                case 1:
+                    return tasksModel.activeTaskModel.decoration;
+                case 2:
+                    return tasksModel.activeTaskModel.genericAppName;
+                }
+            }
+
             anchors.left: parent.left
             anchors.leftMargin: plasmoid.configuration.windowTitleMarginsLeft
             anchors.topMargin: plasmoid.configuration.windowTitleMarginsTop
             anchors.bottomMargin: plasmoid.configuration.windowTitleMarginsBottom
             anchors.rightMargin: plasmoid.configuration.windowTitleMarginsRight
-            text: (plasmoid.configuration.windowTitleSource == 1 ? tasksModel.activeTaskModel.decoration : tasksModel.activeTaskModel.appName) || plasmoid.configuration.windowTitleUndefined
+            text: titleText(tasksModel.activeTaskModel, plasmoid.configuration.windowTitleSource) || plasmoid.configuration.windowTitleUndefined
             font.pointSize: plasmoid.configuration.windowTitleFontSize
             font.bold: plasmoid.configuration.windowTitleFontBold
             fontSizeMode: plasmoid.configuration.windowTitleFontSizeMode
@@ -168,7 +191,9 @@ PlasmoidItem {
                 minimized = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.IsMinimized) || false;
                 maximized = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.IsMaximized) || false;
                 appName = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.AppName);
+                genericAppName = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.GenericAppName);
                 decoration = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.Decoration);
+                icon = tasksModel.data(activeTask, Qt.DecorationRole);
             }
 
             activeTask: tasksModel.activeTask
@@ -197,6 +222,8 @@ PlasmoidItem {
                     return windowMaximizeButton;
                 case "windowTitle":
                     return windowTitle;
+                case "windowIcon":
+                    return windowIcon;
                 }
             }
 

@@ -25,7 +25,7 @@ KCM.SimpleKCM {
     property alias cfg_windowTitleMarginsTop: windowTitleMarginsTop.value
     property alias cfg_windowTitleMarginsBottom: windowTitleMarginsBottom.value
     property alias cfg_windowTitleMarginsRight: windowTitleMarginsRight.value
-    property var cfg_widgetElements: ["windowCloseButton", "windowMinimizeButton", "windowMaximizeButton", "windowTitle"]
+    property var cfg_widgetElements: ["windowCloseButton", "windowMinimizeButton", "windowMaximizeButton", "windowTitle", "windowIcon"]
     property int cfg_widgetMarginsDefault: 0
     property int cfg_windowTitleWidthDefault: 200
     property int cfg_windowTitleFontSizeDefault: 10
@@ -123,7 +123,7 @@ KCM.SimpleKCM {
             id: windowTitleSource
 
             Kirigami.FormData.label: i18n("Window title source:")
-            model: [i18n("Application name"), i18n("Decoration")]
+            model: [i18n("Application name"), i18n("Decoration"), i18n("Generic Application name")]
         }
 
         Kirigami.Separator {

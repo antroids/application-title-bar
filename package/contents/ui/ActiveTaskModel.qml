@@ -15,5 +15,7 @@ QtObject {
     property bool minimized: false
     property bool maximized: false
     property var appName
+    property var genericAppName
     property var decoration
+    property var icon
 }

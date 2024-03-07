@@ -80,6 +80,17 @@ RowLayout {
 
             }
 
+            Component {
+                id: windowIcon
+
+                Kirigami.Icon {
+                    source: "window"
+                    height: Kirigami.Units.iconSizes.medium
+                    width: Kirigami.Units.iconSizes.medium
+                }
+
+            }
+
             sourceComponent: Loader {
                 property var modelData
 
@@ -93,6 +104,8 @@ RowLayout {
                         return windowMaximizeButton;
                     case "windowTitle":
                         return windowTitle;
+                    case "windowIcon":
+                        return windowIcon;
                     }
                 }
 
