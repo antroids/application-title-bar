@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+import "../"
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -21,6 +22,7 @@ RowLayout {
     Layout.preferredWidth: Kirigami.Units.gridUnit * 20
 
     Rectangle {
+        z: 1
         border.color: Kirigami.Theme.textColor
         color: Kirigami.Theme.activeBackgroundColor
         height: Kirigami.Units.iconSizes.medium
@@ -110,6 +112,51 @@ RowLayout {
                 }
 
                 sourceComponent: modelData ? getElementComponent(modelData) : null
+            }
+
+        }
+
+    }
+
+    Rectangle {
+        id: elementRemoveArea
+
+        z: 0
+        border.color: Kirigami.Theme.textColor
+        color: Kirigami.Theme.negativeBackgroundColor
+        height: Kirigami.Units.iconSizes.medium
+        width: Kirigami.Units.iconSizes.medium
+        Layout.alignment: Qt.AlignLeft
+
+        Kirigami.Icon {
+            anchors.fill: parent
+            source: "delete"
+        }
+
+        DropArea {
+            id: dropArea
+
+            property var dragSource
+
+            anchors.fill: parent
+            anchors.margins: 5
+            onEntered: (dragEvent) => {
+                dragSource = dragEvent.source;
+            }
+            onExited: () => {
+                if (dragSource && !dragSource.pressed)
+                    widgetElements.model.remove(dragSource.DelegateModel.itemsIndex);
+
+                dragSource = undefined;
+            }
+
+            states: State {
+                when: dropArea.dragSource !== undefined
+
+                PropertyChanges {
+                    elementRemoveArea.border.color: "red"
+                }
+
             }
 
         }

@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+import "../config"
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -60,20 +61,76 @@ KCM.SimpleKCM {
             id: widgetElements
 
             Component.onCompleted: function() {
+                model.ignoreInsertEvent = true;
                 for (var i = 0; i < cfg_widgetElements.length; i++) {
                     model.append({
                         "value": cfg_widgetElements[i]
                     });
                 }
+                model.ignoreInsertEvent = false;
             }
 
             model: ListModel {
-                onRowsMoved: function() {
+                property bool ignoreInsertEvent: false
+
+                function updateConfigFromModel() {
                     cfg_widgetElements = [];
                     for (var i = 0; i < count; i++) {
                         cfg_widgetElements.push(get(i).value);
                     }
                 }
+
+                onRowsMoved: updateConfigFromModel()
+                onRowsRemoved: updateConfigFromModel()
+                onRowsInserted: ignoreInsertEvent || updateConfigFromModel()
+            }
+
+        }
+
+        ComboBox {
+            Kirigami.FormData.label: i18n("Add element:")
+            textRole: "name"
+            valueRole: "value"
+            displayText: i18n(currentText)
+            onCurrentValueChanged: function() {
+                if (currentValue) {
+                    widgetElements.model.append({
+                        "value": currentValue
+                    });
+                    currentIndex = 0;
+                }
+            }
+
+            model: ListModel {
+                ListElement {
+                    name: "Select..."
+                }
+
+                ListElement {
+                    name: "Window close button"
+                    value: "windowCloseButton"
+                }
+
+                ListElement {
+                    name: "Window minimize button"
+                    value: "windowMinimizeButton"
+                }
+
+                ListElement {
+                    name: "Window maximize button"
+                    value: "windowMaximizeButton"
+                }
+
+                ListElement {
+                    name: "Window title"
+                    value: "windowTitle"
+                }
+
+                ListElement {
+                    name: "Window Icon"
+                    value: "windowIcon"
+                }
+
             }
 
         }

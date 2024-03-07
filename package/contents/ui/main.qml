@@ -81,7 +81,7 @@ PlasmoidItem {
             height: root.controlHeight
             width: height
             source: tasksModel.activeTaskModel.icon
-            visible: tasksModel.activeTaskModel && tasksModel.activeTaskModel.icon
+            visible: !!tasksModel.activeTaskModel && !!tasksModel.activeTaskModel.icon
         }
 
     }
