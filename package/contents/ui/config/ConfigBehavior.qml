@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+import "../"
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -23,6 +24,16 @@ KCM.SimpleKCM {
         anchors.left: parent.left
         anchors.right: parent.right
 
+        KWinConfig {
+            id: kWinConfig
+
+            Component.onCompleted: updateBorderlessMaximizedWindows()
+            onBorderlessMaximizedWindowsChanged: {
+                borderlessMaximizedWindowsCheckBox.checked = borderlessMaximizedWindows;
+                borderlessMaximizedWindowsCheckBox.enabled = true;
+            }
+        }
+
         Kirigami.Separator {
             Kirigami.FormData.isSection: true
             Kirigami.FormData.label: i18n("Window title drag")
@@ -31,7 +42,20 @@ KCM.SimpleKCM {
         CheckBox {
             id: windowTitleDragEnabled
 
+            Kirigami.FormData.label: i18n("Start moving on title drag:")
             text: i18n("enabled")
+        }
+
+        CheckBox {
+            id: borderlessMaximizedWindowsCheckBox
+
+            Kirigami.FormData.label: i18n("Borderless maximized windows:")
+            text: i18n("enabled")
+            enabled: false
+            onToggled: function() {
+                enabled = false;
+                kWinConfig.setBorderlessMaximizedWindows(checked);
+            }
         }
 
         SpinBox {
