@@ -11,12 +11,14 @@ import org.kde.plasma.components as PlasmaComponents
 import org.kde.plasma.core as PlasmaCore
 import org.kde.plasma.plasmoid
 import org.kde.taskmanager as TaskManager
+import "utils.js" as Utils
 
 PlasmoidItem {
     id: root
 
     property TaskManager.TasksModel tasksModel
     property real controlHeight: height - plasmoid.configuration.widgetMargins * 2
+    property var widgetAlignment: plasmoid.configuration.windgetHorizontalAlignment | plasmoid.configuration.windgetVerticalAlignment
 
     preferredRepresentation: fullRepresentation
 
@@ -24,12 +26,13 @@ PlasmoidItem {
         id: titleBarListDelegete
 
         Loader {
+            id: titleBarListDelegeteLoader
+
             required property var modelData
 
-            Layout.alignment: Qt.AlignLeft
-            Layout.maximumHeight: root.controlHeight
-            Layout.maximumWidth: plasmoid.configuration.windowTitleWidth
-            Layout.margins: 0
+            onLoaded: function() {
+                Utils.copyLayoutConstraint(item, titleBarListDelegeteLoader);
+            }
             sourceComponent: modelData
         }
 
@@ -38,9 +41,7 @@ PlasmoidItem {
     Component {
         id: windowCloseButton
 
-        PlasmaComponents.ToolButton {
-            height: root.controlHeight
-            width: height
+        WindowButton {
             icon.name: "window-close"
             onClicked: tasksModel.requestCloseActiveTask()
             visible: tasksModel.activeTaskModel.closable
@@ -51,9 +52,7 @@ PlasmoidItem {
     Component {
         id: windowMinimizeButton
 
-        PlasmaComponents.ToolButton {
-            height: root.controlHeight
-            width: height
+        WindowButton {
             icon.name: "window-minimize"
             onClicked: tasksModel.requestMinimizeActiveTask()
             visible: tasksModel.activeTaskModel.minimizable
@@ -64,9 +63,7 @@ PlasmoidItem {
     Component {
         id: windowMaximizeButton
 
-        PlasmaComponents.ToolButton {
-            height: root.controlHeight
-            width: height
+        WindowButton {
             icon.name: "window-maximize"
             onClicked: tasksModel.requestMaximizeActiveTask()
             visible: tasksModel.activeTaskModel.maximizable
@@ -79,6 +76,7 @@ PlasmoidItem {
 
         Kirigami.Icon {
             height: root.controlHeight
+            Layout.alignment: root.widgetAlignment
             width: height
             source: tasksModel.activeTaskModel.icon
             visible: !!tasksModel.activeTaskModel && !!tasksModel.activeTaskModel.icon
@@ -101,11 +99,13 @@ PlasmoidItem {
                 }
             }
 
-            anchors.left: parent.left
-            anchors.leftMargin: plasmoid.configuration.windowTitleMarginsLeft
-            anchors.topMargin: plasmoid.configuration.windowTitleMarginsTop
-            anchors.bottomMargin: plasmoid.configuration.windowTitleMarginsBottom
-            anchors.rightMargin: plasmoid.configuration.windowTitleMarginsRight
+            Layout.leftMargin: plasmoid.configuration.windowTitleMarginsLeft
+            Layout.topMargin: plasmoid.configuration.windowTitleMarginsTop
+            Layout.bottomMargin: plasmoid.configuration.windowTitleMarginsBottom
+            Layout.rightMargin: plasmoid.configuration.windowTitleMarginsRight
+            Layout.minimumWidth: plasmoid.configuration.windowTitleMinimumWidth
+            Layout.maximumWidth: plasmoid.configuration.windowTitleMaximumWidth
+            Layout.alignment: root.widgetAlignment
             text: titleText(tasksModel.activeTaskModel, plasmoid.configuration.windowTitleSource) || plasmoid.configuration.windowTitleUndefined
             font.pointSize: plasmoid.configuration.windowTitleFontSize
             font.bold: plasmoid.configuration.windowTitleFontBold
@@ -127,7 +127,7 @@ PlasmoidItem {
                 dragThreshold: plasmoid.configuration.windowTitleDragThreshold
                 acceptedButtons: Qt.LeftButton
                 onActiveChanged: function() {
-                    if (active && tasksModel.activeTaskModel.maximized && tasksModel.activeTaskModel.movable)
+                    if (active && (!plasmoid.configuration.windowTitleDragOnlyMaximized || tasksModel.activeTaskModel.maximized) && tasksModel.activeTaskModel.movable)
                         dragInProgress = true;
 
                 }
@@ -153,6 +153,7 @@ PlasmoidItem {
         id: widgetRow
 
         anchors.margins: plasmoid.configuration.widgetMargins
+        spacing: plasmoid.configuration.widgetSpacing
 
         Repeater {
             id: titleBarList

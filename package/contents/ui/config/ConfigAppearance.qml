@@ -16,7 +16,11 @@ KCM.SimpleKCM {
     id: page
 
     property alias cfg_widgetMargins: widgetMargins.value
-    property alias cfg_windowTitleWidth: windowTitleWidth.value
+    property alias cfg_widgetSpacing: widgetSpacing.value
+    property int cfg_windgetHorizontalAlignment: 1
+    property int cfg_windgetVerticalAlignment: 128
+    property alias cfg_windowTitleMinimumWidth: windowTitleMinimumWidth.value
+    property alias cfg_windowTitleMaximumWidth: windowTitleMaximumWidth.value
     property alias cfg_windowTitleFontSize: windowTitleFontSize.value
     property alias cfg_windowTitleFontBold: windowTitleFontBold.checked
     property alias cfg_windowTitleFontSizeMode: windowTitleFontSizeMode.currentIndex
@@ -55,6 +59,60 @@ KCM.SimpleKCM {
             Kirigami.FormData.label: i18n("Widget margins:")
             from: 0
             to: 32
+        }
+
+        SpinBox {
+            id: widgetSpacing
+
+            Kirigami.FormData.label: i18n("Spacing between elements:")
+            from: 0
+            to: 32
+        }
+
+        ComboBox {
+            id: windgetHorizontalAlignment
+
+            Component.onCompleted: currentIndex = indexOfValue(cfg_windgetHorizontalAlignment)
+            onActivated: cfg_windgetHorizontalAlignment = currentValue
+            textRole: "text"
+            valueRole: "value"
+            Kirigami.FormData.label: i18n("Horizontal alignment:")
+            model: [{
+                "value": Qt.AlignLeft,
+                "text": i18n("Left")
+            }, {
+                "value": Qt.AlignHCenter,
+                "text": i18n("Center")
+            }, {
+                "value": Qt.AlignRight,
+                "text": i18n("Right")
+            }, {
+                "value": Qt.AlignJustify,
+                "text": i18n("Justify")
+            }]
+        }
+
+        ComboBox {
+            id: windgetVerticalAlignment
+
+            Component.onCompleted: currentIndex = indexOfValue(cfg_windgetVerticalAlignment)
+            onActivated: cfg_windgetVerticalAlignment = currentValue
+            textRole: "text"
+            valueRole: "value"
+            Kirigami.FormData.label: i18n("Vertical alignment:")
+            model: [{
+                "value": Qt.AlignLeft,
+                "text": i18n("Top")
+            }, {
+                "value": Qt.AlignVCenter,
+                "text": i18n("Center")
+            }, {
+                "value": Qt.AlignBottom,
+                "text": i18n("Bottom")
+            }, {
+                "value": Qt.AlignBaseline,
+                "text": i18n("Baseline")
+            }]
         }
 
         WidgetElements {
@@ -141,11 +199,18 @@ KCM.SimpleKCM {
         }
 
         SpinBox {
-            id: windowTitleWidth
+            id: windowTitleMinimumWidth
 
-            Kirigami.FormData.label: i18n("Width:")
-            from: 32
-            to: 1024
+            to: 4096
+            Kirigami.FormData.label: i18n("Minimum width:")
+        }
+
+        SpinBox {
+            id: windowTitleMaximumWidth
+
+            from: -1
+            to: 4096
+            Kirigami.FormData.label: i18n("Maximum width:")
         }
 
         SpinBox {
@@ -183,41 +248,53 @@ KCM.SimpleKCM {
             model: [i18n("Application name"), i18n("Decoration"), i18n("Generic Application name")]
         }
 
-        Kirigami.Separator {
-            Kirigami.FormData.isSection: true
-            Kirigami.FormData.label: i18n("Window title margins")
-        }
+        RowLayout {
+            Kirigami.FormData.label: i18n("Window title margins:")
 
-        SpinBox {
-            id: windowTitleMarginsTop
+            Label {
+                text: i18n("top:")
+            }
 
-            Kirigami.FormData.label: i18n("top:")
-            from: 1
-            to: 64
-        }
+            SpinBox {
+                id: windowTitleMarginsTop
 
-        SpinBox {
-            id: windowTitleMarginsLeft
+                from: 0
+                to: 64
+            }
 
-            Kirigami.FormData.label: i18n("left:")
-            from: 1
-            to: 64
-        }
+            Label {
+                text: i18n("left:")
+            }
 
-        SpinBox {
-            id: windowTitleMarginsBottom
+            SpinBox {
+                id: windowTitleMarginsLeft
 
-            Kirigami.FormData.label: i18n("bottom:")
-            from: 1
-            to: 64
-        }
+                from: 0
+                to: 64
+            }
 
-        SpinBox {
-            id: windowTitleMarginsRight
+            Label {
+                text: i18n("bottom:")
+            }
 
-            Kirigami.FormData.label: i18n("right:")
-            from: 1
-            to: 64
+            SpinBox {
+                id: windowTitleMarginsBottom
+
+                from: 0
+                to: 64
+            }
+
+            Label {
+                text: i18n("right:")
+            }
+
+            SpinBox {
+                id: windowTitleMarginsRight
+
+                from: 0
+                to: 64
+            }
+
         }
 
     }

@@ -16,6 +16,7 @@ KCM.SimpleKCM {
     id: page
 
     property alias cfg_windowTitleDragEnabled: windowTitleDragEnabled.checked
+    property alias cfg_windowTitleDragOnlyMaximized: windowTitleDragOnlyMaximized.checked
     property alias cfg_windowTitleDragThreshold: windowTitleDragThreshold.value
     property bool cfg_windowTitleDragEnabledDefault: true
     property real cfg_windowTitleDragThresholdDefault: 10
@@ -43,6 +44,13 @@ KCM.SimpleKCM {
             id: windowTitleDragEnabled
 
             Kirigami.FormData.label: i18n("Start moving on title drag:")
+            text: i18n("enabled")
+        }
+
+        CheckBox {
+            id: windowTitleDragOnlyMaximized
+
+            Kirigami.FormData.label: i18n("Only for maximized:")
             text: i18n("enabled")
         }
 
