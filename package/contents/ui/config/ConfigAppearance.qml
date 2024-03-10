@@ -15,6 +15,9 @@ import org.kde.plasma.components as PlasmaComponents
 KCM.SimpleKCM {
     id: page
 
+    property string cfg_windgetButtonsAuroraeTheme
+    property alias cfg_windgetButtonsUsePlasmaTheme: windgetButtonsUsePlasmaTheme.checked
+    property alias cfg_windgetButtonsAspectRatio: windgetButtonsAspectRatio.value
     property alias cfg_widgetMargins: widgetMargins.value
     property alias cfg_widgetSpacing: widgetSpacing.value
     property int cfg_windgetHorizontalAlignment: 1
@@ -32,6 +35,7 @@ KCM.SimpleKCM {
     property alias cfg_windowTitleMarginsRight: windowTitleMarginsRight.value
     property var cfg_widgetElements: ["windowCloseButton", "windowMinimizeButton", "windowMaximizeButton", "windowTitle", "windowIcon"]
     property int cfg_widgetMarginsDefault: 0
+    property int cfg_windgetButtonsAspectRatioDefault: 100
     property int cfg_windowTitleWidthDefault: 200
     property int cfg_windowTitleFontSizeDefault: 10
     property bool cfg_windowTitleFontBoldDefault: false
@@ -48,9 +52,45 @@ KCM.SimpleKCM {
         anchors.right: parent.right
         wideMode: true
 
+        KWinConfig {
+            id: kWinConfig
+
+            onAuroraeThemesChanged: windgetButtonsAuroraeTheme.updateCurrentIndex()
+        }
+
         Kirigami.Separator {
             Kirigami.FormData.isSection: true
             Kirigami.FormData.label: i18n("Widget")
+        }
+
+        CheckBox {
+            id: windgetButtonsUsePlasmaTheme
+
+            Kirigami.FormData.label: i18n("Use Plasma theme icons:")
+        }
+
+        ComboBox {
+            id: windgetButtonsAuroraeTheme
+
+            function updateCurrentIndex() {
+                currentIndex = indexOfValue(cfg_windgetButtonsAuroraeTheme);
+            }
+
+            enabled: !windgetButtonsUsePlasmaTheme.checked
+            Component.onCompleted: updateCurrentIndex()
+            onActivated: cfg_windgetButtonsAuroraeTheme = currentValue
+            textRole: "name"
+            valueRole: "folder"
+            Kirigami.FormData.label: i18n("Buttons theme:")
+            model: kWinConfig.auroraeThemes
+        }
+
+        SpinBox {
+            id: windgetButtonsAspectRatio
+
+            Kirigami.FormData.label: i18n("Buttons aspect ratio %:")
+            from: 0
+            to: 200
         }
 
         SpinBox {

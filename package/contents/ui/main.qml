@@ -23,50 +23,48 @@ PlasmoidItem {
     preferredRepresentation: fullRepresentation
 
     Component {
-        id: titleBarListDelegete
+        id: widgetElementLoaderDelegate
 
         Loader {
-            id: titleBarListDelegeteLoader
+            id: widgetElementLoader
 
             required property var modelData
 
             onLoaded: function() {
-                Utils.copyLayoutConstraint(item, titleBarListDelegeteLoader);
+                Utils.copyLayoutConstraint(item, widgetElementLoader);
+                item.modelData = modelData;
             }
-            sourceComponent: modelData
+            sourceComponent: {
+                switch (modelData.type) {
+                case WidgetElement.Type.WindowControlButton:
+                    return windowControlButton;
+                case WidgetElement.Type.WindowTitle:
+                    return windowTitle;
+                case WidgetElement.Type.WindowIcon:
+                    return windowIcon;
+                }
+            }
         }
 
     }
 
     Component {
-        id: windowCloseButton
+        id: windowControlButton
 
-        WindowButton {
-            icon.name: "window-close"
-            onClicked: tasksModel.requestCloseActiveTask()
-            visible: tasksModel.activeTaskModel.closable
-        }
+        WindowControlButton {
+            id: windowControlButton
 
-    }
+            property var modelData
 
-    Component {
-        id: windowMinimizeButton
-
-        WindowButton {
-            icon.name: "window-minimize"
-            onClicked: tasksModel.requestMinimizeActiveTask()
-            visible: tasksModel.activeTaskModel.minimizable
-        }
-
-    }
-
-    Component {
-        id: windowMaximizeButton
-
-        WindowButton {
-            icon.name: "window-maximize"
-            onClicked: tasksModel.requestMaximizeActiveTask()
-            visible: tasksModel.activeTaskModel.maximizable
+            Layout.alignment: root.widgetAlignment
+            Layout.preferredWidth: plasmoid.configuration.windgetButtonsAspectRatio / 100 * height
+            Layout.preferredHeight: root.controlHeight
+            buttonType: modelData.windowControlButtonType
+            themeName: plasmoid.configuration.windgetButtonsUsePlasmaTheme ? null : plasmoid.configuration.windgetButtonsAuroraeTheme
+            onActionCall: (action) => {
+                return tasksModel.activeWindow.actionCall(action);
+            }
+            enabled: tasksModel.activeWindow.actionSupported(getAction())
         }
 
     }
@@ -75,11 +73,13 @@ PlasmoidItem {
         id: windowIcon
 
         Kirigami.Icon {
+            property var modelData
+
             height: root.controlHeight
             Layout.alignment: root.widgetAlignment
             width: height
-            source: tasksModel.activeTaskModel.icon
-            visible: !!tasksModel.activeTaskModel && !!tasksModel.activeTaskModel.icon
+            source: tasksModel.activeWindow.icon
+            visible: !!tasksModel.activeWindow && !!tasksModel.activeWindow.icon
         }
 
     }
@@ -88,14 +88,16 @@ PlasmoidItem {
         id: windowTitle
 
         PlasmaComponents.Label {
-            function titleText(activeTaskModel, windowTitleSource) {
+            property var modelData
+
+            function titleText(activeWindow, windowTitleSource) {
                 switch (windowTitleSource) {
                 case 0:
-                    return tasksModel.activeTaskModel.appName;
+                    return tasksModel.activeWindow.appName;
                 case 1:
-                    return tasksModel.activeTaskModel.decoration;
+                    return tasksModel.activeWindow.decoration;
                 case 2:
-                    return tasksModel.activeTaskModel.genericAppName;
+                    return tasksModel.activeWindow.genericAppName;
                 }
             }
 
@@ -106,7 +108,7 @@ PlasmoidItem {
             Layout.minimumWidth: plasmoid.configuration.windowTitleMinimumWidth
             Layout.maximumWidth: plasmoid.configuration.windowTitleMaximumWidth
             Layout.alignment: root.widgetAlignment
-            text: titleText(tasksModel.activeTaskModel, plasmoid.configuration.windowTitleSource) || plasmoid.configuration.windowTitleUndefined
+            text: titleText(tasksModel.activeWindow, plasmoid.configuration.windowTitleSource) || plasmoid.configuration.windowTitleUndefined
             font.pointSize: plasmoid.configuration.windowTitleFontSize
             font.bold: plasmoid.configuration.windowTitleFontBold
             fontSizeMode: plasmoid.configuration.windowTitleFontSizeMode
@@ -127,7 +129,7 @@ PlasmoidItem {
                 dragThreshold: plasmoid.configuration.windowTitleDragThreshold
                 acceptedButtons: Qt.LeftButton
                 onActiveChanged: function() {
-                    if (active && (!plasmoid.configuration.windowTitleDragOnlyMaximized || tasksModel.activeTaskModel.maximized) && tasksModel.activeTaskModel.movable)
+                    if (active && (!plasmoid.configuration.windowTitleDragOnlyMaximized || tasksModel.activeWindow.maximized) && tasksModel.activeWindow.movable)
                         dragInProgress = true;
 
                 }
@@ -135,7 +137,7 @@ PlasmoidItem {
                     if (active && dragInProgress && point && point.pressPosition && point.position) {
                         if (distance(point.pressPosition, point.position) > dragThreshold) {
                             dragInProgress = false;
-                            tasksModel.requestMoveActiveTask();
+                            tasksModel.activeWindow.actionCall(ActiveWindow.Action.Move);
                         }
                     }
                 }
@@ -160,30 +162,15 @@ PlasmoidItem {
 
             property var elements: plasmoid.configuration.widgetElements
 
-            function getElementComponent(value) {
-                switch (value) {
-                case "windowCloseButton":
-                    return windowCloseButton;
-                case "windowMinimizeButton":
-                    return windowMinimizeButton;
-                case "windowMaximizeButton":
-                    return windowMaximizeButton;
-                case "windowTitle":
-                    return windowTitle;
-                case "windowIcon":
-                    return windowIcon;
-                }
-            }
-
             onElementsChanged: function() {
                 let array = [];
                 for (var i = 0; i < elements.length; i++) {
-                    array.push(getElementComponent(elements[i]));
+                    array.push(Utils.widgetElementModelFromName(elements[i]));
                 }
                 model = array;
             }
             model: []
-            delegate: titleBarListDelegete
+            delegate: widgetElementLoaderDelegate
         }
 
     }

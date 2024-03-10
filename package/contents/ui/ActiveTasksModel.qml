@@ -9,45 +9,18 @@ import org.kde.taskmanager as TaskManager
 TaskManager.TasksModel {
     id: tasksModel
 
-    property ActiveTaskModel activeTaskModel
-
-    function requestCloseActiveTask() {
-        if (activeTask)
-            requestClose(activeTask);
-
-    }
-
-    function requestMinimizeActiveTask() {
-        if (activeTask)
-            requestToggleMinimized(activeTask);
-
-    }
-
-    function requestMaximizeActiveTask() {
-        if (activeTask)
-            requestToggleMaximized(activeTask);
-
-    }
-
-    function requestMoveActiveTask() {
-        if (activeTask)
-            requestMove(activeTask);
-
-    }
+    property ActiveWindow activeWindow
 
     onDataChanged: function(from, to, roles) {
         if (activeTask && activeTask >= from && activeTask <= to)
-            activeTaskModel.update();
+            activeWindow.update();
 
     }
-    onActiveTaskChanged: function() {
-        activeTaskModel.update();
-    }
-    onModelReset: activeTaskModel.update()
+    onActiveTaskChanged: activeWindow.update()
+    onModelReset: activeWindow.update()
 
-    activeTaskModel: ActiveTaskModel {
+    activeWindow: ActiveWindow {
         function update() {
-            activeTask = tasksModel.activeTask;
             minimizable = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.IsMinimizable) || false;
             maximizable = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.IsMaximizable) || false;
             closable = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.IsClosable) || false;
@@ -60,7 +33,18 @@ TaskManager.TasksModel {
             icon = tasksModel.data(activeTask, Qt.DecorationRole);
         }
 
-        activeTask: tasksModel.activeTask
+        onActionCall: function(action) {
+            switch (action) {
+            case ActiveWindow.Action.Close:
+                return tasksModel.requestClose(activeTask);
+            case ActiveWindow.Action.Minimize:
+                return tasksModel.requestToggleMinimized(activeTask);
+            case ActiveWindow.Action.Maximize:
+                return tasksModel.requestToggleMaximized(activeTask);
+            case ActiveWindow.Action.Move:
+                return tasksModel.requestMove(activeTask);
+            }
+        }
         Component.onCompleted: update()
     }
 

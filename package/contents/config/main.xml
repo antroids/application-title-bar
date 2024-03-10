@@ -9,6 +9,15 @@
         <entry name="widgetMargins" type="Int">
             <default>0</default>
         </entry>
+        <entry name="windgetButtonsUsePlasmaTheme" type="Bool">
+            <default>true</default>
+        </entry>
+        <entry name="windgetButtonsAuroraeTheme" type="String">
+            <default></default>
+        </entry>
+        <entry name="windgetButtonsAspectRatio" type="Int">
+            <default>100</default>
+        </entry>
         <entry name="widgetSpacing" type="Int">
             <default>0</default>
         </entry>
@@ -64,7 +73,7 @@
             <default>0</default>
         </entry>
         <entry name="widgetElements" type="StringList">
-            <default>windowCloseButton,windowMinimizeButton,windowMaximizeButton,windowIcon,windowTitle</default>
+            <default>windowCloseButton,windowMaximizeButton,windowMinimizeButton,windowIcon,windowTitle</default>
         </entry>
     </group>
 

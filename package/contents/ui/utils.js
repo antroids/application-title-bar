@@ -28,3 +28,31 @@ function copyLayoutConstraint(from, to) {
         "verticalStretchFactor": Qt.binding(function () { return from.Layout.verticalStretchFactor })
     })
 }
+
+function widgetElementModelFromName(name) {
+    switch (name) {
+        case "windowCloseButton":
+            return {
+                "type": WidgetElement.Type.WindowControlButton,
+                "windowControlButtonType": WindowControlButton.Type.CloseButton
+            };
+        case "windowMinimizeButton":
+            return {
+                "type": WidgetElement.Type.WindowControlButton,
+                "windowControlButtonType": WindowControlButton.Type.MinimizeButton
+            };
+        case "windowMaximizeButton":
+            return {
+                "type": WidgetElement.Type.WindowControlButton,
+                "windowControlButtonType": WindowControlButton.Type.MaximizeButton
+            };
+        case "windowTitle":
+            return {
+                "type": WidgetElement.Type.WindowTitle
+            };
+        case "windowIcon":
+            return {
+                "type": WidgetElement.Type.WindowIcon
+            };
+    }
+}
