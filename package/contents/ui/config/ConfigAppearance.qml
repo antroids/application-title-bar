@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+import "../"
 import "../config"
 import QtQuick
 import QtQuick.Controls
@@ -15,13 +16,13 @@ import org.kde.plasma.components as PlasmaComponents
 KCM.SimpleKCM {
     id: page
 
-    property string cfg_windgetButtonsAuroraeTheme
-    property alias cfg_windgetButtonsUsePlasmaTheme: windgetButtonsUsePlasmaTheme.checked
-    property alias cfg_windgetButtonsAspectRatio: windgetButtonsAspectRatio.value
+    property string cfg_widgetButtonsAuroraeTheme
+    property alias cfg_widgetButtonsUsePlasmaTheme: widgetButtonsUsePlasmaTheme.checked
+    property alias cfg_widgetButtonsAspectRatio: widgetButtonsAspectRatio.value
     property alias cfg_widgetMargins: widgetMargins.value
     property alias cfg_widgetSpacing: widgetSpacing.value
-    property int cfg_windgetHorizontalAlignment: 1
-    property int cfg_windgetVerticalAlignment: 128
+    property int cfg_widgetHorizontalAlignment: 1
+    property int cfg_widgetVerticalAlignment: 128
     property alias cfg_windowTitleMinimumWidth: windowTitleMinimumWidth.value
     property alias cfg_windowTitleMaximumWidth: windowTitleMaximumWidth.value
     property alias cfg_windowTitleFontSize: windowTitleFontSize.value
@@ -35,7 +36,7 @@ KCM.SimpleKCM {
     property alias cfg_windowTitleMarginsRight: windowTitleMarginsRight.value
     property var cfg_widgetElements: ["windowCloseButton", "windowMinimizeButton", "windowMaximizeButton", "windowTitle", "windowIcon"]
     property int cfg_widgetMarginsDefault: 0
-    property int cfg_windgetButtonsAspectRatioDefault: 100
+    property int cfg_widgetButtonsAspectRatioDefault: 100
     property int cfg_windowTitleWidthDefault: 200
     property int cfg_windowTitleFontSizeDefault: 10
     property bool cfg_windowTitleFontBoldDefault: false
@@ -55,7 +56,7 @@ KCM.SimpleKCM {
         KWinConfig {
             id: kWinConfig
 
-            onAuroraeThemesChanged: windgetButtonsAuroraeTheme.updateCurrentIndex()
+            onAuroraeThemesChanged: widgetButtonsAuroraeTheme.updateCurrentIndex()
         }
 
         Kirigami.Separator {
@@ -64,21 +65,21 @@ KCM.SimpleKCM {
         }
 
         CheckBox {
-            id: windgetButtonsUsePlasmaTheme
+            id: widgetButtonsUsePlasmaTheme
 
             Kirigami.FormData.label: i18n("Use Plasma theme icons:")
         }
 
         ComboBox {
-            id: windgetButtonsAuroraeTheme
+            id: widgetButtonsAuroraeTheme
 
             function updateCurrentIndex() {
-                currentIndex = indexOfValue(cfg_windgetButtonsAuroraeTheme);
+                currentIndex = indexOfValue(cfg_widgetButtonsAuroraeTheme);
             }
 
-            enabled: !windgetButtonsUsePlasmaTheme.checked
+            enabled: !widgetButtonsUsePlasmaTheme.checked
             Component.onCompleted: updateCurrentIndex()
-            onActivated: cfg_windgetButtonsAuroraeTheme = currentValue
+            onActivated: cfg_widgetButtonsAuroraeTheme = currentValue
             textRole: "name"
             valueRole: "folder"
             Kirigami.FormData.label: i18n("Buttons theme:")
@@ -86,7 +87,7 @@ KCM.SimpleKCM {
         }
 
         SpinBox {
-            id: windgetButtonsAspectRatio
+            id: widgetButtonsAspectRatio
 
             Kirigami.FormData.label: i18n("Buttons aspect ratio %:")
             from: 0
@@ -110,10 +111,10 @@ KCM.SimpleKCM {
         }
 
         ComboBox {
-            id: windgetHorizontalAlignment
+            id: widgetHorizontalAlignment
 
-            Component.onCompleted: currentIndex = indexOfValue(cfg_windgetHorizontalAlignment)
-            onActivated: cfg_windgetHorizontalAlignment = currentValue
+            Component.onCompleted: currentIndex = indexOfValue(cfg_widgetHorizontalAlignment)
+            onActivated: cfg_widgetHorizontalAlignment = currentValue
             textRole: "text"
             valueRole: "value"
             Kirigami.FormData.label: i18n("Horizontal alignment:")
@@ -133,10 +134,10 @@ KCM.SimpleKCM {
         }
 
         ComboBox {
-            id: windgetVerticalAlignment
+            id: widgetVerticalAlignment
 
-            Component.onCompleted: currentIndex = indexOfValue(cfg_windgetVerticalAlignment)
-            onActivated: cfg_windgetVerticalAlignment = currentValue
+            Component.onCompleted: currentIndex = indexOfValue(cfg_widgetVerticalAlignment)
+            onActivated: cfg_widgetVerticalAlignment = currentValue
             textRole: "text"
             valueRole: "value"
             Kirigami.FormData.label: i18n("Vertical alignment:")

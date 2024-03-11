@@ -9,22 +9,22 @@
         <entry name="widgetMargins" type="Int">
             <default>0</default>
         </entry>
-        <entry name="windgetButtonsUsePlasmaTheme" type="Bool">
+        <entry name="widgetButtonsUsePlasmaTheme" type="Bool">
             <default>true</default>
         </entry>
-        <entry name="windgetButtonsAuroraeTheme" type="String">
+        <entry name="widgetButtonsAuroraeTheme" type="String">
             <default></default>
         </entry>
-        <entry name="windgetButtonsAspectRatio" type="Int">
+        <entry name="widgetButtonsAspectRatio" type="Int">
             <default>100</default>
         </entry>
         <entry name="widgetSpacing" type="Int">
             <default>0</default>
         </entry>
-        <entry name="windgetHorizontalAlignment" type="Int">
+        <entry name="widgetHorizontalAlignment" type="Int">
             <default>1</default>
         </entry>
-        <entry name="windgetVerticalAlignment" type="Int">
+        <entry name="widgetVerticalAlignment" type="Int">
             <default>128</default>
         </entry>
 

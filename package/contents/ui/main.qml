@@ -18,7 +18,7 @@ PlasmoidItem {
 
     property TaskManager.TasksModel tasksModel
     property real controlHeight: height - plasmoid.configuration.widgetMargins * 2
-    property var widgetAlignment: plasmoid.configuration.windgetHorizontalAlignment | plasmoid.configuration.windgetVerticalAlignment
+    property var widgetAlignment: plasmoid.configuration.widgetHorizontalAlignment | plasmoid.configuration.widgetVerticalAlignment
 
     preferredRepresentation: fullRepresentation
 
@@ -57,10 +57,10 @@ PlasmoidItem {
             property var modelData
 
             Layout.alignment: root.widgetAlignment
-            Layout.preferredWidth: plasmoid.configuration.windgetButtonsAspectRatio / 100 * height
+            Layout.preferredWidth: plasmoid.configuration.widgetButtonsAspectRatio / 100 * height
             Layout.preferredHeight: root.controlHeight
             buttonType: modelData.windowControlButtonType
-            themeName: plasmoid.configuration.windgetButtonsUsePlasmaTheme ? null : plasmoid.configuration.windgetButtonsAuroraeTheme
+            themeName: plasmoid.configuration.widgetButtonsUsePlasmaTheme ? null : plasmoid.configuration.widgetButtonsAuroraeTheme
             onActionCall: (action) => {
                 return tasksModel.activeWindow.actionCall(action);
             }
