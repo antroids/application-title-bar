@@ -85,7 +85,7 @@ RowLayout {
                 PlasmaComponents.Label {
                     property var modelData
 
-                    text: i18n("Window title")
+                    text: i18n("Title")
                     font.bold: page.cfg_windowTitleFontBold
                     maximumLineCount: 1
                     elide: Text.ElideRight

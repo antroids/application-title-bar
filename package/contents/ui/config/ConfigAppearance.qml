@@ -202,7 +202,7 @@ KCM.SimpleKCM {
             Kirigami.FormData.label: i18n("Add element:")
             textRole: "name"
             valueRole: "value"
-            displayText: i18n(currentText)
+            displayText: currentText ? i18n(currentText) : ""
             onCurrentValueChanged: function() {
                 if (currentValue) {
                     widgetElements.model.append({
