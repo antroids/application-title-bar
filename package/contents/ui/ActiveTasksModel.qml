@@ -28,6 +28,12 @@ TaskManager.TasksModel {
             movable = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.IsMovable) || false;
             minimized = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.IsMinimized) || false;
             maximized = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.IsMaximized) || false;
+            shadeable = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.IsShadeable) || false;
+            shaded = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.IsShaded) || false;
+            keepAbove = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.IsKeepAbove) || false;
+            keepBelow = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.IsKeepBelow) || false;
+            hasAppMenu = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.ApplicationMenuServiceName) || false;
+            onAllVirtualDesktops = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.IsOnAllVirtualDesktops) || false;
             appName = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.AppName);
             genericAppName = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.GenericAppName);
             decoration = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.Decoration);
@@ -44,6 +50,12 @@ TaskManager.TasksModel {
                 return tasksModel.requestToggleMaximized(activeTask);
             case ActiveWindow.Action.Move:
                 return tasksModel.requestMove(activeTask);
+            case ActiveWindow.Action.KeepAbove:
+                return tasksModel.requestToggleKeepAbove(activeTask);
+            case ActiveWindow.Action.KeepBelow:
+                return tasksModel.requestToggleKeepBelow(activeTask);
+            case ActiveWindow.Action.Shade:
+                return tasksModel.requestToggleShaded(activeTask);
             }
         }
         Component.onCompleted: update()

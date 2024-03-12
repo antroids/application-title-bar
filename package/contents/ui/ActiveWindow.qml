@@ -30,7 +30,11 @@ QtObject {
     property bool minimized: false
     property bool maximized: false
     property bool shadeable: false
+    property bool shaded: false
     property bool hasAppMenu: false
+    property bool onAllVirtualDesktops: false
+    property bool keepAbove: false
+    property bool keepBelow: false
     property var appName
     property var genericAppName
     property var decoration
@@ -53,7 +57,24 @@ QtObject {
         case ActiveWindow.Action.AppMenu:
             return hasAppMenu;
         default:
-            true;
+            return true;
+        }
+    }
+
+    function buttonToggled(windowControlButtonType) {
+        switch (windowControlButtonType) {
+        case WindowControlButton.Type.MinimizeButton:
+            return minimized;
+        case WindowControlButton.Type.MaximizeButton:
+            return maximized;
+        case WindowControlButton.Type.KeepAboveButton:
+            return keepAbove;
+        case WindowControlButton.Type.KeepBelowButton:
+            return keepBelow;
+        case WindowControlButton.Type.ShadeButton:
+            return shaded;
+        default:
+            return false;
         }
     }
 

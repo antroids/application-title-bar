@@ -88,6 +88,7 @@ PlasmoidItem {
                 return tasksModel.activeWindow.actionCall(action);
             }
             enabled: tasksModel.activeWindow.actionSupported(getAction())
+            toggled: tasksModel.activeWindow.buttonToggled(modelData.windowControlButtonType)
         }
 
     }

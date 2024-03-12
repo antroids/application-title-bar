@@ -50,7 +50,7 @@ Item {
     property bool pressed: false
     property bool toggled: false
     property var iconPath: buttonIconPath(buttonType)
-    property var fallbackIcon: "window-" + mapButtonToName(buttonType)
+    property var fallbackIcon: fallbackIconName(buttonType)
     property int animationDuration: 100
     property MouseArea mouseArea: buttonMouseArea
     property bool hasActiveHover: iconPath === undefined || iconInfo.hasElementPrefix("hover")
@@ -132,6 +132,35 @@ Item {
             return "menu";
         case WindowControlButton.Type.AppMenuButton:
             return "appmenu";
+        default:
+            return "";
+        }
+    }
+
+    function fallbackIconName(type) {
+        switch (type) {
+        case WindowControlButton.Type.MinimizeButton:
+            return "window-minimize";
+        case WindowControlButton.Type.MaximizeButton:
+            return "window-maximize";
+        case WindowControlButton.Type.RestoreButton:
+            return "window-restore";
+        case WindowControlButton.Type.CloseButton:
+            return "window-close";
+        case WindowControlButton.Type.AllDesktopsButton:
+            return "window-pin";
+        case WindowControlButton.Type.KeepAboveButton:
+            return "window-keep-above";
+        case WindowControlButton.Type.KeepBelowButton:
+            return "window-keep-below";
+        case WindowControlButton.Type.ShadeButton:
+            return "window-shade";
+        case WindowControlButton.Type.HelpButton:
+            return "question";
+        case WindowControlButton.Type.MenuButton:
+            return "plasma-symbolic";
+        case WindowControlButton.Type.AppMenuButton:
+            return "application-menu";
         default:
             return "";
         }
@@ -234,7 +263,7 @@ Item {
                 anchors.fill: source
                 source: icon
                 blurEnabled: true
-                blurMax: 4
+                blurMax: 8
                 states: [
                     State {
                         name: "active"
@@ -253,7 +282,7 @@ Item {
 
                         PropertyChanges {
                             target: iconEffects
-                            brightness: 0.2
+                            brightness: 0.8
                             blur: 4
                         }
 
@@ -264,7 +293,7 @@ Item {
 
                         PropertyChanges {
                             target: iconEffects
-                            brightness: 0.4
+                            brightness: 0.6
                             blur: 4
                         }
 

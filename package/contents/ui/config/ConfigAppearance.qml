@@ -199,6 +199,23 @@ KCM.SimpleKCM {
         }
 
         ComboBox {
+            // ListElement {
+            //     name: "Show on all desktops button"
+            //     value: "windowAllDesktopsButton"
+            // }
+            // ListElement {
+            //     name: "Window application menu button"
+            //     value: "windowAppMenuButton"
+            // }
+            // ListElement {
+            //     name: "Window help button"
+            //     value: "windowHelpButton"
+            // }
+            // ListElement {
+            //     name: "Window menu button"
+            //     value: "windowMenuButton"
+            // }
+
             Kirigami.FormData.label: i18n("Add element:")
             textRole: "name"
             valueRole: "value"
@@ -230,6 +247,21 @@ KCM.SimpleKCM {
                 ListElement {
                     name: "Window maximize button"
                     value: "windowMaximizeButton"
+                }
+
+                ListElement {
+                    name: "Keep window above button"
+                    value: "windowKeepAboveButton"
+                }
+
+                ListElement {
+                    name: "Keep window below button"
+                    value: "windowKeepBelowButton"
+                }
+
+                ListElement {
+                    name: "Shade window button"
+                    value: "windowShadeButton"
                 }
 
                 ListElement {
