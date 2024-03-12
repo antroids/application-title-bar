@@ -36,25 +36,6 @@ KCM.SimpleKCM {
     property alias cfg_windowTitleMarginsBottom: windowTitleMarginsBottom.value
     property alias cfg_windowTitleMarginsRight: windowTitleMarginsRight.value
     property var cfg_widgetElements
-    property string cfg_widgetButtonsAuroraeThemeDefault: ""
-    property bool cfg_widgetButtonsUsePlasmaThemeDefault: true
-    property int cfg_widgetMarginsDefault: 0
-    property int cfg_widgetSpacingDefault: 0
-    property int cfg_widgetHorizontalAlignmentDefault: 1
-    property int cfg_widgetVerticalAlignmentDefault: 128
-    property int cfg_widgetButtonsAspectRatioDefault: 100
-    property int cfg_widgetElementsDisabledModeDefault: 0
-    property var cfg_widgetElementsDefault: ["windowCloseButton", "windowMinimizeButton", "windowMaximizeButton", "windowTitle", "windowIcon"]
-    property int cfg_windowTitleWidthDefault: 200
-    property int cfg_windowTitleFontSizeDefault: 10
-    property bool cfg_windowTitleFontBoldDefault: false
-    property int cfg_windowTitleFontSizeModeDefault: 0
-    property int cfg_windowTitleSourceDefault: 0
-    property string cfg_windowTitleUndefinedDefault: i18n("<Unknown>")
-    property int cfg_windowTitleMarginsLeftDefault: 0
-    property int cfg_windowTitleMarginsTopDefault: 0
-    property int cfg_windowTitleMarginsBottomDefault: 0
-    property int cfg_windowTitleMarginsRightDefault: 0
 
     Kirigami.FormLayout {
         anchors.left: parent.left

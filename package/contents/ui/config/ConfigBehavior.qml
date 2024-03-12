@@ -18,8 +18,6 @@ KCM.SimpleKCM {
     property alias cfg_windowTitleDragEnabled: windowTitleDragEnabled.checked
     property alias cfg_windowTitleDragOnlyMaximized: windowTitleDragOnlyMaximized.checked
     property alias cfg_windowTitleDragThreshold: windowTitleDragThreshold.value
-    property bool cfg_windowTitleDragEnabledDefault: true
-    property real cfg_windowTitleDragThresholdDefault: 10
 
     Kirigami.FormLayout {
         anchors.left: parent.left
