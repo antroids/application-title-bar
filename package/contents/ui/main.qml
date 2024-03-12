@@ -20,6 +20,8 @@ PlasmoidItem {
     property real controlHeight: height - plasmoid.configuration.widgetMargins * 2
     property var widgetAlignment: plasmoid.configuration.widgetHorizontalAlignment | plasmoid.configuration.widgetVerticalAlignment
 
+    Plasmoid.constraintHints: Plasmoid.CanFillArea
+    Layout.fillWidth: plasmoid.configuration.widgetFillWidth
     preferredRepresentation: fullRepresentation
 
     Component {
@@ -54,6 +56,7 @@ PlasmoidItem {
                 function itemVisible(itemEnabled) {
                     switch (plasmoid.configuration.widgetElementsDisabledMode) {
                     case WidgetElement.DisabledMode.Hide:
+                        return itemEnabled;
                     case WidgetElement.DisabledMode.HideKeepSpace:
                         return itemEnabled;
                     default:
@@ -116,6 +119,7 @@ PlasmoidItem {
 
             property var modelData
             property bool empty: text === undefined || text === ""
+            property bool hideEmpty: empty && plasmoid.configuration.windowTitleHideEmpty
 
             function titleText(activeWindow, windowTitleSource) {
                 switch (windowTitleSource) {
@@ -128,13 +132,14 @@ PlasmoidItem {
                 }
             }
 
-            Layout.leftMargin: visible && !empty ? plasmoid.configuration.windowTitleMarginsLeft : 0
-            Layout.topMargin: visible && !empty ? plasmoid.configuration.windowTitleMarginsTop : 0
-            Layout.bottomMargin: visible && !empty ? plasmoid.configuration.windowTitleMarginsBottom : 0
-            Layout.rightMargin: visible && !empty ? plasmoid.configuration.windowTitleMarginsRight : 0
+            Layout.leftMargin: !hideEmpty ? plasmoid.configuration.windowTitleMarginsLeft : 0
+            Layout.topMargin: !hideEmpty ? plasmoid.configuration.windowTitleMarginsTop : 0
+            Layout.bottomMargin: !hideEmpty ? plasmoid.configuration.windowTitleMarginsBottom : 0
+            Layout.rightMargin: !hideEmpty ? plasmoid.configuration.windowTitleMarginsRight : 0
             Layout.minimumWidth: plasmoid.configuration.windowTitleMinimumWidth
-            Layout.maximumWidth: empty ? 0 : plasmoid.configuration.windowTitleMaximumWidth
+            Layout.maximumWidth: !hideEmpty ? plasmoid.configuration.windowTitleMaximumWidth : 0
             Layout.alignment: root.widgetAlignment
+            Layout.fillWidth: plasmoid.configuration.widgetFillWidth
             text: titleText(tasksModel.activeWindow, plasmoid.configuration.windowTitleSource) || plasmoid.configuration.windowTitleUndefined
             font.pointSize: plasmoid.configuration.windowTitleFontSize
             font.bold: plasmoid.configuration.windowTitleFontBold
@@ -182,8 +187,9 @@ PlasmoidItem {
     fullRepresentation: RowLayout {
         id: widgetRow
 
-        anchors.margins: plasmoid.configuration.widgetMargins
         spacing: plasmoid.configuration.widgetSpacing
+        Layout.margins: plasmoid.configuration.widgetMargins
+        Layout.fillWidth: plasmoid.configuration.widgetFillWidth
 
         Repeater {
             id: titleBarList

@@ -24,12 +24,14 @@ KCM.SimpleKCM {
     property alias cfg_widgetSpacing: widgetSpacing.value
     property int cfg_widgetHorizontalAlignment
     property int cfg_widgetVerticalAlignment
+    property alias cfg_widgetFillWidth: widgetFillWidth.checked
     property alias cfg_windowTitleMinimumWidth: windowTitleMinimumWidth.value
     property alias cfg_windowTitleMaximumWidth: windowTitleMaximumWidth.value
     property alias cfg_windowTitleFontSize: windowTitleFontSize.value
     property alias cfg_windowTitleFontBold: windowTitleFontBold.checked
     property alias cfg_windowTitleFontSizeMode: windowTitleFontSizeMode.currentIndex
     property alias cfg_windowTitleSource: windowTitleSource.currentIndex
+    property alias cfg_windowTitleHideEmpty: windowTitleHideEmpty.checked
     property alias cfg_windowTitleUndefined: windowTitleUndefined.text
     property alias cfg_windowTitleMarginsLeft: windowTitleMarginsLeft.value
     property alias cfg_windowTitleMarginsTop: windowTitleMarginsTop.value
@@ -166,6 +168,12 @@ KCM.SimpleKCM {
                 "value": WidgetElement.DisabledMode.Hide,
                 "text": i18n("Hide")
             }]
+        }
+
+        CheckBox {
+            id: widgetFillWidth
+
+            Kirigami.FormData.label: i18n("Fill free space on Panel:")
         }
 
         WidgetElements {
@@ -317,6 +325,12 @@ KCM.SimpleKCM {
             id: windowTitleFontBold
 
             Kirigami.FormData.label: i18n("Font bold:")
+        }
+
+        CheckBox {
+            id: windowTitleHideEmpty
+
+            Kirigami.FormData.label: i18n("Hide empty title:")
         }
 
         TextField {
