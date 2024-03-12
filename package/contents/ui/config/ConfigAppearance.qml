@@ -19,10 +19,11 @@ KCM.SimpleKCM {
     property string cfg_widgetButtonsAuroraeTheme
     property alias cfg_widgetButtonsUsePlasmaTheme: widgetButtonsUsePlasmaTheme.checked
     property alias cfg_widgetButtonsAspectRatio: widgetButtonsAspectRatio.value
+    property alias cfg_widgetElementsDisabledMode: widgetElementsDisabledMode.currentIndex
     property alias cfg_widgetMargins: widgetMargins.value
     property alias cfg_widgetSpacing: widgetSpacing.value
-    property int cfg_widgetHorizontalAlignment: 1
-    property int cfg_widgetVerticalAlignment: 128
+    property int cfg_widgetHorizontalAlignment
+    property int cfg_widgetVerticalAlignment
     property alias cfg_windowTitleMinimumWidth: windowTitleMinimumWidth.value
     property alias cfg_windowTitleMaximumWidth: windowTitleMaximumWidth.value
     property alias cfg_windowTitleFontSize: windowTitleFontSize.value
@@ -34,9 +35,16 @@ KCM.SimpleKCM {
     property alias cfg_windowTitleMarginsTop: windowTitleMarginsTop.value
     property alias cfg_windowTitleMarginsBottom: windowTitleMarginsBottom.value
     property alias cfg_windowTitleMarginsRight: windowTitleMarginsRight.value
-    property var cfg_widgetElements: ["windowCloseButton", "windowMinimizeButton", "windowMaximizeButton", "windowTitle", "windowIcon"]
+    property var cfg_widgetElements
+    property string cfg_widgetButtonsAuroraeThemeDefault: ""
+    property bool cfg_widgetButtonsUsePlasmaThemeDefault: true
     property int cfg_widgetMarginsDefault: 0
+    property int cfg_widgetSpacingDefault: 0
+    property int cfg_widgetHorizontalAlignmentDefault: 1
+    property int cfg_widgetVerticalAlignmentDefault: 128
     property int cfg_widgetButtonsAspectRatioDefault: 100
+    property int cfg_widgetElementsDisabledModeDefault: 0
+    property var cfg_widgetElementsDefault: ["windowCloseButton", "windowMinimizeButton", "windowMaximizeButton", "windowTitle", "windowIcon"]
     property int cfg_windowTitleWidthDefault: 200
     property int cfg_windowTitleFontSizeDefault: 10
     property bool cfg_windowTitleFontBoldDefault: false
@@ -61,7 +69,7 @@ KCM.SimpleKCM {
 
         Kirigami.Separator {
             Kirigami.FormData.isSection: true
-            Kirigami.FormData.label: i18n("Widget")
+            Kirigami.FormData.label: i18n("Window Control Buttons")
         }
 
         CheckBox {
@@ -92,6 +100,11 @@ KCM.SimpleKCM {
             Kirigami.FormData.label: i18n("Buttons aspect ratio %:")
             from: 0
             to: 200
+        }
+
+        Kirigami.Separator {
+            Kirigami.FormData.isSection: true
+            Kirigami.FormData.label: i18n("Widget Layout")
         }
 
         SpinBox {
@@ -153,6 +166,24 @@ KCM.SimpleKCM {
             }, {
                 "value": Qt.AlignBaseline,
                 "text": i18n("Baseline")
+            }]
+        }
+
+        ComboBox {
+            id: widgetElementsDisabledMode
+
+            textRole: "text"
+            valueRole: "value"
+            Kirigami.FormData.label: i18n("Show disabled elements:")
+            model: [{
+                "value": WidgetElement.DisabledMode.Deactivated,
+                "text": i18n("Deactivated")
+            }, {
+                "value": WidgetElement.DisabledMode.HideKeepSpace,
+                "text": i18n("Hide, keep space")
+            }, {
+                "value": WidgetElement.DisabledMode.Hide,
+                "text": i18n("Hide")
             }]
         }
 
@@ -236,7 +267,7 @@ KCM.SimpleKCM {
 
         Kirigami.Separator {
             Kirigami.FormData.isSection: true
-            Kirigami.FormData.label: i18n("Window title")
+            Kirigami.FormData.label: i18n("Window Title")
         }
 
         SpinBox {

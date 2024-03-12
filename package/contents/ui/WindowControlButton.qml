@@ -201,6 +201,7 @@ Item {
             imagePath: button.iconPath
             opacity: index == button.iconState ? 1 : 0
             prefix: modelData
+            enabledBorders: KSvg.FrameSvgItem.NoBorder
 
             Behavior on opacity {
                 NumberAnimation {

@@ -27,6 +27,14 @@
         <entry name="widgetVerticalAlignment" type="Int">
             <default>128</default>
         </entry>
+        <entry name="widgetElementsDisabledMode" type="Enum">
+            <choices>
+                <choice name="Deactivated" />
+                <choice name="HideKeepSpace" />
+                <choice name="Hide" />
+            </choices>
+            <default>0</default>
+        </entry>
 
         <entry name="windowTitleMinimumWidth" type="Int">
             <default>0</default>

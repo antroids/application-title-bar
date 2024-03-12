@@ -10,6 +10,7 @@ TaskManager.TasksModel {
     id: tasksModel
 
     property ActiveWindow activeWindow
+    property bool hasActiveWindow: activeTask.valid
 
     onDataChanged: function(from, to, roles) {
         if (activeTask && activeTask >= from && activeTask <= to)

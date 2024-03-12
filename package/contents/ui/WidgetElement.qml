@@ -14,4 +14,10 @@ QtObject {
         WindowIcon
     }
 
+    enum DisabledMode {
+        Deactivated,
+        HideKeepSpace,
+        Hide
+    }
+
 }

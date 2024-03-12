@@ -44,6 +44,29 @@ PlasmoidItem {
                     return windowIcon;
                 }
             }
+
+            Binding {
+                when: status === Loader.Ready
+                widgetElementLoader.visible: plasmoid.configuration.widgetElementsDisabledMode === WidgetElement.DisabledMode.Hide ? item.enabled : true
+            }
+
+            Binding {
+                function itemVisible(itemEnabled) {
+                    switch (plasmoid.configuration.widgetElementsDisabledMode) {
+                    case WidgetElement.DisabledMode.Hide:
+                    case WidgetElement.DisabledMode.HideKeepSpace:
+                        return itemEnabled;
+                    default:
+                        return true;
+                    }
+                }
+
+                when: status === Loader.Ready
+                target: item
+                property: "visible"
+                value: itemVisible(item.enabled)
+            }
+
         }
 
     }
@@ -78,8 +101,8 @@ PlasmoidItem {
             height: root.controlHeight
             Layout.alignment: root.widgetAlignment
             width: height
-            source: tasksModel.activeWindow.icon
-            visible: !!tasksModel.activeWindow && !!tasksModel.activeWindow.icon
+            source: tasksModel.activeWindow.icon || "window"
+            enabled: tasksModel.hasActiveWindow && !!tasksModel.activeWindow.icon
         }
 
     }
@@ -88,7 +111,10 @@ PlasmoidItem {
         id: windowTitle
 
         PlasmaComponents.Label {
+            id: windowTitleLabel
+
             property var modelData
+            property bool empty: text === undefined || text === ""
 
             function titleText(activeWindow, windowTitleSource) {
                 switch (windowTitleSource) {
@@ -101,12 +127,12 @@ PlasmoidItem {
                 }
             }
 
-            Layout.leftMargin: plasmoid.configuration.windowTitleMarginsLeft
-            Layout.topMargin: plasmoid.configuration.windowTitleMarginsTop
-            Layout.bottomMargin: plasmoid.configuration.windowTitleMarginsBottom
-            Layout.rightMargin: plasmoid.configuration.windowTitleMarginsRight
+            Layout.leftMargin: visible && !empty ? plasmoid.configuration.windowTitleMarginsLeft : 0
+            Layout.topMargin: visible && !empty ? plasmoid.configuration.windowTitleMarginsTop : 0
+            Layout.bottomMargin: visible && !empty ? plasmoid.configuration.windowTitleMarginsBottom : 0
+            Layout.rightMargin: visible && !empty ? plasmoid.configuration.windowTitleMarginsRight : 0
             Layout.minimumWidth: plasmoid.configuration.windowTitleMinimumWidth
-            Layout.maximumWidth: plasmoid.configuration.windowTitleMaximumWidth
+            Layout.maximumWidth: empty ? 0 : plasmoid.configuration.windowTitleMaximumWidth
             Layout.alignment: root.widgetAlignment
             text: titleText(tasksModel.activeWindow, plasmoid.configuration.windowTitleSource) || plasmoid.configuration.windowTitleUndefined
             font.pointSize: plasmoid.configuration.windowTitleFontSize
@@ -115,6 +141,7 @@ PlasmoidItem {
             maximumLineCount: 1
             elide: Text.ElideRight
             wrapMode: Text.WrapAnywhere
+            enabled: tasksModel.hasActiveWindow
 
             PointHandler {
                 property bool dragInProgress: false
