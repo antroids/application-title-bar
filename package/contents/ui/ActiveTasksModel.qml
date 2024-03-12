@@ -10,7 +10,7 @@ TaskManager.TasksModel {
     id: tasksModel
 
     property ActiveWindow activeWindow
-    property bool hasActiveWindow: activeTask.valid
+    property bool hasActiveWindow: false
 
     onDataChanged: function(from, to, roles) {
         if (activeTask && activeTask >= from && activeTask <= to)
@@ -22,6 +22,7 @@ TaskManager.TasksModel {
 
     activeWindow: ActiveWindow {
         function update() {
+            tasksModel.hasActiveWindow = activeTask.valid;
             minimizable = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.IsMinimizable) || false;
             maximizable = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.IsMaximizable) || false;
             closable = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.IsClosable) || false;
