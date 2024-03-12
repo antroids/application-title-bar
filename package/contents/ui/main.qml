@@ -90,8 +90,8 @@ PlasmoidItem {
             onActionCall: (action) => {
                 return tasksModel.activeWindow.actionCall(action);
             }
-            enabled: tasksModel.activeWindow.actionSupported(getAction())
-            toggled: tasksModel.activeWindow.buttonToggled(modelData.windowControlButtonType)
+            enabled: tasksModel.hasActiveWindow && tasksModel.activeWindow.actionSupported(getAction())
+            toggled: tasksModel.hasActiveWindow && tasksModel.activeWindow.buttonToggled(modelData.windowControlButtonType)
         }
 
     }
