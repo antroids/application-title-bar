@@ -191,6 +191,15 @@ PlasmoidItem {
         Layout.margins: plasmoid.configuration.widgetMargins
         Layout.fillWidth: plasmoid.configuration.widgetFillWidth
 
+        Rectangle {
+            id: emptyWidgetPlaceholder
+
+            color: "transparent"
+            Layout.maximumWidth: Kirigami.Units.smallSpacing
+            Layout.minimumWidth: Kirigami.Units.smallSpacing
+            visible: widgetRow.Layout.minimumWidth <= Kirigami.Units.smallSpacing
+        }
+
         Repeater {
             id: titleBarList
 
