@@ -90,6 +90,9 @@ RowLayout {
                     maximumLineCount: 1
                     elide: Text.ElideRight
                     wrapMode: Text.WrapAnywhere
+                    verticalAlignment: Text.AlignVCenter
+                    height: widgetElements.iconSize
+                    width: widgetElements.iconSize
                 }
 
             }
