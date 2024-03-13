@@ -19,6 +19,7 @@ PlasmoidItem {
     property TaskManager.TasksModel tasksModel
     property real controlHeight: height - plasmoid.configuration.widgetMargins * 2
     property var widgetAlignment: plasmoid.configuration.widgetHorizontalAlignment | plasmoid.configuration.widgetVerticalAlignment
+    property KWinConfig kWinConfig
 
     Plasmoid.constraintHints: Plasmoid.CanFillArea
     Layout.fillWidth: plasmoid.configuration.widgetFillWidth
@@ -107,6 +108,19 @@ PlasmoidItem {
             width: height
             source: tasksModel.activeWindow.icon || "window"
             enabled: tasksModel.hasActiveWindow && !!tasksModel.activeWindow.icon
+
+            WidgetDragHandler {
+                kWinConfig: root.kWinConfig
+            }
+
+            WidgetTapHandler {
+                kWinConfig: root.kWinConfig
+            }
+
+            WidgetWheelHandler {
+                kWinConfig: root.kWinConfig
+            }
+
         }
 
     }
@@ -149,35 +163,24 @@ PlasmoidItem {
             wrapMode: Text.WrapAnywhere
             enabled: tasksModel.hasActiveWindow
 
-            PointHandler {
-                property bool dragInProgress: false
+            WidgetDragHandler {
+                kWinConfig: root.kWinConfig
+            }
 
-                function distance(p1, p2) {
-                    let dx = p2.x - p1.x;
-                    let dy = p2.y - p1.y;
-                    return Math.sqrt(dx * dx + dy * dy);
-                }
+            WidgetTapHandler {
+                kWinConfig: root.kWinConfig
+            }
 
-                enabled: plasmoid.configuration.windowTitleDragEnabled
-                dragThreshold: plasmoid.configuration.windowTitleDragThreshold
-                acceptedButtons: Qt.LeftButton
-                onActiveChanged: function() {
-                    if (active && (!plasmoid.configuration.windowTitleDragOnlyMaximized || tasksModel.activeWindow.maximized) && tasksModel.activeWindow.movable)
-                        dragInProgress = true;
-
-                }
-                onPointChanged: function() {
-                    if (active && dragInProgress && point && point.pressPosition && point.position) {
-                        if (distance(point.pressPosition, point.position) > dragThreshold) {
-                            dragInProgress = false;
-                            tasksModel.activeWindow.actionCall(ActiveWindow.Action.Move);
-                        }
-                    }
-                }
+            WidgetWheelHandler {
+                kWinConfig: root.kWinConfig
             }
 
         }
 
+    }
+
+    kWinConfig: KWinConfig {
+        Component.onCompleted: updateKWinShortcutNames()
     }
 
     tasksModel: ActiveTasksModel {

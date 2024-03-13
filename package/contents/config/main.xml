@@ -101,5 +101,51 @@
         <entry name="windowTitleDragThreshold" type="Int">
             <default>10</default>
         </entry>
+
+        <entry name="widgetMouseAreaClickEnabled" type="Bool">
+            <default>true</default>
+        </entry>
+        <entry name="widgetMouseAreaWheelEnabled" type="Bool">
+            <default>true</default>
+        </entry>
+
+        <entry name="widgetMouseAreaLeftDragAction" type="String">
+            <default></default>
+        </entry>
+        <entry name="widgetMouseAreaLeftClickAction" type="String">
+            <default></default>
+        </entry>
+        <entry name="widgetMouseAreaLeftDoubleClickAction" type="String">
+            <default></default>
+        </entry>
+        <entry name="widgetMouseAreaLeftLongPressAction" type="String">
+            <default></default>
+        </entry>
+        
+        <entry name="widgetMouseAreaMiddleDragAction" type="String">
+            <default></default>
+        </entry>
+        <entry name="widgetMouseAreaMiddleClickAction" type="String">
+            <default></default>
+        </entry>
+        <entry name="widgetMouseAreaMiddleDoubleClickAction" type="String">
+            <default></default>
+        </entry>
+        <entry name="widgetMouseAreaMiddleLongPressAction" type="String">
+            <default></default>
+        </entry>
+
+        <entry name="widgetMouseAreaWheelUpAction" type="String">
+            <default></default>
+        </entry>
+        <entry name="widgetMouseAreaWheelDownAction" type="String">
+            <default></default>
+        </entry>
+        <entry name="widgetMouseAreaWheelLeftAction" type="String">
+            <default></default>
+        </entry>
+        <entry name="widgetMouseAreaWheelRightAction" type="String">
+            <default></default>
+        </entry>
     </group>
 </kcfg>
