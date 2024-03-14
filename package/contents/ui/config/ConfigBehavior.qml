@@ -63,35 +63,21 @@ KCM.SimpleKCM {
             }
         }
 
+        Kirigami.Separator {
+            Kirigami.FormData.isSection: true
+            Kirigami.FormData.label: i18n("Mouse area drag")
+        }
+
         CheckBox {
             id: windowTitleDragEnabled
 
-            Kirigami.FormData.label: i18n("Mouse area drag:")
             text: i18n("enabled")
-        }
-
-        CheckBox {
-            id: widgetMouseAreaClickEnabled
-
-            Kirigami.FormData.label: i18n("Mouse area click:")
-            text: i18n("enabled")
-        }
-
-        CheckBox {
-            id: widgetMouseAreaWheelEnabled
-
-            Kirigami.FormData.label: i18n("Mouse area wheel:")
-            text: i18n("enabled")
-        }
-
-        Kirigami.Separator {
-            Kirigami.FormData.isSection: true
-            Kirigami.FormData.label: i18n("Drag area")
         }
 
         CheckBox {
             id: windowTitleDragOnlyMaximized
 
+            enabled: windowTitleDragEnabled.checked
             Kirigami.FormData.label: i18n("Only maximized:")
             text: i18n("enabled")
         }
@@ -99,84 +85,114 @@ KCM.SimpleKCM {
         SpinBox {
             id: windowTitleDragThreshold
 
+            enabled: windowTitleDragEnabled.checked
             Kirigami.FormData.label: i18n("Threshold:")
             Layout.alignment: Qt.AlignLeft
             from: 0
             to: 512
         }
 
-        Kirigami.Separator {
-            Kirigami.FormData.isSection: true
-            Kirigami.FormData.label: i18n("Mouse Area")
-        }
-
         KWinShortcutComboBox {
             label: i18n("Left button drag:")
+            enabled: windowTitleDragEnabled.checked
             initialValue: cfg_widgetMouseAreaLeftDragAction
             onActivated: cfg_widgetMouseAreaLeftDragAction = currentValue
         }
 
         KWinShortcutComboBox {
+            label: i18n("Middle button drag:")
+            enabled: windowTitleDragEnabled.checked
+            initialValue: cfg_widgetMouseAreaMiddleDragAction
+            onActivated: cfg_widgetMouseAreaMiddleDragAction = currentValue
+        }
+
+        Kirigami.Separator {
+            Kirigami.FormData.isSection: true
+            Kirigami.FormData.label: i18n("Mouse area click")
+        }
+
+        CheckBox {
+            id: widgetMouseAreaClickEnabled
+
+            text: i18n("enabled")
+        }
+
+        KWinShortcutComboBox {
+            enabled: widgetMouseAreaClickEnabled.checked
             label: i18n("Left button click:")
             initialValue: cfg_widgetMouseAreaLeftClickAction
             onActivated: cfg_widgetMouseAreaLeftClickAction = currentValue
         }
 
         KWinShortcutComboBox {
+            enabled: widgetMouseAreaClickEnabled.checked
             label: i18n("Left button double-click:")
             initialValue: cfg_widgetMouseAreaLeftDoubleClickAction
             onActivated: cfg_widgetMouseAreaLeftDoubleClickAction = currentValue
         }
 
         KWinShortcutComboBox {
+            enabled: widgetMouseAreaClickEnabled.checked
             label: i18n("Left button long press:")
             initialValue: cfg_widgetMouseAreaLeftLongPressAction
             onActivated: cfg_widgetMouseAreaLeftLongPressAction = currentValue
         }
 
         KWinShortcutComboBox {
-            label: i18n("Middle button drag:")
-            initialValue: cfg_widgetMouseAreaMiddleDragAction
-            onActivated: cfg_widgetMouseAreaMiddleDragAction = currentValue
-        }
-
-        KWinShortcutComboBox {
+            enabled: widgetMouseAreaClickEnabled.checked
             label: i18n("Middle button click:")
             initialValue: cfg_widgetMouseAreaMiddleClickAction
             onActivated: cfg_widgetMouseAreaMiddleClickAction = currentValue
         }
 
         KWinShortcutComboBox {
+            enabled: widgetMouseAreaClickEnabled.checked
             label: i18n("Middle button double-click:")
             initialValue: cfg_widgetMouseAreaMiddleDoubleClickAction
             onActivated: cfg_widgetMouseAreaMiddleDoubleClickAction = currentValue
         }
 
         KWinShortcutComboBox {
+            enabled: widgetMouseAreaClickEnabled.checked
             label: i18n("Middle button long press:")
             initialValue: cfg_widgetMouseAreaMiddleLongPressAction
             onActivated: cfg_widgetMouseAreaMiddleLongPressAction = currentValue
         }
 
+        Kirigami.Separator {
+            Kirigami.FormData.isSection: true
+            Kirigami.FormData.label: i18n("Mouse area wheel")
+        }
+
+        CheckBox {
+            id: widgetMouseAreaWheelEnabled
+
+            text: i18n("enabled")
+        }
+
         KWinShortcutComboBox {
+            enabled: widgetMouseAreaWheelEnabled.checked
             label: i18n("Wheel up:")
             initialValue: cfg_widgetMouseAreaWheelUpAction
             onActivated: cfg_widgetMouseAreaWheelUpAction = currentValue
         }
 
         KWinShortcutComboBox {
+            enabled: widgetMouseAreaWheelEnabled.checked
             label: i18n("Wheel down:")
             initialValue: cfg_widgetMouseAreaWheelDownAction
             onActivated: cfg_widgetMouseAreaWheelDownAction = currentValue
         }
 
         KWinShortcutComboBox {
+            enabled: widgetMouseAreaWheelEnabled.checked
             label: i18n("Wheel left:")
             initialValue: cfg_widgetMouseAreaWheelLeftAction
             onActivated: cfg_widgetMouseAreaWheelLeftAction = currentValue
         }
 
         KWinShortcutComboBox {
+            enabled: widgetMouseAreaWheelEnabled.checked
             label: i18n("Wheel right:")
             initialValue: cfg_widgetMouseAreaWheelRightAction
             onActivated: cfg_widgetMouseAreaWheelRightAction = currentValue
