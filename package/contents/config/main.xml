@@ -9,8 +9,13 @@
         <entry name="widgetMargins" type="Int">
             <default>1</default>
         </entry>
-        <entry name="widgetButtonsUsePlasmaTheme" type="Bool">
-            <default>true</default>
+        <entry name="widgetButtonsIconsTheme" type="Enum">
+            <choices>
+                <choice name="Plasma" />
+                <choice name="Breeze" />
+                <choice name="Aurorae" />
+            </choices>
+            <default>0</default>
         </entry>
         <entry name="widgetButtonsAuroraeTheme" type="String">
             <default></default>

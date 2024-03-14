@@ -16,8 +16,8 @@ import org.kde.plasma.components as PlasmaComponents
 KCM.SimpleKCM {
     id: page
 
+    property alias cfg_widgetButtonsIconsTheme: widgetButtonsIconsTheme.currentIndex
     property string cfg_widgetButtonsAuroraeTheme
-    property alias cfg_widgetButtonsUsePlasmaTheme: widgetButtonsUsePlasmaTheme.checked
     property alias cfg_widgetButtonsAspectRatio: widgetButtonsAspectRatio.value
     property alias cfg_widgetElementsDisabledMode: widgetElementsDisabledMode.currentIndex
     property alias cfg_widgetMargins: widgetMargins.value
@@ -55,10 +55,11 @@ KCM.SimpleKCM {
             Kirigami.FormData.label: i18n("Window Control Buttons")
         }
 
-        CheckBox {
-            id: widgetButtonsUsePlasmaTheme
+        ComboBox {
+            id: widgetButtonsIconsTheme
 
-            Kirigami.FormData.label: i18n("Use Plasma theme icons:")
+            Kirigami.FormData.label: i18n("Icons theme:")
+            model: [i18n("Plasma"), i18n("Breeze"), i18n("Aurorae")]
         }
 
         ComboBox {
@@ -68,12 +69,12 @@ KCM.SimpleKCM {
                 currentIndex = indexOfValue(cfg_widgetButtonsAuroraeTheme);
             }
 
-            enabled: !widgetButtonsUsePlasmaTheme.checked
+            enabled: widgetButtonsIconsTheme.currentIndex == 2
             Component.onCompleted: updateCurrentIndex()
             onActivated: cfg_widgetButtonsAuroraeTheme = currentValue
             textRole: "name"
             valueRole: "folder"
-            Kirigami.FormData.label: i18n("Buttons theme:")
+            Kirigami.FormData.label: i18n("Aurorae theme:")
             model: kWinConfig.auroraeThemes
         }
 

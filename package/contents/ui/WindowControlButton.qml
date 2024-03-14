@@ -39,6 +39,12 @@ Item {
         InactiveDeactivated
     }
 
+    enum IconTheme {
+        Plasma,
+        Breeze,
+        Aurorae
+    }
+
     readonly property var iconStatesPrefixes: ["active", "hover", "pressed", "deactivated", "inactive", "hover-inactive", "pressed-inactive", "deactivated-inactive"]
     property string themesPath: "aurorae/themes/"
     property string themeName
@@ -49,7 +55,8 @@ Item {
     property bool hovered: false
     property bool pressed: false
     property bool toggled: false
-    property var iconPath: buttonIconPath(buttonType)
+    property var iconPath: iconTheme == WindowControlButton.IconTheme.Aurorae ? buttonIconPath(buttonType) : undefined
+    property int iconTheme: WindowControlButton.IconTheme.Plasma
     property var fallbackIcon: fallbackIconName(buttonType)
     property int animationDuration: 100
     property MouseArea mouseArea: buttonMouseArea
@@ -252,7 +259,6 @@ Item {
             Kirigami.Icon {
                 id: icon
 
-                visible: !iconPath
                 anchors.fill: parent
                 source: fallbackIcon
             }
@@ -331,6 +337,21 @@ Item {
 
     }
 
+    Component {
+        id: breezeButtonIcon
+
+        BreezeWindowControlButtonIcon {
+            anchors.fill: parent
+            buttonType: button.buttonType
+            anchors.margins: 3
+            hovered: button.hovered
+            checked: button.toggled
+            pressed: button.pressed
+            active: button.active
+        }
+
+    }
+
     Loader {
         anchors.fill: parent
         active: iconPath != undefined
@@ -345,7 +366,13 @@ Item {
 
     Loader {
         anchors.fill: parent
-        active: iconPath == undefined
+        active: iconTheme == WindowControlButton.IconTheme.Breeze
+        sourceComponent: breezeButtonIcon
+    }
+
+    Loader {
+        anchors.fill: parent
+        active: iconTheme != WindowControlButton.IconTheme.Breeze && !iconPath
         sourceComponent: fallbackButtonIcon
     }
 

@@ -89,7 +89,8 @@ PlasmoidItem {
             Layout.preferredWidth: plasmoid.configuration.widgetButtonsAspectRatio / 100 * height
             Layout.preferredHeight: root.controlHeight
             buttonType: modelData.windowControlButtonType
-            themeName: plasmoid.configuration.widgetButtonsUsePlasmaTheme ? null : plasmoid.configuration.widgetButtonsAuroraeTheme
+            themeName: plasmoid.configuration.widgetButtonsAuroraeTheme
+            iconTheme: plasmoid.configuration.widgetButtonsIconsTheme
             onActionCall: (action) => {
                 return tasksModel.activeWindow.actionCall(action);
             }
