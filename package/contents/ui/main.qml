@@ -119,6 +119,12 @@ PlasmoidItem {
 
             WidgetWheelHandler {
                 kWinConfig: root.kWinConfig
+                orientation: Qt.Vertical
+            }
+
+            WidgetWheelHandler {
+                kWinConfig: root.kWinConfig
+                orientation: Qt.Horizontal
             }
 
         }
@@ -173,6 +179,12 @@ PlasmoidItem {
 
             WidgetWheelHandler {
                 kWinConfig: root.kWinConfig
+                orientation: Qt.Vertical
+            }
+
+            WidgetWheelHandler {
+                kWinConfig: root.kWinConfig
+                orientation: Qt.Horizontal
             }
 
         }

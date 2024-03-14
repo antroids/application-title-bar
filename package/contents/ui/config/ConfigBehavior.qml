@@ -29,6 +29,8 @@ KCM.SimpleKCM {
     property string cfg_widgetMouseAreaMiddleClickAction
     property string cfg_widgetMouseAreaMiddleDoubleClickAction
     property string cfg_widgetMouseAreaMiddleLongPressAction
+    property alias cfg_widgetMouseAreaWheelFirstEventDistance: widgetMouseAreaWheelFirstEventDistance.value
+    property alias cfg_widgetMouseAreaWheelNextEventDistance: widgetMouseAreaWheelNextEventDistance.value
     property string cfg_widgetMouseAreaWheelUpAction
     property string cfg_widgetMouseAreaWheelDownAction
     property string cfg_widgetMouseAreaWheelLeftAction
@@ -87,7 +89,6 @@ KCM.SimpleKCM {
 
             enabled: windowTitleDragEnabled.checked
             Kirigami.FormData.label: i18n("Threshold:")
-            Layout.alignment: Qt.AlignLeft
             from: 0
             to: 512
         }
@@ -168,6 +169,24 @@ KCM.SimpleKCM {
             id: widgetMouseAreaWheelEnabled
 
             text: i18n("enabled")
+        }
+
+        SpinBox {
+            id: widgetMouseAreaWheelFirstEventDistance
+
+            enabled: widgetMouseAreaWheelEnabled.checked
+            Kirigami.FormData.label: i18n("First event distance:")
+            from: 0
+            to: 4096
+        }
+
+        SpinBox {
+            id: widgetMouseAreaWheelNextEventDistance
+
+            enabled: widgetMouseAreaWheelEnabled.checked
+            Kirigami.FormData.label: i18n("Next event distance:")
+            from: 0
+            to: 4096
         }
 
         KWinShortcutComboBox {

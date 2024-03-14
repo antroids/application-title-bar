@@ -9,22 +9,82 @@ import QtQuick
 WheelHandler {
     property var cfg: plasmoid.configuration
     required property KWinConfig kWinConfig
+    property int verticalRotation: 0
+    property int horizontalRotation: 0
+    property bool firstHorizontalEvent: true
+    property bool firstVerticalEvent: true
+    property int firstEventDistance: cfg.widgetMouseAreaWheelFirstEventDistance
+    property int nextEventDistance: cfg.widgetMouseAreaWheelNextEventDistance
+
+    signal wheelUp()
+    signal wheelDown()
+    signal wheelLeft()
+    signal wheelRight()
 
     enabled: cfg.widgetMouseAreaWheelEnabled
     target: null
     acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
-    onWheel: function(wheelEvent) {
-        let angleDelta = wheelEvent.angleDelta;
-        if (Math.abs(angleDelta.x) > Math.abs(angleDelta.y)) {
-            if (angleDelta.x > 0 && cfg.widgetMouseAreaWheelRightAction != "")
-                kWinConfig.invokeKWinShortcut(cfg.widgetMouseAreaWheelRightAction);
-            else if (cfg.widgetMouseAreaWheelLeftAction != "")
-                kWinConfig.invokeKWinShortcut(cfg.widgetMouseAreaWheelLeftAction);
-        } else {
-            if (angleDelta.y > 0 && cfg.widgetMouseAreaWheelUpAction != "")
-                kWinConfig.invokeKWinShortcut(cfg.widgetMouseAreaWheelUpAction);
-            else if (cfg.widgetMouseAreaWheelDownAction != "")
-                kWinConfig.invokeKWinShortcut(cfg.widgetMouseAreaWheelDownAction);
+    onActiveChanged: function() {
+        if (!active) {
+            verticalRotation = 0;
+            horizontalRotation = 0;
+            firstHorizontalEvent = true;
+            firstVerticalEvent = true;
         }
+    }
+    onWheel: function(wheelEvent) {
+        let dx = wheelEvent.angleDelta.x;
+        let dy = wheelEvent.angleDelta.y;
+        if (orientation == Qt.Horizontal) {
+            horizontalRotation = (horizontalRotation < 0) == (dx < 0) ? (horizontalRotation + dx) : dx;
+            let distance = Math.abs(horizontalRotation);
+            if ((firstHorizontalEvent && distance >= firstEventDistance) || (nextEventDistance > 0 && distance >= nextEventDistance)) {
+                if (horizontalRotation < 0)
+                    wheelRight();
+                else
+                    wheelLeft();
+                if (firstHorizontalEvent) {
+                    firstHorizontalEvent = false;
+                    horizontalRotation -= Math.sign(horizontalRotation) * firstEventDistance;
+                } else {
+                    horizontalRotation -= Math.sign(horizontalRotation) * nextEventDistance;
+                }
+            }
+        } else {
+            verticalRotation = (verticalRotation < 0) == (dy < 0) ? (verticalRotation + dy) : dy;
+            let distance = Math.abs(verticalRotation);
+            if ((firstVerticalEvent && distance >= firstEventDistance) || (nextEventDistance > 0 && distance >= nextEventDistance)) {
+                if (verticalRotation < 0)
+                    wheelDown();
+                else
+                    wheelUp();
+                if (firstVerticalEvent) {
+                    firstVerticalEvent = false;
+                    verticalRotation -= Math.sign(verticalRotation) * firstEventDistance;
+                } else {
+                    verticalRotation -= Math.sign(verticalRotation) * nextEventDistance;
+                }
+            }
+        }
+    }
+    onWheelUp: function() {
+        if (cfg.widgetMouseAreaWheelUpAction != "")
+            kWinConfig.invokeKWinShortcut(cfg.widgetMouseAreaWheelUpAction);
+
+    }
+    onWheelDown: function() {
+        if (cfg.widgetMouseAreaWheelDownAction != "")
+            kWinConfig.invokeKWinShortcut(cfg.widgetMouseAreaWheelDownAction);
+
+    }
+    onWheelLeft: function() {
+        if (cfg.widgetMouseAreaWheelLeftAction != "")
+            kWinConfig.invokeKWinShortcut(cfg.widgetMouseAreaWheelLeftAction);
+
+    }
+    onWheelRight: function() {
+        if (cfg.widgetMouseAreaWheelRightAction != "")
+            kWinConfig.invokeKWinShortcut(cfg.widgetMouseAreaWheelRightAction);
+
     }
 }

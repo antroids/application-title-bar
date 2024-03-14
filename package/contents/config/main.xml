@@ -135,6 +135,12 @@
             <default></default>
         </entry>
 
+        <entry name="widgetMouseAreaWheelFirstEventDistance" type="Int">
+            <default>120</default>
+        </entry>
+        <entry name="widgetMouseAreaWheelNextEventDistance" type="Int">
+            <default>0</default>
+        </entry>
         <entry name="widgetMouseAreaWheelUpAction" type="String">
             <default></default>
         </entry>
