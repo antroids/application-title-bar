@@ -7,7 +7,7 @@
 
     <group name="Appearance">
         <entry name="widgetMargins" type="Int">
-            <default>0</default>
+            <default>1</default>
         </entry>
         <entry name="widgetButtonsUsePlasmaTheme" type="Bool">
             <default>true</default>
@@ -78,7 +78,7 @@
             <default>&lt;Unknown&gt;</default>
         </entry>
         <entry name="windowTitleMarginsLeft" type="Int">
-            <default>0</default>
+            <default>10</default>
         </entry>
         <entry name="windowTitleMarginsTop" type="Int">
             <default>0</default>
@@ -87,7 +87,7 @@
             <default>0</default>
         </entry>
         <entry name="windowTitleMarginsRight" type="Int">
-            <default>0</default>
+            <default>10</default>
         </entry>
     </group>
 
@@ -110,13 +110,13 @@
         </entry>
 
         <entry name="widgetMouseAreaLeftDragAction" type="String">
-            <default></default>
+            <default>Window Move</default>
         </entry>
         <entry name="widgetMouseAreaLeftClickAction" type="String">
             <default></default>
         </entry>
         <entry name="widgetMouseAreaLeftDoubleClickAction" type="String">
-            <default></default>
+            <default>Window Maximize</default>
         </entry>
         <entry name="widgetMouseAreaLeftLongPressAction" type="String">
             <default></default>
@@ -126,7 +126,7 @@
             <default></default>
         </entry>
         <entry name="widgetMouseAreaMiddleClickAction" type="String">
-            <default></default>
+            <default>Window Close</default>
         </entry>
         <entry name="widgetMouseAreaMiddleDoubleClickAction" type="String">
             <default></default>
@@ -142,10 +142,10 @@
             <default>0</default>
         </entry>
         <entry name="widgetMouseAreaWheelUpAction" type="String">
-            <default></default>
+            <default>Window Maximize</default>
         </entry>
         <entry name="widgetMouseAreaWheelDownAction" type="String">
-            <default></default>
+            <default>Window Minimize</default>
         </entry>
         <entry name="widgetMouseAreaWheelLeftAction" type="String">
             <default></default>
