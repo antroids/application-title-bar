@@ -45,6 +45,8 @@ PlasmoidItem {
                     return windowTitle;
                 case WidgetElement.Type.WindowIcon:
                     return windowIcon;
+                case WidgetElement.Type.Spacer:
+                    return spacerIcon;
                 }
             }
 
@@ -127,6 +129,21 @@ PlasmoidItem {
                 orientation: Qt.Horizontal
             }
 
+        }
+
+    }
+
+    Component {
+        id: spacerIcon
+
+        Rectangle {
+            property var modelData
+
+            height: root.controlHeight
+            Layout.alignment: root.widgetAlignment
+            width: height / 3
+            color: "transparent"
+            enabled: tasksModel.hasActiveWindow
         }
 
     }

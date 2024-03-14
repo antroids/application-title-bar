@@ -282,6 +282,11 @@ KCM.SimpleKCM {
                     value: "windowIcon"
                 }
 
+                ListElement {
+                    name: "Spacer"
+                    value: "spacer"
+                }
+
             }
 
         }

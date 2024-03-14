@@ -11,7 +11,8 @@ QtObject {
     enum Type {
         WindowControlButton,
         WindowTitle,
-        WindowIcon
+        WindowIcon,
+        Spacer
     }
 
     enum DisabledMode {

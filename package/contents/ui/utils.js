@@ -89,6 +89,10 @@ function widgetElementModelFromName(name) {
             return {
                 "type": WidgetElement.Type.WindowIcon
             };
+        case "spacer":
+            return {
+                "type": WidgetElement.Type.Spacer
+            };
     }
 }
 

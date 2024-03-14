@@ -57,6 +57,8 @@ RowLayout {
                             return windowTitle;
                         case WidgetElement.Type.WindowIcon:
                             return windowIcon;
+                        case WidgetElement.Type.Spacer:
+                            return spacerIcon;
                         }
                     }
                 }
@@ -106,6 +108,19 @@ RowLayout {
                     source: "window"
                     height: widgetElements.iconSize
                     width: widgetElements.iconSize
+                }
+
+            }
+
+            Component {
+                id: spacerIcon
+
+                Kirigami.Icon {
+                    property var modelData
+
+                    source: "adjustcol"
+                    height: widgetElements.iconSize
+                    width: widgetElements.iconSize / 2
                 }
 
             }
