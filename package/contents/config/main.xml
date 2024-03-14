@@ -92,6 +92,13 @@
     </group>
 
     <group name="Behavior">
+        <entry name="widgetActiveTaskFilterByActivity" type="Bool">
+            <default>true</default>
+        </entry>
+        <entry name="widgetActiveTaskFilterByScreen" type="Bool">
+            <default>true</default>
+        </entry>
+
         <entry name="windowTitleDragEnabled" type="Bool">
             <default>true</default>
         </entry>

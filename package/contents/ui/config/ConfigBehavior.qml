@@ -16,6 +16,8 @@ import org.kde.plasma.components as PlasmaComponents
 KCM.SimpleKCM {
     id: page
 
+    property alias cfg_widgetActiveTaskFilterByActivity: widgetActiveTaskFilterByActivity.checked
+    property alias cfg_widgetActiveTaskFilterByScreen: widgetActiveTaskFilterByScreen.checked
     property alias cfg_windowTitleDragEnabled: windowTitleDragEnabled.checked
     property alias cfg_widgetMouseAreaClickEnabled: widgetMouseAreaClickEnabled.checked
     property alias cfg_widgetMouseAreaWheelEnabled: widgetMouseAreaWheelEnabled.checked
@@ -63,6 +65,20 @@ KCM.SimpleKCM {
                 enabled = false;
                 kWinConfig.setBorderlessMaximizedWindows(checked);
             }
+        }
+
+        CheckBox {
+            id: widgetActiveTaskFilterByActivity
+
+            Kirigami.FormData.label: i18n("Filter active task by activity:")
+            text: i18n("enabled")
+        }
+
+        CheckBox {
+            id: widgetActiveTaskFilterByScreen
+
+            Kirigami.FormData.label: i18n("Filter active task by screen:")
+            text: i18n("enabled")
         }
 
         Kirigami.Separator {

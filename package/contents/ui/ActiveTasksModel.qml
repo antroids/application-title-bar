@@ -12,6 +12,10 @@ TaskManager.TasksModel {
     property ActiveWindow activeWindow
     property bool hasActiveWindow: false
 
+    screenGeometry: plasmoid.containment.screenGeometry
+    activity: plasmoid.containment.activity
+    filterByActivity: plasmoid.configuration.widgetActiveTaskFilterByActivity
+    filterByScreen: plasmoid.configuration.widgetActiveTaskFilterByScreen
     onDataChanged: function(from, to, roles) {
         if (activeTask && activeTask >= from && activeTask <= to)
             activeWindow.update();
