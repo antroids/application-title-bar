@@ -26,6 +26,9 @@
         <entry name="widgetButtonsAspectRatio" type="Int">
             <default>100</default>
         </entry>
+        <entry name="widgetButtonsAnimation" type="Int">
+            <default>100</default>
+        </entry>
         <entry name="widgetSpacing" type="Int">
             <default>0</default>
         </entry>

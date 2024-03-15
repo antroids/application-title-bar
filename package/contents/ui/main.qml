@@ -94,6 +94,7 @@ PlasmoidItem {
             buttonType: modelData.windowControlButtonType
             themeName: plasmoid.configuration.widgetButtonsAuroraeTheme
             iconTheme: plasmoid.configuration.widgetButtonsIconsTheme
+            animationDuration: plasmoid.configuration.widgetButtonsAnimation
             onActionCall: (action) => {
                 return tasksModel.activeWindow.actionCall(action);
             }

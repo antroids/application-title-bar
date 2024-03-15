@@ -20,6 +20,7 @@ KCM.SimpleKCM {
     property string cfg_widgetButtonsAuroraeTheme
     property alias cfg_widgetButtonsMargins: widgetButtonsMargins.value
     property alias cfg_widgetButtonsAspectRatio: widgetButtonsAspectRatio.value
+    property alias cfg_widgetButtonsAnimation: widgetButtonsAnimation.value
     property alias cfg_widgetElementsDisabledMode: widgetElementsDisabledMode.currentIndex
     property alias cfg_widgetMargins: widgetMargins.value
     property alias cfg_widgetSpacing: widgetSpacing.value
@@ -122,6 +123,22 @@ in \"Icons theme\" field instead")
             Kirigami.FormData.label: i18n("Buttons aspect ratio %:")
             from: 0
             to: 200
+        }
+
+        RowLayout {
+            Kirigami.FormData.label: i18n("Animation speed in ms:")
+
+            SpinBox {
+                id: widgetButtonsAnimation
+
+                from: 0
+                to: 10000
+            }
+
+            KCM.ContextualHelpButton {
+                toolTipText: i18n("Animation speed of buttons transitions in milliseconds.")
+            }
+
         }
 
         Kirigami.Separator {
