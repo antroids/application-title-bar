@@ -17,7 +17,10 @@ PlasmoidItem {
     id: root
 
     property TaskManager.TasksModel tasksModel
-    property real controlHeight: height - plasmoid.configuration.widgetMargins * 2
+    property real elementHeight: height - plasmoid.configuration.widgetMargins * 2
+    property real buttonMargins: plasmoid.configuration.widgetButtonsMargins
+    property real buttonWidth: plasmoid.configuration.widgetButtonsAspectRatio / 100 * buttonHeight
+    property real buttonHeight: elementHeight - buttonMargins * 2
     property var widgetAlignment: plasmoid.configuration.widgetHorizontalAlignment | plasmoid.configuration.widgetVerticalAlignment
     property KWinConfig kWinConfig
 
@@ -86,8 +89,8 @@ PlasmoidItem {
             property var modelData
 
             Layout.alignment: root.widgetAlignment
-            Layout.preferredWidth: plasmoid.configuration.widgetButtonsAspectRatio / 100 * height
-            Layout.preferredHeight: root.controlHeight
+            Layout.preferredWidth: root.buttonWidth
+            Layout.preferredHeight: root.buttonHeight
             buttonType: modelData.windowControlButtonType
             themeName: plasmoid.configuration.widgetButtonsAuroraeTheme
             iconTheme: plasmoid.configuration.widgetButtonsIconsTheme
@@ -106,7 +109,7 @@ PlasmoidItem {
         Kirigami.Icon {
             property var modelData
 
-            height: root.controlHeight
+            height: root.elementHeight
             Layout.alignment: root.widgetAlignment
             width: height
             source: tasksModel.activeWindow.icon || "window"
@@ -140,7 +143,7 @@ PlasmoidItem {
         Rectangle {
             property var modelData
 
-            height: root.controlHeight
+            height: root.elementHeight
             Layout.alignment: root.widgetAlignment
             width: height / 3
             color: "transparent"

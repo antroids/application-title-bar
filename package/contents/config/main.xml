@@ -20,6 +20,9 @@
         <entry name="widgetButtonsAuroraeTheme" type="String">
             <default></default>
         </entry>
+        <entry name="widgetButtonsMargins" type="Int">
+            <default>0</default>
+        </entry>
         <entry name="widgetButtonsAspectRatio" type="Int">
             <default>100</default>
         </entry>

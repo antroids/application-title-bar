@@ -18,6 +18,7 @@ KCM.SimpleKCM {
 
     property alias cfg_widgetButtonsIconsTheme: widgetButtonsIconsTheme.currentIndex
     property string cfg_widgetButtonsAuroraeTheme
+    property alias cfg_widgetButtonsMargins: widgetButtonsMargins.value
     property alias cfg_widgetButtonsAspectRatio: widgetButtonsAspectRatio.value
     property alias cfg_widgetElementsDisabledMode: widgetElementsDisabledMode.currentIndex
     property alias cfg_widgetMargins: widgetMargins.value
@@ -105,6 +106,14 @@ use \"Breeze\" or \"Plasma\" options <br/>
 in \"Icons theme\" field instead")
             }
 
+        }
+
+        SpinBox {
+            id: widgetButtonsMargins
+
+            Kirigami.FormData.label: i18n("Buttons margins:")
+            from: 0
+            to: 32
         }
 
         SpinBox {
