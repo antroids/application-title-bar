@@ -55,27 +55,56 @@ KCM.SimpleKCM {
             Kirigami.FormData.label: i18n("Window Control Buttons")
         }
 
-        ComboBox {
-            id: widgetButtonsIconsTheme
-
+        RowLayout {
             Kirigami.FormData.label: i18n("Icons theme:")
-            model: [i18n("Plasma"), i18n("Breeze"), i18n("Aurorae")]
-        }
 
-        ComboBox {
-            id: widgetButtonsAuroraeTheme
+            ComboBox {
+                id: widgetButtonsIconsTheme
 
-            function updateCurrentIndex() {
-                currentIndex = indexOfValue(cfg_widgetButtonsAuroraeTheme);
+                Layout.minimumWidth: Kirigami.Units.gridUnit * 15
+                model: [i18n("Plasma"), i18n("Breeze"), i18n("Aurorae")]
             }
 
-            enabled: widgetButtonsIconsTheme.currentIndex == 2
-            Component.onCompleted: updateCurrentIndex()
-            onActivated: cfg_widgetButtonsAuroraeTheme = currentValue
-            textRole: "name"
-            valueRole: "folder"
+            KCM.ContextualHelpButton {
+                toolTipText: i18n("<b>Plasma</b>: default icons from system <br/><b>Breeze</b>: implicit Breeze icons <br/><b>Aurorae</b>: installed theme can be used")
+            }
+
+        }
+
+        RowLayout {
             Kirigami.FormData.label: i18n("Aurorae theme:")
-            model: kWinConfig.auroraeThemes
+
+            ComboBox {
+                id: widgetButtonsAuroraeTheme
+
+                function updateCurrentIndex() {
+                    currentIndex = indexOfValue(cfg_widgetButtonsAuroraeTheme);
+                }
+
+                Layout.minimumWidth: Kirigami.Units.gridUnit * 15
+                enabled: widgetButtonsIconsTheme.currentIndex == 2
+                Component.onCompleted: updateCurrentIndex()
+                onActivated: cfg_widgetButtonsAuroraeTheme = currentValue
+                displayText: !!currentText ? currentText : (model.count) > 0 ? i18n("<Select Aurorae theme>") : i18n("<Aurorae themes not found>")
+                textRole: "name"
+                valueRole: "folder"
+                model: kWinConfig.auroraeThemes
+            }
+
+            KCM.ContextualHelpButton {
+                enabled: widgetButtonsIconsTheme.currentIndex == 2
+                toolTipText: i18n("Some window decoration themes <br/>
+(e.g. Breeze or Plastic) could be installed <br/>
+in your system as binary libraries and <br/>
+thus be visible and usable in system <br/>
+settings, but they are not detectable <br/>
+and cannot be used by this widget <br/>
+(unlike Auraroe themes). Proceed to <br/>
+install some Aurorae themes or <br/>
+use \"Breeze\" or \"Plasma\" options <br/>
+in \"Icons theme\" field instead")
+            }
+
         }
 
         SpinBox {
