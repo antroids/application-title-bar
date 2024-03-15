@@ -206,6 +206,11 @@ Canvas {
     onActiveChanged: requestPaint()
     onPressedChanged: requestPaint()
     onCheckedChanged: requestPaint()
+    onWidthChanged: requestPaint()
+    onHeightChanged: requestPaint()
+    onTitleBarColorChanged: requestPaint()
+    onFontColorChanged: requestPaint()
+    onForegroundWarningColorChanged: requestPaint()
     anchors.fill: parent
     antialiasing: true
     onPaint: function() {
