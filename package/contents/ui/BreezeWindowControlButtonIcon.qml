@@ -7,11 +7,9 @@ import QtQuick
 import org.kde.kirigami as Kirigami
 
 Canvas {
-    id: mycanvas
-
-    property color titleBarColor: Kirigami.Theme.backgroundColor
-    property color fontColor: Kirigami.Theme.textColor
-    property color foregroundWarningColor: Kirigami.Theme.negativeTextColor
+    property color titleBarColor: "gray"
+    property color fontColor: "white"
+    property color foregroundWarningColor: "red"
     property bool outlineCloseButton: false
     property color backgroundColor: calculateBackgroundColor()
     property color foregroundColor: calculateForegroundColor()

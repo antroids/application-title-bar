@@ -438,6 +438,9 @@ Item {
             delegate: BreezeWindowControlButtonIcon {
                 required property int index
 
+                titleBarColor: isDeactivatedButtonState(index) ? Kirigami.Theme.alternateBackgroundColor : Kirigami.Theme.backgroundColor
+                fontColor: isDeactivatedButtonState(index) ? Kirigami.Theme.disabledTextColor : Kirigami.Theme.textColor
+                foregroundWarningColor: isDeactivatedButtonState(index) ? Kirigami.Theme.alternateBackgroundColor : Kirigami.Theme.negativeTextColor
                 anchors.fill: parent
                 buttonType: button.buttonType
                 anchors.margins: 3
