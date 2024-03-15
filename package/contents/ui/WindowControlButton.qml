@@ -31,11 +31,15 @@ Item {
     enum IconState {
         Active,
         ActiveHover,
-        ActivePressed,
+        ActivePressed, //       Aurorae themes have no toggled state, the pressed is used for the following:
+        ActiveToggled, //       ActivePressed
+        ActiveHoverToggled, //  ActivePressed
         ActiveDeactivated,
         Inactive,
         InactiveHover,
         InactivePressed,
+        InactiveToggled, //     InactivePressed
+        InactiveHoverToggled, //InactivePressed
         InactiveDeactivated
     }
 
@@ -45,7 +49,7 @@ Item {
         Aurorae
     }
 
-    readonly property var iconStatesPrefixes: ["active", "hover", "pressed", "deactivated", "inactive", "hover-inactive", "pressed-inactive", "deactivated-inactive"]
+    readonly property var iconStatesPrefixes: ["active", "hover", "pressed", "pressed", "pressed", "deactivated", "inactive", "hover-inactive", "pressed-inactive", "pressed-inactive", "pressed-inactive", "deactivated-inactive"]
     property string themesPath: "aurorae/themes/"
     property string themeName
     property string svgExt: "svg"
@@ -62,15 +66,26 @@ Item {
     property MouseArea mouseArea: buttonMouseArea
     property bool hasActiveHover: iconPath === undefined || iconInfo.hasElementPrefix("hover")
     property bool hasActivePressed: iconPath === undefined || iconInfo.hasElementPrefix("pressed")
+    property bool hasActiveToggled: iconPath === undefined || iconInfo.hasElementPrefix("toggled")
     property bool hasActiveDeactivated: iconPath === undefined || iconInfo.hasElementPrefix("deactivated")
     property bool hasInactive: iconPath === undefined || iconInfo.hasElementPrefix("inactive")
     property bool hasInactiveHover: iconPath === undefined || iconInfo.hasElementPrefix("hover-inactive")
     property bool hasInactivePressed: iconPath === undefined || iconInfo.hasElementPrefix("pressed-inactive")
+    property bool hasInactiveToggled: iconPath === undefined || iconInfo.hasElementPrefix("toggled-inactive")
     property bool hasInactiveDeactivated: iconPath === undefined || iconInfo.hasElementPrefix("deactivated-inactive")
-    property int iconState: {
+    property int iconState: calculateIconState()
+    property alias mouseAreaEnabled: buttonMouseArea.enabled
+
+    signal actionCall(int action)
+
+    function calculateIconState() {
         if (active) {
-            if ((pressed || toggled) && hasActivePressed)
+            if (pressed && hasActivePressed)
                 return WindowControlButton.IconState.ActivePressed;
+            else if (toggled && hovered && hasActiveToggled && hasActiveHover)
+                return WindowControlButton.IconState.ActiveHoverToggled;
+            else if (toggled && hasActiveToggled)
+                return WindowControlButton.IconState.ActiveToggled;
             else if (hovered && hasActiveHover)
                 return WindowControlButton.IconState.ActiveHover;
             else if (!enabled && hasActiveDeactivated)
@@ -78,8 +93,12 @@ Item {
             else
                 return WindowControlButton.IconState.Active;
         } else {
-            if ((pressed || toggled) && hasInactivePressed)
+            if (pressed && hasInactivePressed)
                 return WindowControlButton.IconState.InactivePressed;
+            else if (toggled && hovered && hasInactiveToggled && hasInactiveHover)
+                return WindowControlButton.IconState.InactiveHoverToggled;
+            else if (toggled && hasInactiveToggled)
+                return WindowControlButton.IconState.InactiveToggled;
             else if (hovered && hasInactiveHover)
                 return WindowControlButton.IconState.InactiveHover;
             else if (!enabled && hasInactiveDeactivated)
@@ -87,18 +106,19 @@ Item {
             else
                 return WindowControlButton.IconState.Inactive;
         }
-        if ((pressed || toggled) && !hasInactivePressed)
+        if (pressed)
             return WindowControlButton.IconState.ActivePressed;
-        else if (hovered && !hasInactiveHover)
+        else if (toggled && hovered)
+            return WindowControlButton.IconState.ActiveHoverToggled;
+        else if (toggled)
+            return WindowControlButton.IconState.ActiveToggled;
+        else if (hovered)
             return WindowControlButton.IconState.ActiveHover;
-        else if (!enabled && !hasInactiveDeactivated)
+        else if (!enabled)
             return WindowControlButton.IconState.ActiveDeactivated;
         else
             return WindowControlButton.IconState.Active;
     }
-    property alias mouseAreaEnabled: buttonMouseArea.enabled
-
-    signal actionCall(int action)
 
     function buttonIconPath(type) {
         let buttonName = mapButtonToName(type);
@@ -203,6 +223,64 @@ Item {
         }
     }
 
+    function isActiveButtonState(buttonState) {
+        switch (buttonState) {
+        case WindowControlButton.IconState.Active:
+        case WindowControlButton.IconState.ActiveHover:
+        case WindowControlButton.IconState.ActivePressed:
+        case WindowControlButton.IconState.ActiveToggled:
+        case WindowControlButton.IconState.ActiveHoverToggled:
+        case WindowControlButton.IconState.ActiveDeactivated:
+            return true;
+        default:
+            return false;
+        }
+    }
+
+    function isHoveredButtonState(buttonState) {
+        switch (buttonState) {
+        case WindowControlButton.IconState.ActiveHover:
+        case WindowControlButton.IconState.ActiveHoverToggled:
+        case WindowControlButton.IconState.InactiveHover:
+        case WindowControlButton.IconState.InactiveHoverToggled:
+            return true;
+        default:
+            return false;
+        }
+    }
+
+    function isToggledButtonState(buttonState) {
+        switch (buttonState) {
+        case WindowControlButton.IconState.ActiveToggled:
+        case WindowControlButton.IconState.ActiveHoverToggled:
+        case WindowControlButton.IconState.InactiveToggled:
+        case WindowControlButton.IconState.InactiveHoverToggled:
+            return true;
+        default:
+            return false;
+        }
+    }
+
+    function isPressedButtonState(buttonState) {
+        switch (buttonState) {
+        case WindowControlButton.IconState.ActivePressed:
+        case WindowControlButton.IconState.InactivePressed:
+            return true;
+        default:
+            return false;
+        }
+    }
+
+    function isDeactivatedButtonState(buttonState) {
+        switch (buttonState) {
+        case WindowControlButton.IconState.ActiveDeactivated:
+        case WindowControlButton.IconState.InactiveDeactivated:
+            return true;
+        default:
+            return false;
+        }
+    }
+
     MouseArea {
         id: buttonMouseArea
 
@@ -272,19 +350,8 @@ Item {
                 blurMax: 8
                 states: [
                     State {
-                        name: "active"
-                        when: iconState === WindowControlButton.IconState.Active || iconState === WindowControlButton.IconState.Inactive
-
-                        PropertyChanges {
-                            target: iconEffects
-                            brightness: 0
-                            blur: 0
-                        }
-
-                    },
-                    State {
                         name: "hover"
-                        when: iconState === WindowControlButton.IconState.ActiveHover || iconState === WindowControlButton.IconState.InactiveHover
+                        when: isHoveredButtonState(button.iconState)
 
                         PropertyChanges {
                             target: iconEffects
@@ -295,7 +362,18 @@ Item {
                     },
                     State {
                         name: "pressed"
-                        when: iconState === WindowControlButton.IconState.ActivePressed || iconState === WindowControlButton.IconState.InactivePressed
+                        when: isPressedButtonState(button.iconState)
+
+                        PropertyChanges {
+                            target: iconEffects
+                            brightness: 0.6
+                            blur: 4
+                        }
+
+                    },
+                    State {
+                        name: "toggled"
+                        when: isToggledButtonState(button.iconState)
 
                         PropertyChanges {
                             target: iconEffects
@@ -306,7 +384,7 @@ Item {
                     },
                     State {
                         name: "deactivated"
-                        when: iconState === WindowControlButton.IconState.ActiveDeactivated || iconState === WindowControlButton.IconState.InactiveDeactivated
+                        when: isDeactivatedButtonState(button.iconState)
 
                         PropertyChanges {
                             target: iconEffects
@@ -337,21 +415,6 @@ Item {
 
     }
 
-    Component {
-        id: breezeButtonIcon
-
-        BreezeWindowControlButtonIcon {
-            anchors.fill: parent
-            buttonType: button.buttonType
-            anchors.margins: 3
-            hovered: button.hovered
-            checked: button.toggled
-            pressed: button.pressed
-            active: button.active
-        }
-
-    }
-
     Loader {
         anchors.fill: parent
         active: iconPath != undefined
@@ -367,7 +430,34 @@ Item {
     Loader {
         anchors.fill: parent
         active: iconTheme == WindowControlButton.IconTheme.Breeze
-        sourceComponent: breezeButtonIcon
+
+        sourceComponent: Repeater {
+            anchors.fill: parent
+            model: WindowControlButton.IconState.InactiveDeactivated
+
+            delegate: BreezeWindowControlButtonIcon {
+                required property int index
+
+                anchors.fill: parent
+                buttonType: button.buttonType
+                anchors.margins: 3
+                opacity: index == button.iconState ? 1 : 0
+                hovered: isHoveredButtonState(index)
+                checked: isToggledButtonState(index)
+                pressed: isPressedButtonState(index)
+                active: isActiveButtonState(index)
+
+                Behavior on opacity {
+                    NumberAnimation {
+                        duration: button.animationDuration
+                    }
+
+                }
+
+            }
+
+        }
+
     }
 
     Loader {
