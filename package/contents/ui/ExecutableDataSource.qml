@@ -5,6 +5,7 @@
  */
 import org.kde.plasma.plasma5support as P5Support
 
+// Replace by QML plugin when it will be available: https://invent.kde.org/plasma/plasma-workspace/-/issues/54
 P5Support.DataSource {
     id: executable
 
