@@ -11,11 +11,16 @@ TaskManager.TasksModel {
 
     property ActiveWindow activeWindow
     property bool hasActiveWindow: false
+    property TaskManager.VirtualDesktopInfo virtualDesktopInfo
+    property TaskManager.ActivityInfo activityInfo
+    property Repeater filteredTasksRepeater
 
     screenGeometry: plasmoid.containment.screenGeometry
-    activity: plasmoid.containment.activity
+    activity: activityInfo.currentActivity
+    virtualDesktop: virtualDesktopInfo.currentDesktop
     filterByActivity: plasmoid.configuration.widgetActiveTaskFilterByActivity
     filterByScreen: plasmoid.configuration.widgetActiveTaskFilterByScreen
+    filterByVirtualDesktop: plasmoid.configuration.widgetActiveTaskFilterByVirtualDesktop
     onDataChanged: function(from, to, roles) {
         if (activeTask && activeTask >= from && activeTask <= to)
             activeWindow.update();
@@ -23,6 +28,15 @@ TaskManager.TasksModel {
     }
     onActiveTaskChanged: activeWindow.update()
     onModelReset: activeWindow.update()
+    onRowsRemoved: activeWindow.update()
+    sortMode: TaskManager.TasksModel.SortLastActivated
+
+    virtualDesktopInfo: TaskManager.VirtualDesktopInfo {
+    }
+
+    activityInfo: TaskManager.ActivityInfo {
+        readonly property string nullUuid: "00000000-0000-0000-0000-000000000000"
+    }
 
     activeWindow: ActiveWindow {
         function update() {

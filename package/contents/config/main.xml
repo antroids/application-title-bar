@@ -109,6 +109,9 @@
         <entry name="widgetActiveTaskFilterByScreen" type="Bool">
             <default>true</default>
         </entry>
+        <entry name="widgetActiveTaskFilterByVirtualDesktop" type="Bool">
+            <default>true</default>
+        </entry>
 
         <entry name="windowTitleDragEnabled" type="Bool">
             <default>true</default>

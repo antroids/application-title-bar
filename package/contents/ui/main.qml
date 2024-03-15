@@ -216,7 +216,7 @@ PlasmoidItem {
     PlasmaCore.ToolTipArea {
         anchors.fill: parent
         active: tasksModel.hasActiveWindow
-        mainText: tasksModel.activeWindow.genericAppName
+        mainText: tasksModel.activeWindow.genericAppName || ""
     }
 
     kWinConfig: KWinConfig {
