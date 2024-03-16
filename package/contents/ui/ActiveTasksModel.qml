@@ -21,6 +21,7 @@ TaskManager.TasksModel {
     filterByActivity: plasmoid.configuration.widgetActiveTaskFilterByActivity
     filterByScreen: plasmoid.configuration.widgetActiveTaskFilterByScreen
     filterByVirtualDesktop: plasmoid.configuration.widgetActiveTaskFilterByVirtualDesktop
+    filterNotMaximized: plasmoid.configuration.widgetActiveTaskFilterNotMaximized
     onDataChanged: function(from, to, roles) {
         if (!activeTask.valid || activeTask >= from && activeTask <= to)
             activeWindow.update();

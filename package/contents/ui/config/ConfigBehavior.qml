@@ -19,6 +19,7 @@ KCM.SimpleKCM {
     property alias cfg_widgetActiveTaskFilterByActivity: widgetActiveTaskFilterByActivity.checked
     property alias cfg_widgetActiveTaskFilterByScreen: widgetActiveTaskFilterByScreen.checked
     property alias cfg_widgetActiveTaskFilterByVirtualDesktop: widgetActiveTaskFilterByVirtualDesktop.checked
+    property alias cfg_widgetActiveTaskFilterNotMaximized: widgetActiveTaskFilterNotMaximized.checked
     property alias cfg_windowTitleDragEnabled: windowTitleDragEnabled.checked
     property alias cfg_widgetMouseAreaClickEnabled: widgetMouseAreaClickEnabled.checked
     property alias cfg_widgetMouseAreaWheelEnabled: widgetMouseAreaWheelEnabled.checked
@@ -86,6 +87,13 @@ KCM.SimpleKCM {
             id: widgetActiveTaskFilterByVirtualDesktop
 
             Kirigami.FormData.label: i18n("Filter active task by virtual desktop:")
+            text: i18n("enabled")
+        }
+
+        CheckBox {
+            id: widgetActiveTaskFilterNotMaximized
+
+            Kirigami.FormData.label: i18n("Show for only maximized:")
             text: i18n("enabled")
         }
 
