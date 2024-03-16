@@ -22,13 +22,12 @@ TaskManager.TasksModel {
     filterByScreen: plasmoid.configuration.widgetActiveTaskFilterByScreen
     filterByVirtualDesktop: plasmoid.configuration.widgetActiveTaskFilterByVirtualDesktop
     onDataChanged: function(from, to, roles) {
-        if (activeTask && activeTask >= from && activeTask <= to)
+        if (activeTask.valid || activeTask >= from && activeTask <= to)
             activeWindow.update();
 
     }
     onActiveTaskChanged: activeWindow.update()
-    onModelReset: activeWindow.update()
-    onRowsRemoved: activeWindow.update()
+    onCountChanged: activeWindow.update()
     sortMode: TaskManager.TasksModel.SortLastActivated
 
     virtualDesktopInfo: TaskManager.VirtualDesktopInfo {
