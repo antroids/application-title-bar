@@ -21,28 +21,20 @@ So, I decided to create my own widget with the minimal set of features.
 
 ## Getting Started
 
-### Installing
-
-#### Install via "Add Widgets..." -> "Get New Widgets..." -> "Download..."
-
-or
-
-#### Install from [KDE Store](https://store.kde.org/p/2135509)
-
-or
-
-#### Download Latest \*.plasmoid from [Releases page](https://github.com/antroids/application-title-bar/releases) and install it via "Add Widgets..." -> "Get New Widgets..." -> "Install Widget From Local file"
-
-or
-
-1. Copy plasmoid to local catalog and restart Plasma Shell in case of updated version.
-
-```
-mkdir -p ~/.local/share/plasma/plasmoids/com.github.antroids.application-title-bar/ & yes | cp -rf package/* ~/.local/share/plasma/plasmoids/com.github.antroids.application-title-bar/ | plasmashell --replace &
-```
-
-2. Add the widget
-
+1. Installing
+    - Install via "Add Widgets..." -> "Get New Widgets..." -> "Download..."
+    - Install from [KDE Store](https://store.kde.org/p/2135509)
+    - Download Latest \*.plasmoid from [Releases page](https://github.com/antroids/application-title-bar/releases) and install it via "Add Widgets..." -> "Get New Widgets..." -> "Install Widget From Local file"
+    - Manually:
+      1. Copy plasmoid to local catalog and restart Plasma Shell in case of updated version.
+          ```
+          kpackagetool6 -t Plasma/Applet -i Path/to/Plasmoid/application-title-bar.plasmoid
+          ```
+      2. For updating run
+          ```
+          kpackagetool6 -t Plasma/Applet -u Path/to/Plasmoid/application-title-bar.plasmoid
+          ```
+2. Login & Logout or run `plasmashell --replace &`
 
 ## License
 
