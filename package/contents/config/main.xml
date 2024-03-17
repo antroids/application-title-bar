@@ -79,6 +79,7 @@
                 <choice name="AppName" />
                 <choice name="Decoration" />
                 <choice name="GenericAppName" />
+                <choice name="AlwaysUndefined" />
             </choices>
             <default>2</default>
         </entry>

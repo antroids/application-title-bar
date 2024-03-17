@@ -405,7 +405,7 @@ in \"Icons theme\" field instead")
             id: windowTitleSource
 
             Kirigami.FormData.label: i18n("Window title source:")
-            model: [i18n("Application name"), i18n("Decoration"), i18n("Generic Application name")]
+            model: [i18n("Application name"), i18n("Decoration"), i18n("Generic Application name"), i18n("Always undefined")]
         }
 
         RowLayout {

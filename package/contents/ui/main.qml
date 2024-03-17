@@ -187,6 +187,8 @@ PlasmoidItem {
                     return tasksModel.activeWindow.decoration;
                 case 2:
                     return tasksModel.activeWindow.genericAppName;
+                case 3:
+                    return plasmoid.configuration.windowTitleUndefined;
                 }
             }
 
