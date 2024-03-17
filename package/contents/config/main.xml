@@ -103,6 +103,13 @@
     </group>
 
     <group name="Behavior">
+        <entry name="widgetActiveTaskSource" type="Enum">
+            <choices>
+                <choice name="ActiveTask" />
+                <choice name="LastActiveTask" />
+            </choices>
+            <default>0</default>
+        </entry>
         <entry name="widgetActiveTaskFilterByActivity" type="Bool">
             <default>true</default>
         </entry>

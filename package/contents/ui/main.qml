@@ -24,9 +24,17 @@ PlasmoidItem {
     property var widgetAlignment: plasmoid.configuration.widgetHorizontalAlignment | plasmoid.configuration.widgetVerticalAlignment
     property KWinConfig kWinConfig
 
+    signal invokeKWinShortcut(string shortcut)
+
     Plasmoid.constraintHints: Plasmoid.CanFillArea
     Layout.fillWidth: plasmoid.configuration.widgetFillWidth
     preferredRepresentation: fullRepresentation
+    onInvokeKWinShortcut: function(shortcut) {
+        if (tasksModel.hasActiveWindow)
+            tasksModel.activeWindow.actionCall(ActiveWindow.Action.Activate);
+
+        kWinConfig.invokeKWinShortcut(shortcut);
+    }
 
     Component {
         id: widgetElementLoaderDelegate
@@ -117,21 +125,29 @@ PlasmoidItem {
             enabled: tasksModel.hasActiveWindow && !!tasksModel.activeWindow.icon
 
             WidgetDragHandler {
-                kWinConfig: root.kWinConfig
+                Component.onCompleted: {
+                    invokeKWinShortcut.connect(root.invokeKWinShortcut);
+                }
             }
 
             WidgetTapHandler {
-                kWinConfig: root.kWinConfig
+                Component.onCompleted: {
+                    invokeKWinShortcut.connect(root.invokeKWinShortcut);
+                }
             }
 
             WidgetWheelHandler {
-                kWinConfig: root.kWinConfig
                 orientation: Qt.Vertical
+                Component.onCompleted: {
+                    invokeKWinShortcut.connect(root.invokeKWinShortcut);
+                }
             }
 
             WidgetWheelHandler {
-                kWinConfig: root.kWinConfig
                 orientation: Qt.Horizontal
+                Component.onCompleted: {
+                    invokeKWinShortcut.connect(root.invokeKWinShortcut);
+                }
             }
 
         }
@@ -192,21 +208,29 @@ PlasmoidItem {
             enabled: tasksModel.hasActiveWindow
 
             WidgetDragHandler {
-                kWinConfig: root.kWinConfig
+                Component.onCompleted: {
+                    invokeKWinShortcut.connect(root.invokeKWinShortcut);
+                }
             }
 
             WidgetTapHandler {
-                kWinConfig: root.kWinConfig
+                Component.onCompleted: {
+                    invokeKWinShortcut.connect(root.invokeKWinShortcut);
+                }
             }
 
             WidgetWheelHandler {
-                kWinConfig: root.kWinConfig
                 orientation: Qt.Vertical
+                Component.onCompleted: {
+                    invokeKWinShortcut.connect(root.invokeKWinShortcut);
+                }
             }
 
             WidgetWheelHandler {
-                kWinConfig: root.kWinConfig
                 orientation: Qt.Horizontal
+                Component.onCompleted: {
+                    invokeKWinShortcut.connect(root.invokeKWinShortcut);
+                }
             }
 
         }

@@ -20,7 +20,8 @@ QtObject {
         Shade,
         Help,
         Menu,
-        AppMenu
+        AppMenu,
+        Activate
     }
 
     property bool minimizable: false

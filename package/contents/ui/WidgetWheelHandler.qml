@@ -8,7 +8,6 @@ import QtQuick
 
 WheelHandler {
     property var cfg: plasmoid.configuration
-    required property KWinConfig kWinConfig
     property int verticalRotation: 0
     property int horizontalRotation: 0
     property bool firstHorizontalEvent: true
@@ -16,6 +15,7 @@ WheelHandler {
     property int firstEventDistance: cfg.widgetMouseAreaWheelFirstEventDistance
     property int nextEventDistance: cfg.widgetMouseAreaWheelNextEventDistance
 
+    signal invokeKWinShortcut(string shortcut)
     signal wheelUp()
     signal wheelDown()
     signal wheelLeft()
@@ -69,22 +69,22 @@ WheelHandler {
     }
     onWheelUp: function() {
         if (cfg.widgetMouseAreaWheelUpAction != "")
-            kWinConfig.invokeKWinShortcut(cfg.widgetMouseAreaWheelUpAction);
+            invokeKWinShortcut(cfg.widgetMouseAreaWheelUpAction);
 
     }
     onWheelDown: function() {
         if (cfg.widgetMouseAreaWheelDownAction != "")
-            kWinConfig.invokeKWinShortcut(cfg.widgetMouseAreaWheelDownAction);
+            invokeKWinShortcut(cfg.widgetMouseAreaWheelDownAction);
 
     }
     onWheelLeft: function() {
         if (cfg.widgetMouseAreaWheelLeftAction != "")
-            kWinConfig.invokeKWinShortcut(cfg.widgetMouseAreaWheelLeftAction);
+            invokeKWinShortcut(cfg.widgetMouseAreaWheelLeftAction);
 
     }
     onWheelRight: function() {
         if (cfg.widgetMouseAreaWheelRightAction != "")
-            kWinConfig.invokeKWinShortcut(cfg.widgetMouseAreaWheelRightAction);
+            invokeKWinShortcut(cfg.widgetMouseAreaWheelRightAction);
 
     }
 }

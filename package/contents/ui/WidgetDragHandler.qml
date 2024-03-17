@@ -10,7 +10,8 @@ import org.kde.plasma.plasmoid
 PointHandler {
     property bool dragInProgress: false
     property var cfg: plasmoid.configuration
-    required property KWinConfig kWinConfig
+
+    signal invokeKWinShortcut(string shortcut)
 
     function distance(p1, p2) {
         let dx = p2.x - p1.x;
@@ -32,9 +33,9 @@ PointHandler {
             if (distance(point.pressPosition, point.position) > dragThreshold) {
                 dragInProgress = false;
                 if (point.pressedButtons & Qt.LeftButton && cfg.widgetMouseAreaLeftDragAction != "")
-                    kWinConfig.invokeKWinShortcut(cfg.widgetMouseAreaLeftDragAction);
+                    invokeKWinShortcut(cfg.widgetMouseAreaLeftDragAction);
                 else if (point.pressedButtons & Qt.MiddleButton && cfg.widgetMouseAreaMiddleDragAction != "")
-                    kWinConfig.invokeKWinShortcut(cfg.widgetMouseAreaMiddleDragAction);
+                    invokeKWinShortcut(cfg.widgetMouseAreaMiddleDragAction);
             }
         }
     }

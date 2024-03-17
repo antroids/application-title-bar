@@ -9,11 +9,33 @@ import org.kde.taskmanager as TaskManager
 TaskManager.TasksModel {
     id: tasksModel
 
+    enum ActiveTaskSource {
+        ActiveTask,
+        LastActiveTask
+    }
+
     property ActiveWindow activeWindow
-    property bool hasActiveWindow: false
+    property bool hasActiveWindow: activeTaskIndex.valid
     property TaskManager.VirtualDesktopInfo virtualDesktopInfo
     property TaskManager.ActivityInfo activityInfo
     property Repeater filteredTasksRepeater
+    property var activeTaskIndex: getInvalidIndex()
+
+    function getInvalidIndex() {
+        return index(-1, -1);
+    }
+
+    function updateActiveTaskIndex() {
+        switch (plasmoid.configuration.widgetActiveTaskSource) {
+        case ActiveTasksModel.ActiveTaskSource.ActiveTask:
+            activeTaskIndex = activeTask;
+            break;
+        case ActiveTasksModel.ActiveTaskSource.LastActiveTask:
+            activeTaskIndex = hasIndex(0, 0) ? index(0, 0) : getInvalidIndex();
+            break;
+        }
+        activeWindow.update();
+    }
 
     screenGeometry: plasmoid.containment.screenGeometry
     activity: activityInfo.currentActivity
@@ -22,13 +44,15 @@ TaskManager.TasksModel {
     filterByScreen: plasmoid.configuration.widgetActiveTaskFilterByScreen
     filterByVirtualDesktop: plasmoid.configuration.widgetActiveTaskFilterByVirtualDesktop
     filterNotMaximized: plasmoid.configuration.widgetActiveTaskFilterNotMaximized
+    filterHidden: true
+    filterMinimized: true
     onDataChanged: function(from, to, roles) {
-        if (!activeTask.valid || activeTask >= from && activeTask <= to)
+        if (hasActiveWindow && activeTaskIndex >= from && activeTaskIndex <= to)
             activeWindow.update();
 
     }
-    onActiveTaskChanged: activeWindow.update()
-    onCountChanged: activeWindow.update()
+    onActiveTaskChanged: updateActiveTaskIndex()
+    onCountChanged: updateActiveTaskIndex()
     sortMode: TaskManager.TasksModel.SortLastActivated
 
     virtualDesktopInfo: TaskManager.VirtualDesktopInfo {
@@ -40,44 +64,44 @@ TaskManager.TasksModel {
 
     activeWindow: ActiveWindow {
         function update() {
-            tasksModel.hasActiveWindow = activeTask.valid;
-            minimizable = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.IsMinimizable) || false;
-            maximizable = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.IsMaximizable) || false;
-            closable = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.IsClosable) || false;
-            movable = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.IsMovable) || false;
-            minimized = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.IsMinimized) || false;
-            maximized = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.IsMaximized) || false;
-            shadeable = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.IsShadeable) || false;
-            shaded = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.IsShaded) || false;
-            keepAbove = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.IsKeepAbove) || false;
-            keepBelow = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.IsKeepBelow) || false;
-            hasAppMenu = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.ApplicationMenuServiceName) || false;
-            onAllVirtualDesktops = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.IsOnAllVirtualDesktops) || false;
-            appName = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.AppName);
-            genericAppName = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.GenericAppName);
-            decoration = tasksModel.data(activeTask, TaskManager.AbstractTasksModel.Decoration);
-            icon = tasksModel.data(activeTask, Qt.DecorationRole);
+            minimizable = tasksModel.data(activeTaskIndex, TaskManager.AbstractTasksModel.IsMinimizable) || false;
+            maximizable = tasksModel.data(activeTaskIndex, TaskManager.AbstractTasksModel.IsMaximizable) || false;
+            closable = tasksModel.data(activeTaskIndex, TaskManager.AbstractTasksModel.IsClosable) || false;
+            movable = tasksModel.data(activeTaskIndex, TaskManager.AbstractTasksModel.IsMovable) || false;
+            minimized = tasksModel.data(activeTaskIndex, TaskManager.AbstractTasksModel.IsMinimized) || false;
+            maximized = tasksModel.data(activeTaskIndex, TaskManager.AbstractTasksModel.IsMaximized) || false;
+            shadeable = tasksModel.data(activeTaskIndex, TaskManager.AbstractTasksModel.IsShadeable) || false;
+            shaded = tasksModel.data(activeTaskIndex, TaskManager.AbstractTasksModel.IsShaded) || false;
+            keepAbove = tasksModel.data(activeTaskIndex, TaskManager.AbstractTasksModel.IsKeepAbove) || false;
+            keepBelow = tasksModel.data(activeTaskIndex, TaskManager.AbstractTasksModel.IsKeepBelow) || false;
+            hasAppMenu = tasksModel.data(activeTaskIndex, TaskManager.AbstractTasksModel.ApplicationMenuServiceName) || false;
+            onAllVirtualDesktops = tasksModel.data(activeTaskIndex, TaskManager.AbstractTasksModel.IsOnAllVirtualDesktops) || false;
+            appName = tasksModel.data(activeTaskIndex, TaskManager.AbstractTasksModel.AppName);
+            genericAppName = tasksModel.data(activeTaskIndex, TaskManager.AbstractTasksModel.GenericAppName);
+            decoration = tasksModel.data(activeTaskIndex, TaskManager.AbstractTasksModel.Decoration);
+            icon = tasksModel.data(activeTaskIndex, Qt.DecorationRole);
         }
 
         onActionCall: function(action) {
             switch (action) {
             case ActiveWindow.Action.Close:
-                return tasksModel.requestClose(activeTask);
+                return tasksModel.requestClose(activeTaskIndex);
             case ActiveWindow.Action.Minimize:
-                return tasksModel.requestToggleMinimized(activeTask);
+                return tasksModel.requestToggleMinimized(activeTaskIndex);
             case ActiveWindow.Action.Maximize:
-                return tasksModel.requestToggleMaximized(activeTask);
+                return tasksModel.requestToggleMaximized(activeTaskIndex);
             case ActiveWindow.Action.Move:
-                return tasksModel.requestMove(activeTask);
+                return tasksModel.requestMove(activeTaskIndex);
             case ActiveWindow.Action.KeepAbove:
-                return tasksModel.requestToggleKeepAbove(activeTask);
+                return tasksModel.requestToggleKeepAbove(activeTaskIndex);
             case ActiveWindow.Action.KeepBelow:
-                return tasksModel.requestToggleKeepBelow(activeTask);
+                return tasksModel.requestToggleKeepBelow(activeTaskIndex);
             case ActiveWindow.Action.Shade:
-                return tasksModel.requestToggleShaded(activeTask);
+                return tasksModel.requestToggleShaded(activeTaskIndex);
+            case ActiveWindow.Action.Activate:
+                return tasksModel.requestActivate(activeTaskIndex);
             }
         }
-        Component.onCompleted: update()
     }
 
 }

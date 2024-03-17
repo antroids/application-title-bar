@@ -8,26 +8,27 @@ import QtQuick
 
 TapHandler {
     property var cfg: plasmoid.configuration
-    required property KWinConfig kWinConfig
+
+    signal invokeKWinShortcut(string shortcut)
 
     enabled: cfg.widgetMouseAreaClickEnabled
     acceptedButtons: Qt.LeftButton | Qt.MiddleButton
     onSingleTapped: function(eventPoint, button) {
         if (button === Qt.LeftButton && cfg.widgetMouseAreaLeftClickAction != "")
-            kWinConfig.invokeKWinShortcut(cfg.widgetMouseAreaLeftClickAction);
+            invokeKWinShortcut(cfg.widgetMouseAreaLeftClickAction);
         else if (button === Qt.MiddleButton && cfg.widgetMouseAreaMiddleClickAction != "")
-            kWinConfig.invokeKWinShortcut(cfg.widgetMouseAreaMiddleClickAction);
+            invokeKWinShortcut(cfg.widgetMouseAreaMiddleClickAction);
     }
     onDoubleTapped: function(eventPoint, button) {
         if (button === Qt.LeftButton && cfg.widgetMouseAreaLeftDoubleClickAction != "")
-            kWinConfig.invokeKWinShortcut(cfg.widgetMouseAreaLeftDoubleClickAction);
+            invokeKWinShortcut(cfg.widgetMouseAreaLeftDoubleClickAction);
         else if (button === Qt.MiddleButton && cfg.widgetMouseAreaMiddleDoubleClickAction != "")
-            kWinConfig.invokeKWinShortcut(cfg.widgetMouseAreaMiddleDoubleClickAction);
+            invokeKWinShortcut(cfg.widgetMouseAreaMiddleDoubleClickAction);
     }
     onLongPressed: function() {
         if (point.pressedButtons & Qt.LeftButton && cfg.widgetMouseAreaLeftLongPressAction != "")
-            kWinConfig.invokeKWinShortcut(cfg.widgetMouseAreaLeftLongPressAction);
+            invokeKWinShortcut(cfg.widgetMouseAreaLeftLongPressAction);
         else if (point.pressedButtons & Qt.MiddleButton && cfg.widgetMouseAreaMiddleLongPressAction != "")
-            kWinConfig.invokeKWinShortcut(cfg.widgetMouseAreaMiddleLongPressAction);
+            invokeKWinShortcut(cfg.widgetMouseAreaMiddleLongPressAction);
     }
 }

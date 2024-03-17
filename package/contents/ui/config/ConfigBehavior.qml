@@ -16,6 +16,7 @@ import org.kde.plasma.components as PlasmaComponents
 KCM.SimpleKCM {
     id: page
 
+    property alias cfg_widgetActiveTaskSource: widgetActiveTaskSource.currentIndex
     property alias cfg_widgetActiveTaskFilterByActivity: widgetActiveTaskFilterByActivity.checked
     property alias cfg_widgetActiveTaskFilterByScreen: widgetActiveTaskFilterByScreen.checked
     property alias cfg_widgetActiveTaskFilterByVirtualDesktop: widgetActiveTaskFilterByVirtualDesktop.checked
@@ -55,6 +56,21 @@ KCM.SimpleKCM {
                 borderlessMaximizedWindowsCheckBox.checked = borderlessMaximizedWindows;
                 borderlessMaximizedWindowsCheckBox.enabled = true;
             }
+        }
+
+        RowLayout {
+            Kirigami.FormData.label: i18n("Active task source:")
+
+            ComboBox {
+                id: widgetActiveTaskSource
+
+                model: [i18n("Active task"), i18n("Last active task")]
+            }
+
+            KCM.ContextualHelpButton {
+                toolTipText: i18n("<p>How to obtain the active task from tasks manager: <br><b>Active task</b>: current active task after filtering. The widget will be disabled if the current active task is on another screen, regardless whether there are another tasks on this screen or not.<br/><b>Last active task</b>: show widget for the last active task after filters applied.</p>")
+            }
+
         }
 
         CheckBox {
