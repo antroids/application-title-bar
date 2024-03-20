@@ -16,8 +16,8 @@ Stable and fast widget with control buttons and window title, ideally with the s
 I would like to keep the widget pure QML to avoid incompatibility and maintenance issues.
 
 Disadvantages of pure QML widget:
-* Only icons can be used from Aurorae themes, the rest is ignored. Binary themes are unsupported at all (Issues #18, #6).
-* I cannot see the way to build menu with current plasmoid API (Issue #13)
+* Only icons can be used from Aurorae themes, the rest is ignored. Binary themes are unsupported at all (Issues [#18](https://github.com/antroids/application-title-bar/issues/18), [#6](https://github.com/antroids/application-title-bar/issues/6)).
+* I cannot see the way to build menu with current plasmoid API (Issue [#13](https://github.com/antroids/application-title-bar/issues/13))
 
 ### Features
 
