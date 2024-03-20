@@ -117,12 +117,20 @@ in \"Icons theme\" field instead")
             to: 32
         }
 
-        SpinBox {
-            id: widgetButtonsAspectRatio
-
+        RowLayout {
             Kirigami.FormData.label: i18n("Buttons aspect ratio %:")
-            from: 0
-            to: 200
+
+            SpinBox {
+                id: widgetButtonsAspectRatio
+
+                from: 0
+                to: 200
+            }
+
+            KCM.ContextualHelpButton {
+                toolTipText: i18n("The ratio of button width in percent to 100% of its height. If you need wider buttons, the value should be >100, otherwise less.")
+            }
+
         }
 
         RowLayout {

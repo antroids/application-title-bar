@@ -109,7 +109,7 @@ KCM.SimpleKCM {
         CheckBox {
             id: widgetActiveTaskFilterNotMaximized
 
-            Kirigami.FormData.label: i18n("Show for only maximized:")
+            Kirigami.FormData.label: i18n("Disable for not maximized:")
             text: i18n("enabled")
         }
 
