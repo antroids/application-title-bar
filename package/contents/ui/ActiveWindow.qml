@@ -21,7 +21,9 @@ QtObject {
         Help,
         Menu,
         AppMenu,
-        Activate
+        Activate,
+        FullScreen,
+        Resize
     }
 
     property bool minimizable: false
@@ -36,6 +38,9 @@ QtObject {
     property bool onAllVirtualDesktops: false
     property bool keepAbove: false
     property bool keepBelow: false
+    property bool fullScreenable: false
+    property bool fullScreen: false
+    property bool resizable: false
     property var appName
     property var genericAppName
     property var decoration
@@ -57,6 +62,10 @@ QtObject {
             return shadeable;
         case ActiveWindow.Action.AppMenu:
             return hasAppMenu;
+        case ActiveWindow.Action.Fullscreen:
+            return fullScreenable;
+        case ActiveWindow.Action.Resize:
+            return resizable;
         default:
             return true;
         }

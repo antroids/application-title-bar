@@ -77,6 +77,9 @@ TaskManager.TasksModel {
             keepBelow = tasksModel.data(activeTaskIndex, TaskManager.AbstractTasksModel.IsKeepBelow) || false;
             hasAppMenu = tasksModel.data(activeTaskIndex, TaskManager.AbstractTasksModel.ApplicationMenuServiceName) || false;
             onAllVirtualDesktops = tasksModel.data(activeTaskIndex, TaskManager.AbstractTasksModel.IsOnAllVirtualDesktops) || false;
+            fullScreenable = tasksModel.data(activeTaskIndex, TaskManager.AbstractTasksModel.IsFullScreenable) || false;
+            fullScreen = tasksModel.data(activeTaskIndex, TaskManager.AbstractTasksModel.IsFullScreen) || false;
+            resizable = tasksModel.data(activeTaskIndex, TaskManager.AbstractTasksModel.IsResizable) || false;
             appName = tasksModel.data(activeTaskIndex, TaskManager.AbstractTasksModel.AppName);
             genericAppName = tasksModel.data(activeTaskIndex, TaskManager.AbstractTasksModel.GenericAppName);
             decoration = tasksModel.data(activeTaskIndex, TaskManager.AbstractTasksModel.Decoration);
@@ -101,6 +104,10 @@ TaskManager.TasksModel {
                 return tasksModel.requestToggleShaded(activeTaskIndex);
             case ActiveWindow.Action.Activate:
                 return tasksModel.requestActivate(activeTaskIndex);
+            case ActiveWindow.Action.FullScreen:
+                return tasksModel.requestToggleFullScreen(activeTaskIndex);
+            case ActiveWindow.Action.Resize:
+                return tasksModel.requestResize(activeTaskIndex);
             }
         }
     }
