@@ -25,16 +25,30 @@ TaskManager.TasksModel {
         return index(-1, -1);
     }
 
+    function getFirstRowIndex() {
+        return index(0, 0);
+    }
+
     function updateActiveTaskIndex() {
         switch (plasmoid.configuration.widgetActiveTaskSource) {
         case ActiveTasksModel.ActiveTaskSource.ActiveTask:
-            activeTaskIndex = activeTask;
+            activeTaskIndex = filterTask(activeTask) ? activeTask : getInvalidIndex();
             break;
         case ActiveTasksModel.ActiveTaskSource.LastActiveTask:
-            activeTaskIndex = hasIndex(0, 0) ? index(0, 0) : getInvalidIndex();
+            activeTaskIndex = hasIndex(0, 0) && filterTask(getFirstRowIndex()) ? getFirstRowIndex() : getInvalidIndex();
             break;
         }
         activeWindow.update();
+    }
+
+    function filterTask(index) {
+        if (!index || !index.valid)
+            return false;
+
+        if (plasmoid.configuration.widgetActiveTaskFilterNotMaximized)
+            return tasksModel.data(index, TaskManager.AbstractTasksModel.IsMaximized) || false;
+
+        return true;
     }
 
     screenGeometry: plasmoid.containment.screenGeometry
@@ -43,13 +57,13 @@ TaskManager.TasksModel {
     filterByActivity: plasmoid.configuration.widgetActiveTaskFilterByActivity
     filterByScreen: plasmoid.configuration.widgetActiveTaskFilterByScreen
     filterByVirtualDesktop: plasmoid.configuration.widgetActiveTaskFilterByVirtualDesktop
-    filterNotMaximized: plasmoid.configuration.widgetActiveTaskFilterNotMaximized
     filterHidden: true
     filterMinimized: true
     onDataChanged: function(from, to, roles) {
         if (hasActiveWindow && activeTaskIndex >= from && activeTaskIndex <= to)
-            activeWindow.update();
-
+            updateActiveTaskIndex();
+        else if (!hasActiveWindow && getFirstRowIndex() >= from && getFirstRowIndex() <= to)
+            updateActiveTaskIndex();
     }
     onActiveTaskChanged: updateActiveTaskIndex()
     onCountChanged: updateActiveTaskIndex()
