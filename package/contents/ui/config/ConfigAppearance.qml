@@ -60,7 +60,7 @@ KCM.SimpleKCM {
         ComboBox {
             id: widgetButtonsIconsTheme
 
-            Kirigami.FormData.label: i18n("Icons theme:")
+            Kirigami.FormData.label: i18n("Button icons source:")
             Layout.minimumWidth: Kirigami.Units.gridUnit * 15
             model: [i18n("Plasma: Global icon theme"), i18n("Breeze: Implicit Breeze icons"), i18n("Aurorae: Window decorations theme")]
         }
@@ -76,17 +76,16 @@ KCM.SimpleKCM {
                 }
 
                 Layout.minimumWidth: Kirigami.Units.gridUnit * 15
-                enabled: widgetButtonsIconsTheme.currentIndex == 2
+                enabled: widgetButtonsIconsTheme.currentIndex == 2 && model.count > 0
                 Component.onCompleted: updateCurrentIndex()
                 onActivated: cfg_widgetButtonsAuroraeTheme = currentValue
-                displayText: !!currentText ? currentText : (model.count) > 0 ? i18n("<Select Aurorae theme>") : i18n("<Aurorae themes not found>")
+                displayText: !!currentText ? currentText : (model.count > 0) ? i18n("<Select Aurorae theme>") : i18n("<Aurorae themes not found>")
                 textRole: "name"
                 valueRole: "folder"
                 model: kWinConfig.auroraeThemes
             }
 
             KCM.ContextualHelpButton {
-                enabled: widgetButtonsIconsTheme.currentIndex == 2
                 toolTipText: i18n("Some window decoration themes <br/>
 (e.g. Breeze or Plastic) could be installed <br/>
 in your system as binary libraries and <br/>
