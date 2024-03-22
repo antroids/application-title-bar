@@ -4,6 +4,10 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+function isWayland() {
+    const isWaylandPlugin = Qt.platform.pluginName == "wayland";
+    return isWaylandPlugin;
+}
 
 function copyLayoutConstraint(from, to) {
     Object.assign(to.Layout, {

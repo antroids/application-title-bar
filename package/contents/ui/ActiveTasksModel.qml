@@ -69,6 +69,7 @@ TaskManager.TasksModel {
     onCountChanged: updateActiveTaskIndex()
     sortMode: TaskManager.TasksModel.SortLastActivated
     groupMode: TaskManager.TasksModel.GroupDisabled
+    Component.onCompleted: updateActiveTaskIndex()
 
     virtualDesktopInfo: TaskManager.VirtualDesktopInfo {
     }

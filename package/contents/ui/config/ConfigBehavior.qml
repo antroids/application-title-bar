@@ -58,6 +58,14 @@ KCM.SimpleKCM {
             }
         }
 
+        Kirigami.InlineMessage {
+            anchors.left: parent.left
+            anchors.right: parent.right
+            text: i18n("Some functionality is unsupported or can work unstable in X11 sessions.")
+            type: Kirigami.MessageType.Error
+            visible: !Utils.isWayland()
+        }
+
         RowLayout {
             Kirigami.FormData.label: i18n("Active task source:")
 
@@ -141,14 +149,34 @@ KCM.SimpleKCM {
             to: 512
         }
 
+        Kirigami.InlineMessage {
+            anchors.left: parent.left
+            anchors.right: parent.right
+            text: i18n("Window Move action is incompatible with Mouse Drag in X11 sessions.")
+            type: Kirigami.MessageType.Error
+            visible: !Utils.isWayland() && leftButtonDragAction.currentValue == "Window Move"
+        }
+
         KWinShortcutComboBox {
+            id: leftButtonDragAction
+
             label: i18n("Left button drag:")
             enabled: windowTitleDragEnabled.checked
             initialValue: cfg_widgetMouseAreaLeftDragAction
             onActivated: cfg_widgetMouseAreaLeftDragAction = currentValue
         }
 
+        Kirigami.InlineMessage {
+            anchors.left: parent.left
+            anchors.right: parent.right
+            text: i18n("Window Move action is incompatible with Mouse Drag in X11 sessions.")
+            type: Kirigami.MessageType.Error
+            visible: !Utils.isWayland() && middleButtonDragAction.currentValue == "Window Move"
+        }
+
         KWinShortcutComboBox {
+            id: middleButtonDragAction
+
             label: i18n("Middle button drag:")
             enabled: windowTitleDragEnabled.checked
             initialValue: cfg_widgetMouseAreaMiddleDragAction
