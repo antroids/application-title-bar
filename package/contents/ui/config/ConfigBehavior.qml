@@ -63,7 +63,7 @@ KCM.SimpleKCM {
             anchors.right: parent.right
             text: i18n("Some functionality is unsupported or can work unstable in X11 sessions.")
             type: Kirigami.MessageType.Warning
-            visible: !Utils.isWayland()
+            visible: Utils.isX11()
         }
 
         RowLayout {
@@ -154,7 +154,7 @@ KCM.SimpleKCM {
             anchors.right: parent.right
             text: i18n("Window Move action is incompatible with Mouse Drag in X11 sessions.")
             type: Kirigami.MessageType.Error
-            visible: !Utils.isWayland() && leftButtonDragAction.currentValue == "Window Move"
+            visible: Utils.isX11() && leftButtonDragAction.currentValue == "Window Move"
         }
 
         KWinShortcutComboBox {
@@ -171,7 +171,7 @@ KCM.SimpleKCM {
             anchors.right: parent.right
             text: i18n("Window Move action is incompatible with Mouse Drag in X11 sessions.")
             type: Kirigami.MessageType.Error
-            visible: !Utils.isWayland() && middleButtonDragAction.currentValue == "Window Move"
+            visible: Utils.isX11() && middleButtonDragAction.currentValue == "Window Move"
         }
 
         KWinShortcutComboBox {

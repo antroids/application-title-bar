@@ -4,9 +4,9 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-function isWayland() {
-    const isWaylandPlugin = Qt.platform.pluginName == "wayland";
-    return isWaylandPlugin;
+function isX11() {
+    const isX11Plugin = Qt.platform.pluginName == "xcb";
+    return isX11Plugin;
 }
 
 function copyLayoutConstraint(from, to) {

@@ -57,20 +57,12 @@ KCM.SimpleKCM {
             Kirigami.FormData.label: i18n("Window Control Buttons")
         }
 
-        RowLayout {
+        ComboBox {
+            id: widgetButtonsIconsTheme
+
             Kirigami.FormData.label: i18n("Icons theme:")
-
-            ComboBox {
-                id: widgetButtonsIconsTheme
-
-                Layout.minimumWidth: Kirigami.Units.gridUnit * 15
-                model: [i18n("Plasma"), i18n("Breeze"), i18n("Aurorae")]
-            }
-
-            KCM.ContextualHelpButton {
-                toolTipText: i18n("<b>Plasma</b>: default icons from system <br/><b>Breeze</b>: implicit Breeze icons <br/><b>Aurorae</b>: installed theme can be used")
-            }
-
+            Layout.minimumWidth: Kirigami.Units.gridUnit * 15
+            model: [i18n("Plasma: Global icon theme"), i18n("Breeze: Implicit Breeze icons"), i18n("Aurorae: Window decorations theme")]
         }
 
         RowLayout {
