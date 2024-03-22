@@ -62,7 +62,7 @@ KCM.SimpleKCM {
             anchors.left: parent.left
             anchors.right: parent.right
             text: i18n("Some functionality is unsupported or can work unstable in X11 sessions.")
-            type: Kirigami.MessageType.Error
+            type: Kirigami.MessageType.Warning
             visible: !Utils.isWayland()
         }
 
