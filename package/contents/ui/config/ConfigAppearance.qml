@@ -86,16 +86,17 @@ KCM.SimpleKCM {
             }
 
             KCM.ContextualHelpButton {
-                toolTipText: i18n("Some window decoration themes <br/>
-(e.g. Breeze or Plastic) could be installed <br/>
-in your system as binary libraries and <br/>
-thus be visible and usable in system <br/>
-settings, but they are not detectable <br/>
-and cannot be used by this widget <br/>
-(unlike Auraroe themes). Proceed to <br/>
-install some Aurorae themes or <br/>
-use \"Breeze\" or \"Plasma\" options <br/>
-in \"Icons theme\" field instead")
+                visible: widgetButtonsAuroraeTheme.model.count == 0
+                toolTipText: i18n("Some window decorations themes, e.g. Breeze or Plastik, could be installed in your system as binary libraries and thus be visible and usable in System settings, but they are not detectable and cannot be used by this widget. There are no plans to support such binary themes due to technical complications.
+-
+Regular Aurorae themes for window decorations are supported by this widget and you can install them in System settings through \"Window decorations\" page or use \"Breeze\" or \"Plasma\" options in \"Button icons source\" field above instead")
+            }
+
+            KCM.ContextualHelpButton {
+                visible: widgetButtonsAuroraeTheme.model.count > 0
+                toolTipText: i18n("Some window decorations themes, e.g. Breeze or Plastik, could be installed in your system as binary libraries and thus be visible and usable in System settings, but they are not detectable and cannot be used by this widget. There are no plans to support such binary themes due to technical complications.
+-
+You can install more of regular Aurorae themes for window decorations in System settings through \"Window decorations\" page or use \"Breeze\" or \"Plasma\" options in \"Button icons source\" field above instead")
             }
 
         }
