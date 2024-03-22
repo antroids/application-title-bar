@@ -109,7 +109,7 @@ in \"Icons theme\" field instead")
         }
 
         RowLayout {
-            Kirigami.FormData.label: i18n("Buttons aspect ratio %:")
+            Kirigami.FormData.label: i18n("Buttons width/height ratio:")
 
             SpinBox {
                 id: widgetButtonsAspectRatio
