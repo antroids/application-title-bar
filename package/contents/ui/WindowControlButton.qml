@@ -126,7 +126,6 @@ Item {
         let path = locateAtDataLocations(relativeIconPath + "." + svgExt);
         if (!path)
             path = locateAtDataLocations(relativeIconPath + "." + svgzExt);
-
         return path;
     }
 
@@ -291,10 +290,8 @@ Item {
         onExited: button.hovered = false
         onPressed: button.pressed = true
         onReleased: button.pressed = false
-        onClicked: function() {
-            if (button.active)
-                button.actionCall(button.getAction());
-
+        onClicked: function () {
+            button.actionCall(button.getAction());
         }
     }
 
@@ -321,11 +318,8 @@ Item {
                 NumberAnimation {
                     duration: button.animationDuration
                 }
-
             }
-
         }
-
     }
 
     Component {
@@ -339,7 +333,6 @@ Item {
             active: isActiveButtonState(button.iconState)
             enabled: !isDeactivatedButtonState(button.iconState)
         }
-
     }
 
     Loader {
@@ -351,7 +344,6 @@ Item {
             model: iconPath ? iconStatesPrefixes : undefined
             delegate: auroraeThemeButtonIcon
         }
-
     }
 
     Loader {
@@ -381,13 +373,9 @@ Item {
                     NumberAnimation {
                         duration: button.animationDuration
                     }
-
                 }
-
             }
-
         }
-
     }
 
     Loader {
@@ -395,5 +383,4 @@ Item {
         active: iconTheme != WindowControlButton.IconTheme.Breeze && !iconPath
         sourceComponent: fallbackButtonIcon
     }
-
 }
