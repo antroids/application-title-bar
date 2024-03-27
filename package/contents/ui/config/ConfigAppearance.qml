@@ -98,7 +98,12 @@ Regular Aurorae themes for window decorations are supported by this widget and y
 -
 You can install more of regular Aurorae themes for window decorations in System settings through \"Window decorations\" page or use \"Breeze\" or \"Plasma\" options in \"Button icons source\" field above instead")
             }
-
+        }
+        Label {
+            text: i18n("<p>Missing your theme? <a href=\"https://github.com/antroids/application-title-bar/issues/25\">Report here.</a></p>")
+            onLinkActivated: function (link) {
+                Qt.openUrlExternally(link);
+            }
         }
 
         SpinBox {
@@ -122,7 +127,6 @@ You can install more of regular Aurorae themes for window decorations in System 
             KCM.ContextualHelpButton {
                 toolTipText: i18n("The ratio of button width in percent to 100% of its height. If you need wider buttons, the value should be >100, otherwise less.")
             }
-
         }
 
         RowLayout {
@@ -138,7 +142,6 @@ You can install more of regular Aurorae themes for window decorations in System 
             KCM.ContextualHelpButton {
                 toolTipText: i18n("Animation speed of buttons transitions in milliseconds.")
             }
-
         }
 
         Kirigami.Separator {
@@ -170,19 +173,24 @@ You can install more of regular Aurorae themes for window decorations in System 
             textRole: "text"
             valueRole: "value"
             Kirigami.FormData.label: i18n("Horizontal alignment:")
-            model: [{
-                "value": Qt.AlignLeft,
-                "text": i18n("Left")
-            }, {
-                "value": Qt.AlignHCenter,
-                "text": i18n("Center")
-            }, {
-                "value": Qt.AlignRight,
-                "text": i18n("Right")
-            }, {
-                "value": Qt.AlignJustify,
-                "text": i18n("Justify")
-            }]
+            model: [
+                {
+                    "value": Qt.AlignLeft,
+                    "text": i18n("Left")
+                },
+                {
+                    "value": Qt.AlignHCenter,
+                    "text": i18n("Center")
+                },
+                {
+                    "value": Qt.AlignRight,
+                    "text": i18n("Right")
+                },
+                {
+                    "value": Qt.AlignJustify,
+                    "text": i18n("Justify")
+                }
+            ]
         }
 
         ComboBox {
@@ -193,19 +201,24 @@ You can install more of regular Aurorae themes for window decorations in System 
             textRole: "text"
             valueRole: "value"
             Kirigami.FormData.label: i18n("Vertical alignment:")
-            model: [{
-                "value": Qt.AlignLeft,
-                "text": i18n("Top")
-            }, {
-                "value": Qt.AlignVCenter,
-                "text": i18n("Center")
-            }, {
-                "value": Qt.AlignBottom,
-                "text": i18n("Bottom")
-            }, {
-                "value": Qt.AlignBaseline,
-                "text": i18n("Baseline")
-            }]
+            model: [
+                {
+                    "value": Qt.AlignLeft,
+                    "text": i18n("Top")
+                },
+                {
+                    "value": Qt.AlignVCenter,
+                    "text": i18n("Center")
+                },
+                {
+                    "value": Qt.AlignBottom,
+                    "text": i18n("Bottom")
+                },
+                {
+                    "value": Qt.AlignBaseline,
+                    "text": i18n("Baseline")
+                }
+            ]
         }
 
         ComboBox {
@@ -214,16 +227,20 @@ You can install more of regular Aurorae themes for window decorations in System 
             textRole: "text"
             valueRole: "value"
             Kirigami.FormData.label: i18n("Show disabled elements:")
-            model: [{
-                "value": WidgetElement.DisabledMode.Deactivated,
-                "text": i18n("Deactivated")
-            }, {
-                "value": WidgetElement.DisabledMode.HideKeepSpace,
-                "text": i18n("Hide, keep space")
-            }, {
-                "value": WidgetElement.DisabledMode.Hide,
-                "text": i18n("Hide")
-            }]
+            model: [
+                {
+                    "value": WidgetElement.DisabledMode.Deactivated,
+                    "text": i18n("Deactivated")
+                },
+                {
+                    "value": WidgetElement.DisabledMode.HideKeepSpace,
+                    "text": i18n("Hide, keep space")
+                },
+                {
+                    "value": WidgetElement.DisabledMode.Hide,
+                    "text": i18n("Hide")
+                }
+            ]
         }
 
         CheckBox {
@@ -235,7 +252,7 @@ You can install more of regular Aurorae themes for window decorations in System 
         WidgetElements {
             id: widgetElements
 
-            Component.onCompleted: function() {
+            Component.onCompleted: function () {
                 model.ignoreInsertEvent = true;
                 for (var i = 0; i < cfg_widgetElements.length; i++) {
                     model.append({
@@ -259,10 +276,10 @@ You can install more of regular Aurorae themes for window decorations in System 
                 onRowsRemoved: updateConfigFromModel()
                 onRowsInserted: ignoreInsertEvent || updateConfigFromModel()
             }
-
         }
 
         ComboBox {
+
             // ListElement {
             //     name: "Show on all desktops button"
             //     value: "windowAllDesktopsButton"
@@ -284,7 +301,7 @@ You can install more of regular Aurorae themes for window decorations in System 
             textRole: "name"
             valueRole: "value"
             displayText: currentText ? i18n(currentText) : ""
-            onCurrentValueChanged: function() {
+            onCurrentValueChanged: function () {
                 if (currentValue) {
                     widgetElements.model.append({
                         "value": currentValue
@@ -342,9 +359,7 @@ You can install more of regular Aurorae themes for window decorations in System 
                     name: "Spacer"
                     value: "spacer"
                 }
-
             }
-
         }
 
         Kirigami.Separator {
@@ -454,9 +469,6 @@ You can install more of regular Aurorae themes for window decorations in System 
                 from: 0
                 to: 64
             }
-
         }
-
     }
-
 }
