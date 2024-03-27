@@ -108,6 +108,7 @@
             <choices>
                 <choice name="ActiveTask" />
                 <choice name="LastActiveTask" />
+                <choice name="LastActiveMaximized" />
             </choices>
             <default>0</default>
         </entry>

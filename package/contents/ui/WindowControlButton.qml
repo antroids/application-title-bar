@@ -331,86 +331,13 @@ Item {
     Component {
         id: fallbackButtonIcon
 
-        Item {
-            anchors.fill: parent
-
-            Kirigami.Icon {
-                id: icon
-
-                anchors.fill: parent
-                source: fallbackIcon
-            }
-
-            MultiEffect {
-                id: iconEffects
-
-                anchors.fill: source
-                source: icon
-                blurEnabled: true
-                blurMax: 8
-                states: [
-                    State {
-                        name: "hover"
-                        when: isHoveredButtonState(button.iconState)
-
-                        PropertyChanges {
-                            target: iconEffects
-                            brightness: 0.8
-                            blur: 4
-                        }
-
-                    },
-                    State {
-                        name: "pressed"
-                        when: isPressedButtonState(button.iconState)
-
-                        PropertyChanges {
-                            target: iconEffects
-                            brightness: 0.6
-                            blur: 4
-                        }
-
-                    },
-                    State {
-                        name: "toggled"
-                        when: isToggledButtonState(button.iconState)
-
-                        PropertyChanges {
-                            target: iconEffects
-                            brightness: 0.6
-                            blur: 4
-                        }
-
-                    },
-                    State {
-                        name: "deactivated"
-                        when: isDeactivatedButtonState(button.iconState)
-
-                        PropertyChanges {
-                            target: iconEffects
-                            brightness: -0.5
-                            saturation: -1
-                        }
-
-                    }
-                ]
-
-                Behavior on blur {
-                    NumberAnimation {
-                        duration: button.animationDuration
-                    }
-
-                }
-
-                Behavior on brightness {
-                    NumberAnimation {
-                        duration: button.animationDuration
-                    }
-
-                }
-
-            }
-
+        PlasmaWindowControlButtonIcon {
+            source: fallbackIcon
+            hovered: isHoveredButtonState(button.iconState)
+            toggled: isToggledButtonState(button.iconState)
+            pressed: isPressedButtonState(button.iconState)
+            active: isActiveButtonState(button.iconState)
+            enabled: !isDeactivatedButtonState(button.iconState)
         }
 
     }

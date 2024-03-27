@@ -72,11 +72,11 @@ KCM.SimpleKCM {
             ComboBox {
                 id: widgetActiveTaskSource
 
-                model: [i18n("Active task"), i18n("Last active task")]
+                model: [i18n("Active task"), i18n("Last active task"), i18n("Last active maximized task")]
             }
 
             KCM.ContextualHelpButton {
-                toolTipText: i18n("<p>How to obtain the active task from tasks manager: <br><b>Active task</b>: current active task after filtering. The widget will be disabled if the current active task is on another screen, regardless whether there are another tasks on this screen or not.<br/><b>Last active task</b>: show widget for the last active task after filters applied.</p>")
+                toolTipText: i18n("<p>How to obtain the active task from tasks manager: <br><b>Active task</b>: current active task after filtering. The widget will be disabled if the current active task is on another screen, regardless whether there are another tasks on this screen or not.<br/><b>Last active task</b>: show widget for the last active task after filters applied.<br/><b>Last active maximized task</b>: show widget for the last active maximized task after filters applied.</p>")
             }
 
         }
@@ -117,6 +117,7 @@ KCM.SimpleKCM {
         CheckBox {
             id: widgetActiveTaskFilterNotMaximized
 
+            enabled: widgetActiveTaskSource.currentIndex !== ActiveTasksModel.ActiveTaskSource.LastActiveMaximized
             Kirigami.FormData.label: i18n("Disable for not maximized:")
             text: i18n("enabled")
         }

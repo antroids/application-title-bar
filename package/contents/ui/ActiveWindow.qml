@@ -41,6 +41,7 @@ QtObject {
     property bool fullScreenable: false
     property bool fullScreen: false
     property bool resizable: false
+    property bool active: false
     property var appName
     property var genericAppName
     property var decoration

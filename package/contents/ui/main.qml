@@ -169,6 +169,7 @@ PlasmoidItem {
             }
             enabled: tasksModel.hasActiveWindow && tasksModel.activeWindow.actionSupported(getAction())
             toggled: tasksModel.hasActiveWindow && tasksModel.activeWindow.buttonToggled(modelData.windowControlButtonType)
+            active: tasksModel.hasActiveWindow && tasksModel.activeWindow.active
         }
 
     }

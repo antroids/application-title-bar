@@ -11,7 +11,8 @@ TaskManager.TasksModel {
 
     enum ActiveTaskSource {
         ActiveTask,
-        LastActiveTask
+        LastActiveTask,
+        LastActiveMaximized
     }
 
     property ActiveWindow activeWindow
@@ -35,6 +36,7 @@ TaskManager.TasksModel {
             activeTaskIndex = filterTask(activeTask) ? activeTask : getInvalidIndex();
             break;
         case ActiveTasksModel.ActiveTaskSource.LastActiveTask:
+        case ActiveTasksModel.ActiveTaskSource.LastActiveMaximized:
             activeTaskIndex = hasIndex(0, 0) && filterTask(getFirstRowIndex()) ? getFirstRowIndex() : getInvalidIndex();
             break;
         }
@@ -59,6 +61,7 @@ TaskManager.TasksModel {
     filterByVirtualDesktop: plasmoid.configuration.widgetActiveTaskFilterByVirtualDesktop
     filterHidden: true
     filterMinimized: true
+    filterNotMaximized: plasmoid.configuration.widgetActiveTaskSource == ActiveTasksModel.ActiveTaskSource.LastActiveMaximized
     onDataChanged: function(from, to, roles) {
         if (hasActiveWindow && activeTaskIndex >= from && activeTaskIndex <= to)
             updateActiveTaskIndex();
@@ -95,6 +98,7 @@ TaskManager.TasksModel {
             fullScreenable = tasksModel.data(activeTaskIndex, TaskManager.AbstractTasksModel.IsFullScreenable) || false;
             fullScreen = tasksModel.data(activeTaskIndex, TaskManager.AbstractTasksModel.IsFullScreen) || false;
             resizable = tasksModel.data(activeTaskIndex, TaskManager.AbstractTasksModel.IsResizable) || false;
+            active = tasksModel.data(activeTaskIndex, TaskManager.AbstractTasksModel.IsActive) || false;
             appName = tasksModel.data(activeTaskIndex, TaskManager.AbstractTasksModel.AppName);
             genericAppName = tasksModel.data(activeTaskIndex, TaskManager.AbstractTasksModel.GenericAppName);
             decoration = tasksModel.data(activeTaskIndex, TaskManager.AbstractTasksModel.Decoration);
