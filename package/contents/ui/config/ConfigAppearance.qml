@@ -52,6 +52,14 @@ KCM.SimpleKCM {
             onAuroraeThemesChanged: widgetButtonsAuroraeTheme.updateCurrentIndex()
         }
 
+        Kirigami.InlineMessage {
+            anchors.left: parent.left
+            anchors.right: parent.right
+            text: kWinConfig.lastError
+            type: Kirigami.MessageType.Error
+            visible: kWinConfig.lastError !== ""
+        }
+
         Kirigami.Separator {
             Kirigami.FormData.isSection: true
             Kirigami.FormData.label: i18n("Window Control Buttons")

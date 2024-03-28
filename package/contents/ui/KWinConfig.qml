@@ -12,23 +12,30 @@ Item {
     id: kWinConfig
 
     readonly property string auroraeThemesPath: "aurorae/themes/"
-    readonly property string reconfigureCommand: "qdbus org.kde.KWin /KWin reconfigure"
     readonly property string setBorderlessMaximizedWindowsCommand: "kwriteconfig6 --file kwinrc --group Windows --key BorderlessMaximizedWindows "
     readonly property string getBorderlessMaximizedWindowsCommand: "kreadconfig6 --file kwinrc --group Windows --key BorderlessMaximizedWindows --default false"
-    readonly property string getAllKWinShortcutNamesCommand: "qdbus org.kde.kglobalaccel /component/kwin org.kde.kglobalaccel.Component.shortcutNames"
-    readonly property string invokeKWinShortcutCommand: "qdbus org.kde.kglobalaccel /component/kwin org.kde.kglobalaccel.Component.invokeShortcut "
+    readonly property string checkQdbusApplicationNameCommand: "if command -v qdbus > /dev/null; then echo qdbus; elif command -v qdbus6 > /dev/null; then echo qdbus6; else exit 1; fi"
+    property string reconfigureCommand: qdbusApplicationName + " org.kde.KWin /KWin reconfigure"
+    property string getAllKWinShortcutNamesCommand: qdbusApplicationName + " org.kde.kglobalaccel /component/kwin org.kde.kglobalaccel.Component.shortcutNames"
+    property string invokeKWinShortcutCommand: qdbusApplicationName + " org.kde.kglobalaccel /component/kwin org.kde.kglobalaccel.Component.invokeShortcut "
     property var borderlessMaximizedWindows
     property var callbacksOnExited: []
     property var auroraeThemesLocations: StandardPaths.locateAll(StandardPaths.GenericDataLocation, auroraeThemesPath, StandardPaths.LocateDirectory)
     property ListModel auroraeThemes
     property var shortcutNames: []
+    property string qdbusApplicationName: "qdbus"
+    property string lastError: ""
 
     function setBorderlessMaximizedWindows(val) {
         let cmd = setBorderlessMaximizedWindowsCommand + val + " && " + reconfigureCommand + " && " + getBorderlessMaximizedWindowsCommand;
         callbacksOnExited.push({
             "cmd": cmd,
-            "callback": function(cmd, exitCode, exitStatus, stdout, stderr) {
-                borderlessMaximizedWindows = stdout.trim() == "true";
+            "callback": function (cmd, exitCode, exitStatus, stdout, stderr) {
+                if (exitCode == 0) {
+                    borderlessMaximizedWindows = stdout.trim() == "true";
+                } else {
+                    lastError = "Unable to update set BorderlessMaximizedWindows status: '" + stderr + "'";
+                }
             }
         });
         executable.exec(cmd);
@@ -38,8 +45,12 @@ Item {
         let cmd = getBorderlessMaximizedWindowsCommand;
         callbacksOnExited.push({
             "cmd": cmd,
-            "callback": function(cmd, exitCode, exitStatus, stdout, stderr) {
-                borderlessMaximizedWindows = stdout.trim() == "true";
+            "callback": function (cmd, exitCode, exitStatus, stdout, stderr) {
+                if (exitCode == 0) {
+                    borderlessMaximizedWindows = stdout.trim() == "true";
+                } else {
+                    lastError = "Unable to update get BorderlessMaximizedWindows status: '" + stderr + "'";
+                }
             }
         });
         executable.exec(cmd);
@@ -65,8 +76,12 @@ Item {
         let cmd = getAllKWinShortcutNamesCommand;
         callbacksOnExited.push({
             "cmd": cmd,
-            "callback": function(cmd, exitCode, exitStatus, stdout, stderr) {
-                shortcutNames = stdout.trim().split(/\r?\n/).sort();
+            "callback": function (cmd, exitCode, exitStatus, stdout, stderr) {
+                if (exitCode == 0) {
+                    shortcutNames = stdout.trim().split(/\r?\n/).sort();
+                } else {
+                    lastError = "Unable to update KWin shortcuts: '" + stderr + "'";
+                }
             }
         });
         executable.exec(cmd);
@@ -81,13 +96,36 @@ Item {
             print("Error: shortcut '" + trimmedShortcut + "' not found in the list!");
     }
 
+    function updateQdbusApplicationName() {
+        let cmd = checkQdbusApplicationNameCommand;
+        callbacksOnExited.push({
+            "cmd": cmd,
+            "callback": function (cmd, exitCode, exitStatus, stdout, stderr) {
+                if (exitCode == 0) {
+                    qdbusApplicationName = stdout.trim();
+                    qdbusApplicationNameChanged();
+                } else {
+                    lastError = "Unable to find QDbus command";
+                }
+            }
+        });
+        executable.exec(cmd);
+    }
+
+    function clearLastError() {
+        lastError = "";
+    }
+
     ExecutableDataSource {
         id: executable
     }
 
     Connections {
         function onExited(cmd, exitCode, exitStatus, stdout, stderr) {
-            //print("onExited: cmd: " + cmd + "; stdout: " + stdout + "; stderr: " + stderr);
+            //print("onExited: cmd: " + cmd + "; exitCode:" + exitCode + "; stdout: " + stdout + "; stderr: " + stderr);
+            if (exitCode == 0) {
+                clearLastError();
+            }
             for (var i = 0; i < callbacksOnExited.length; i++) {
                 if (callbacksOnExited[i].cmd === cmd) {
                     callbacksOnExited[i].callback(cmd, exitCode, exitStatus, stdout, stderr);
@@ -120,12 +158,18 @@ Item {
                 required property string fileName
                 required property string filePath
             }
-
         }
-
     }
 
     auroraeThemes: ListModel {
     }
 
+    Component.onCompleted: function () {
+        updateQdbusApplicationName();
+    }
+
+    onQdbusApplicationNameChanged: function () {
+        updateBorderlessMaximizedWindows();
+        updateKWinShortcutNames();
+    }
 }

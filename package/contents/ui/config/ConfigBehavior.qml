@@ -48,10 +48,6 @@ KCM.SimpleKCM {
         KWinConfig {
             id: kWinConfig
 
-            Component.onCompleted: function() {
-                updateBorderlessMaximizedWindows();
-                updateKWinShortcutNames();
-            }
             onBorderlessMaximizedWindowsChanged: {
                 borderlessMaximizedWindowsCheckBox.checked = borderlessMaximizedWindows;
                 borderlessMaximizedWindowsCheckBox.enabled = true;
@@ -66,6 +62,14 @@ KCM.SimpleKCM {
             visible: Utils.isX11()
         }
 
+        Kirigami.InlineMessage {
+            anchors.left: parent.left
+            anchors.right: parent.right
+            text: kWinConfig.lastError
+            type: Kirigami.MessageType.Error
+            visible: kWinConfig.lastError !== ""
+        }
+
         RowLayout {
             Kirigami.FormData.label: i18n("Active task source:")
 
@@ -78,7 +82,6 @@ KCM.SimpleKCM {
             KCM.ContextualHelpButton {
                 toolTipText: i18n("<p>How to obtain the active task from tasks manager: <br><b>Active task</b>: current active task after filtering. The widget will be disabled if the current active task is on another screen, regardless whether there are another tasks on this screen or not.<br/><b>Last active task</b>: show widget for the last active task after filters applied.<br/><b>Last active maximized task</b>: show widget for the last active maximized task after filters applied.</p>")
             }
-
         }
 
         CheckBox {
@@ -87,7 +90,7 @@ KCM.SimpleKCM {
             Kirigami.FormData.label: i18n("Borderless maximized windows:")
             text: i18n("enabled")
             enabled: false
-            onToggled: function() {
+            onToggled: function () {
                 enabled = false;
                 kWinConfig.setBorderlessMaximizedWindows(checked);
             }
@@ -293,7 +296,5 @@ KCM.SimpleKCM {
             initialValue: cfg_widgetMouseAreaWheelRightAction
             onActivated: cfg_widgetMouseAreaWheelRightAction = currentValue
         }
-
     }
-
 }

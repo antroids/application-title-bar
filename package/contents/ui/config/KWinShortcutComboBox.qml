@@ -15,20 +15,23 @@ ComboBox {
     property var initialValue
 
     function updateCurrentIndex() {
+        enabled = model.length > 1;
         currentIndex = indexOfValue(initialValue);
     }
 
     Component.onCompleted: updateCurrentIndex()
     onModelChanged: updateCurrentIndex()
     Kirigami.FormData.label: label
-    model: [{
-        "shortcut": "",
-        "truncatedName": " "
-    }].concat(kWinConfig.shortcutNames.map((shortcut) => {
+    model: [
+        {
+            "shortcut": "",
+            "truncatedName": " "
+        }
+    ].concat(kWinConfig.shortcutNames.map(shortcut => {
         return ({
-            "shortcut": shortcut,
-            "truncatedName": Utils.truncateString(shortcut, 40)
-        });
+                "shortcut": shortcut,
+                "truncatedName": Utils.truncateString(shortcut, 40)
+            });
     }))
     valueRole: "shortcut"
     textRole: "truncatedName"
