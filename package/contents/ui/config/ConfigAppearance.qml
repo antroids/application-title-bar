@@ -39,7 +39,9 @@ KCM.SimpleKCM {
     property alias cfg_windowTitleMarginsTop: windowTitleMarginsTop.value
     property alias cfg_windowTitleMarginsBottom: windowTitleMarginsBottom.value
     property alias cfg_windowTitleMarginsRight: windowTitleMarginsRight.value
-    property var cfg_widgetElements
+    property alias cfg_widgetElements: widgetElements.elements
+    property alias cfg_overrideElementsMaximized: overrideElementsMaximized.checked
+    property alias cfg_widgetElementsMaximized: widgetElementsMaximized.elements
 
     Kirigami.FormLayout {
         anchors.left: parent.left
@@ -260,55 +262,10 @@ You can install more of regular Aurorae themes for window decorations in System 
         WidgetElements {
             id: widgetElements
 
-            Component.onCompleted: function () {
-                model.ignoreInsertEvent = true;
-                for (var i = 0; i < cfg_widgetElements.length; i++) {
-                    model.append({
-                        "value": cfg_widgetElements[i]
-                    });
-                }
-                model.ignoreInsertEvent = false;
-            }
-
-            model: ListModel {
-                property bool ignoreInsertEvent: false
-
-                function updateConfigFromModel() {
-                    cfg_widgetElements = [];
-                    for (var i = 0; i < count; i++) {
-                        cfg_widgetElements.push(get(i).value);
-                    }
-                }
-
-                onRowsMoved: updateConfigFromModel()
-                onRowsRemoved: updateConfigFromModel()
-                onRowsInserted: ignoreInsertEvent || updateConfigFromModel()
-            }
+            Kirigami.FormData.label: i18n("Elements:")
         }
 
-        ComboBox {
-
-            // ListElement {
-            //     name: "Show on all desktops button"
-            //     value: "windowAllDesktopsButton"
-            // }
-            // ListElement {
-            //     name: "Window application menu button"
-            //     value: "windowAppMenuButton"
-            // }
-            // ListElement {
-            //     name: "Window help button"
-            //     value: "windowHelpButton"
-            // }
-            // ListElement {
-            //     name: "Window menu button"
-            //     value: "windowMenuButton"
-            // }
-
-            Kirigami.FormData.label: i18n("Add element:")
-            textRole: "name"
-            valueRole: "value"
-            displayText: currentText ? i18n(currentText) : ""
+        AddWidgetElement {
             onCurrentValueChanged: function () {
                 if (currentValue) {
                     widgetElements.model.append({
@@ -317,55 +274,35 @@ You can install more of regular Aurorae themes for window decorations in System 
                     currentIndex = 0;
                 }
             }
+        }
 
-            model: ListModel {
-                ListElement {
-                    name: "Select..."
-                }
+        Kirigami.Separator {
+            Kirigami.FormData.isSection: true
+            Kirigami.FormData.label: i18n("Override widget elements for maximized windows")
+        }
 
-                ListElement {
-                    name: "Window close button"
-                    value: "windowCloseButton"
-                }
+        CheckBox {
+            id: overrideElementsMaximized
 
-                ListElement {
-                    name: "Window minimize button"
-                    value: "windowMinimizeButton"
-                }
+            text: i18n("override")
+        }
 
-                ListElement {
-                    name: "Window maximize button"
-                    value: "windowMaximizeButton"
-                }
+        WidgetElements {
+            id: widgetElementsMaximized
 
-                ListElement {
-                    name: "Keep window above button"
-                    value: "windowKeepAboveButton"
-                }
+            Kirigami.FormData.label: i18n("Elements:")
+            enabled: overrideElementsMaximized.checked
+        }
 
-                ListElement {
-                    name: "Keep window below button"
-                    value: "windowKeepBelowButton"
-                }
+        AddWidgetElement {
+            enabled: overrideElementsMaximized.checked
 
-                ListElement {
-                    name: "Shade window button"
-                    value: "windowShadeButton"
-                }
-
-                ListElement {
-                    name: "Window title"
-                    value: "windowTitle"
-                }
-
-                ListElement {
-                    name: "Window Icon"
-                    value: "windowIcon"
-                }
-
-                ListElement {
-                    name: "Spacer"
-                    value: "spacer"
+            onCurrentValueChanged: function () {
+                if (currentValue) {
+                    widgetElementsMaximized.model.append({
+                        "value": currentValue
+                    });
+                    currentIndex = 0;
                 }
             }
         }

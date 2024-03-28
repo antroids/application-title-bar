@@ -18,18 +18,49 @@ RowLayout {
 
     property alias model: sortableItemsRow.model
     property var iconSize: Kirigami.Units.iconSizes.medium
+    property var elements: []
+
+    Kirigami.Theme.colorSet: Kirigami.Theme.View
+    Kirigami.Theme.inherit: false
 
     Layout.fillWidth: true
-    Kirigami.FormData.label: i18n("Elements:")
     Layout.preferredWidth: Kirigami.Units.gridUnit * 21
+    spacing: 0
+
+    Component.onCompleted: function () {
+        model.ignoreInsertEvent = true;
+        for (var i = 0; i < elements.length; i++) {
+            model.append({
+                "value": elements[i]
+            });
+        }
+        model.ignoreInsertEvent = false;
+    }
+
+    model: ListModel {
+        property bool ignoreInsertEvent: false
+
+        function updateConfigFromModel() {
+            elements = [];
+            for (var i = 0; i < count; i++) {
+                elements.push(get(i).value);
+            }
+        }
+
+        onRowsMoved: updateConfigFromModel()
+        onRowsRemoved: updateConfigFromModel()
+        onRowsInserted: ignoreInsertEvent || updateConfigFromModel()
+    }
 
     Rectangle {
         z: 1
-        border.color: Kirigami.Theme.textColor
-        color: Kirigami.Theme.activeBackgroundColor
+        border.color: Kirigami.Theme.disabledTextColor
+        color: Kirigami.Theme.backgroundColor
         height: Kirigami.Units.iconSizes.medium
         Layout.alignment: Qt.AlignLeft
         Layout.fillWidth: true
+        Layout.margins: 1
+        radius: 2
 
         SortableItemsRow {
             id: sortableItemsRow
@@ -126,11 +157,13 @@ RowLayout {
         id: elementRemoveArea
 
         z: 0
-        border.color: Kirigami.Theme.textColor
+        border.color: Kirigami.Theme.disabledTextColor
         color: Kirigami.Theme.negativeBackgroundColor
         height: Kirigami.Units.iconSizes.medium
         width: Kirigami.Units.iconSizes.medium
         Layout.alignment: Qt.AlignLeft
+        Layout.margins: 1
+        radius: 2
 
         Kirigami.Icon {
             anchors.fill: parent

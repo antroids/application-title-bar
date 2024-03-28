@@ -103,6 +103,7 @@ PlasmoidItem {
             id: widgetElementLoader
 
             required property var modelData
+            property bool repeaterVisible: false
 
             onLoaded: function () {
                 Utils.copyLayoutConstraint(item, widgetElementLoader);
@@ -123,7 +124,7 @@ PlasmoidItem {
 
             Binding {
                 when: status === Loader.Ready
-                widgetElementLoader.visible: plasmoid.configuration.widgetElementsDisabledMode === WidgetElement.DisabledMode.Hide ? item.enabled : true
+                widgetElementLoader.visible: repeaterVisible && (plasmoid.configuration.widgetElementsDisabledMode === WidgetElement.DisabledMode.Hide ? item.enabled : true)
             }
 
             Binding {
@@ -323,8 +324,7 @@ PlasmoidItem {
         }
 
         Repeater {
-            id: titleBarList
-
+            id: widgetElementsRepeater
             property var elements: plasmoid.configuration.widgetElements
 
             onElementsChanged: function () {
@@ -336,6 +336,32 @@ PlasmoidItem {
             }
             model: []
             delegate: widgetElementLoaderDelegate
+            visible: !plasmoid.configuration.overrideElementsMaximized || !tasksModel.activeWindow.maximized
+            onItemAdded: function (index, item) {
+                item.repeaterVisible = Qt.binding(function () {
+                    return visible;
+                });
+            }
+        }
+
+        Repeater {
+            property var elements: plasmoid.configuration.overrideElementsMaximized ? plasmoid.configuration.widgetElementsMaximized : []
+
+            onElementsChanged: function () {
+                let array = [];
+                for (var i = 0; i < elements.length; i++) {
+                    array.push(Utils.widgetElementModelFromName(elements[i]));
+                }
+                model = array;
+            }
+            model: []
+            delegate: widgetElementLoaderDelegate
+            visible: !widgetElementsRepeater.visible
+            onItemAdded: function (index, item) {
+                item.repeaterVisible = Qt.binding(function () {
+                    return visible;
+                });
+            }
         }
     }
 }
