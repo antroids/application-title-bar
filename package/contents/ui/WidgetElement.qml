@@ -20,5 +20,4 @@ QtObject {
         HideKeepSpace,
         Hide
     }
-
 }

@@ -16,15 +16,15 @@ WheelHandler {
     property int nextEventDistance: cfg.widgetMouseAreaWheelNextEventDistance
 
     signal invokeKWinShortcut(string shortcut)
-    signal wheelUp()
-    signal wheelDown()
-    signal wheelLeft()
-    signal wheelRight()
+    signal wheelUp
+    signal wheelDown
+    signal wheelLeft
+    signal wheelRight
 
     enabled: cfg.widgetMouseAreaWheelEnabled
     target: null
     acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
-    onActiveChanged: function() {
+    onActiveChanged: function () {
         if (!active) {
             verticalRotation = 0;
             horizontalRotation = 0;
@@ -32,7 +32,7 @@ WheelHandler {
             firstVerticalEvent = true;
         }
     }
-    onWheel: function(wheelEvent) {
+    onWheel: function (wheelEvent) {
         let dx = wheelEvent.angleDelta.x;
         let dy = wheelEvent.angleDelta.y;
         if (orientation == Qt.Horizontal) {
@@ -67,24 +67,20 @@ WheelHandler {
             }
         }
     }
-    onWheelUp: function() {
+    onWheelUp: function () {
         if (cfg.widgetMouseAreaWheelUpAction != "")
             invokeKWinShortcut(cfg.widgetMouseAreaWheelUpAction);
-
     }
-    onWheelDown: function() {
+    onWheelDown: function () {
         if (cfg.widgetMouseAreaWheelDownAction != "")
             invokeKWinShortcut(cfg.widgetMouseAreaWheelDownAction);
-
     }
-    onWheelLeft: function() {
+    onWheelLeft: function () {
         if (cfg.widgetMouseAreaWheelLeftAction != "")
             invokeKWinShortcut(cfg.widgetMouseAreaWheelLeftAction);
-
     }
-    onWheelRight: function() {
+    onWheelRight: function () {
         if (cfg.widgetMouseAreaWheelRightAction != "")
             invokeKWinShortcut(cfg.widgetMouseAreaWheelRightAction);
-
     }
 }

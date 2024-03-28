@@ -88,5 +88,4 @@ QtObject {
             return false;
         }
     }
-
 }

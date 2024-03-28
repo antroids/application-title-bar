@@ -155,14 +155,11 @@ Canvas {
     function mixColors(c1, c2, bias) {
         if (bias <= 0)
             return c1;
-
         if (bias >= 1)
             return c2;
-
         let a = mix(c1.a, c2.a, bias);
         if (a <= 0)
             return Qt.rgba(0, 0, 0, 0);
-
         let r = bound(0, mix(c1.r * c1.a, c2.r * c2.a, bias), 1) / a;
         let g = bound(0, mix(c1.g * c1.a, c2.g * c2.a, bias), 1) / a;
         let b = bound(0, mix(c1.b * c1.a, c2.b * c2.a, bias), 1) / a;
@@ -211,7 +208,7 @@ Canvas {
     onForegroundWarningColorChanged: requestPaint()
     anchors.fill: parent
     antialiasing: true
-    onPaint: function() {
+    onPaint: function () {
         var ctx = getContext("2d");
         drawIcon(ctx);
     }

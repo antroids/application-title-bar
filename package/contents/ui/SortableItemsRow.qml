@@ -31,7 +31,7 @@ Item {
                 DropArea {
                     anchors.fill: parent
                     anchors.margins: 5
-                    onEntered: (drag) => {
+                    onEntered: drag => {
                         listItemsRepeater.model.move(drag.source.DelegateModel.itemsIndex, dragArea.DelegateModel.itemsIndex, 1);
                     }
                 }
@@ -62,13 +62,9 @@ Item {
                             horizontalCenter: undefined
                             verticalCenter: undefined
                         }
-
                     }
-
                 }
-
             }
-
         }
 
         Repeater {
@@ -76,7 +72,5 @@ Item {
 
             delegate: listItemDelegate
         }
-
     }
-
 }

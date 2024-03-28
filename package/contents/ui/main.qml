@@ -30,10 +30,9 @@ PlasmoidItem {
     Plasmoid.constraintHints: Plasmoid.CanFillArea
     Layout.fillWidth: plasmoid.configuration.widgetFillWidth
     preferredRepresentation: fullRepresentation
-    onInvokeKWinShortcut: function(shortcut) {
+    onInvokeKWinShortcut: function (shortcut) {
         if (tasksModel.hasActiveWindow)
             tasksModel.activeWindow.actionCall(ActiveWindow.Action.Activate);
-
         kWinConfig.invokeKWinShortcut(shortcut);
     }
     Plasmoid.contextualActions: [
@@ -105,7 +104,7 @@ PlasmoidItem {
 
             required property var modelData
 
-            onLoaded: function() {
+            onLoaded: function () {
                 Utils.copyLayoutConstraint(item, widgetElementLoader);
                 item.modelData = modelData;
             }
@@ -144,9 +143,7 @@ PlasmoidItem {
                 property: "visible"
                 value: itemVisible(item.enabled)
             }
-
         }
-
     }
 
     Component {
@@ -164,14 +161,13 @@ PlasmoidItem {
             themeName: plasmoid.configuration.widgetButtonsAuroraeTheme
             iconTheme: plasmoid.configuration.widgetButtonsIconsTheme
             animationDuration: plasmoid.configuration.widgetButtonsAnimation
-            onActionCall: (action) => {
+            onActionCall: action => {
                 return tasksModel.activeWindow.actionCall(action);
             }
             enabled: tasksModel.hasActiveWindow && tasksModel.activeWindow.actionSupported(getAction())
             toggled: tasksModel.hasActiveWindow && tasksModel.activeWindow.buttonToggled(modelData.windowControlButtonType)
             active: tasksModel.hasActiveWindow && tasksModel.activeWindow.active
         }
-
     }
 
     Component {
@@ -211,9 +207,7 @@ PlasmoidItem {
                     invokeKWinShortcut.connect(root.invokeKWinShortcut);
                 }
             }
-
         }
-
     }
 
     Component {
@@ -228,7 +222,6 @@ PlasmoidItem {
             color: "transparent"
             enabled: tasksModel.hasActiveWindow
         }
-
     }
 
     Component {
@@ -296,9 +289,7 @@ PlasmoidItem {
                     invokeKWinShortcut.connect(root.invokeKWinShortcut);
                 }
             }
-
         }
-
     }
 
     PlasmaCore.ToolTipArea {
@@ -336,7 +327,7 @@ PlasmoidItem {
 
             property var elements: plasmoid.configuration.widgetElements
 
-            onElementsChanged: function() {
+            onElementsChanged: function () {
                 let array = [];
                 for (var i = 0; i < elements.length; i++) {
                     array.push(Utils.widgetElementModelFromName(elements[i]));
@@ -346,7 +337,5 @@ PlasmoidItem {
             model: []
             delegate: widgetElementLoaderDelegate
         }
-
     }
-
 }

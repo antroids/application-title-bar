@@ -46,10 +46,8 @@ TaskManager.TasksModel {
     function filterTask(index) {
         if (!index || !index.valid)
             return false;
-
         if (plasmoid.configuration.widgetActiveTaskFilterNotMaximized)
             return tasksModel.data(index, TaskManager.AbstractTasksModel.IsMaximized) || false;
-
         return true;
     }
 
@@ -62,7 +60,7 @@ TaskManager.TasksModel {
     filterHidden: true
     filterMinimized: true
     filterNotMaximized: plasmoid.configuration.widgetActiveTaskSource == ActiveTasksModel.ActiveTaskSource.LastActiveMaximized
-    onDataChanged: function(from, to, roles) {
+    onDataChanged: function (from, to, roles) {
         if (hasActiveWindow && activeTaskIndex >= from && activeTaskIndex <= to)
             updateActiveTaskIndex();
         else if (!hasActiveWindow && getFirstRowIndex() >= from && getFirstRowIndex() <= to)
@@ -105,7 +103,7 @@ TaskManager.TasksModel {
             icon = tasksModel.data(activeTaskIndex, Qt.DecorationRole);
         }
 
-        onActionCall: function(action) {
+        onActionCall: function (action) {
             switch (action) {
             case ActiveWindow.Action.Close:
                 return tasksModel.requestClose(activeTaskIndex);
@@ -130,5 +128,4 @@ TaskManager.TasksModel {
             }
         }
     }
-
 }

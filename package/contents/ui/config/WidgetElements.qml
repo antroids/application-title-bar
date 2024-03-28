@@ -46,7 +46,7 @@ RowLayout {
                     property var modelData
                     property var elementModel: Utils.widgetElementModelFromName(modelData)
 
-                    onLoaded: function() {
+                    onLoaded: function () {
                         item.modelData = elementModel;
                     }
                     sourceComponent: {
@@ -62,7 +62,6 @@ RowLayout {
                         }
                     }
                 }
-
             }
 
             Component {
@@ -78,7 +77,6 @@ RowLayout {
                     buttonType: modelData.windowControlButtonType
                     mouseAreaEnabled: false
                 }
-
             }
 
             Component {
@@ -96,7 +94,6 @@ RowLayout {
                     height: widgetElements.iconSize
                     width: widgetElements.iconSize
                 }
-
             }
 
             Component {
@@ -109,7 +106,6 @@ RowLayout {
                     height: widgetElements.iconSize
                     width: widgetElements.iconSize
                 }
-
             }
 
             Component {
@@ -122,11 +118,8 @@ RowLayout {
                     height: widgetElements.iconSize
                     width: widgetElements.iconSize / 2
                 }
-
             }
-
         }
-
     }
 
     Rectangle {
@@ -151,13 +144,12 @@ RowLayout {
 
             anchors.fill: parent
             anchors.margins: 5
-            onEntered: (dragEvent) => {
+            onEntered: dragEvent => {
                 dragSource = dragEvent.source;
             }
             onExited: () => {
                 if (dragSource && !dragSource.pressed)
                     widgetElements.model.remove(dragSource.DelegateModel.itemsIndex);
-
                 dragSource = undefined;
             }
 
@@ -167,11 +159,7 @@ RowLayout {
                 PropertyChanges {
                     elementRemoveArea.border.color: "red"
                 }
-
             }
-
         }
-
     }
-
 }

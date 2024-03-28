@@ -50,7 +50,6 @@ Item {
                 radiusY: height / 2
                 useLargeArc: true
             }
-
         }
 
         RadialGradient {
@@ -71,16 +70,13 @@ Item {
                 position: 1
                 color: "transparent"
             }
-
         }
 
         Behavior on opacity {
             NumberAnimation {
                 duration: button.animationDuration
             }
-
         }
-
     }
 
     Kirigami.Icon {
@@ -102,16 +98,12 @@ Item {
             NumberAnimation {
                 duration: button.animationDuration
             }
-
         }
 
         Behavior on brightness {
             NumberAnimation {
                 duration: button.animationDuration
             }
-
         }
-
     }
-
 }

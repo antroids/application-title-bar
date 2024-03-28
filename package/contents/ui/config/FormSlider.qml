@@ -14,7 +14,7 @@ RowLayout {
     anchors.right: parent.right
 
     property var text: ""
-    property var from: 0 
+    property var from: 0
     property var to: 100
     property var stepSize: 1
     property alias value: slider.value
@@ -41,5 +41,7 @@ RowLayout {
         to: parent.to
     }
 
-    Binding { slider.value: spin.value }
+    Binding {
+        slider.value: spin.value
+    }
 }

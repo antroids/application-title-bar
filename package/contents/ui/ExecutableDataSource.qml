@@ -14,12 +14,11 @@ P5Support.DataSource {
     function exec(cmd) {
         if (cmd)
             connectSource(cmd);
-
     }
 
     engine: "executable"
     connectedSources: []
-    onNewData: function(sourceName, data) {
+    onNewData: function (sourceName, data) {
         var exitCode = data["exit code"];
         var exitStatus = data["exit status"];
         var stdout = data["stdout"];
