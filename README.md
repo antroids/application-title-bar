@@ -28,22 +28,17 @@ Disadvantages of pure QML widget:
 * Different theming options. Internal Breeze icons, System icons and Aurorae theme.
 * Configurable layout and geometry.
 
-## Getting Started
+## Installing
 
-1. Installing
+1. Bash script
+    - Update: `wget https://github.com/antroids/application-title-bar/releases/latest/download/application-title-bar.plasmoid -O ${TMPDIR:-/tmp}/application-title-bar.plasmoid && kpackagetool6 -t Plasma/Applet -u ${TMPDIR:-/tmp}/application-title-bar.plasmoid && systemctl --user restart plasma-plasmashell.service`
+
+    - Install `wget https://github.com/antroids/application-title-bar/releases/latest/download/application-title-bar.plasmoid -O ${TMPDIR:-/tmp}/application-title-bar.plasmoid && kpackagetool6 -t Plasma/Applet -i ${TMPDIR:-/tmp}/application-title-bar.plasmoid && systemctl --user restart plasma-plasmashell.service`
+
+2. Manual with Plasma UI
     - Install via "Add Widgets..." -> "Get New Widgets..." -> "Download..."
     - Install from [KDE Store](https://store.kde.org/p/2135509)
-    - Download Latest \*.plasmoid from [Releases page](https://github.com/antroids/application-title-bar/releases) and install it via "Add Widgets..." -> "Get New Widgets..." -> "Install Widget From Local file"
-    - Manually:
-      1. Copy plasmoid to local catalog and restart Plasma Shell in case of updated version.
-          ```
-          kpackagetool6 -t Plasma/Applet -i Path/to/Plasmoid/application-title-bar.plasmoid
-          ```
-      2. For updating run
-          ```
-          kpackagetool6 -t Plasma/Applet -u Path/to/Plasmoid/application-title-bar.plasmoid
-          ```
-2. Login & Logout or run `plasmashell --replace &`
+    - Download Latest \*.plasmoid from [Releases page](https://github.com/antroids/application-title-bar/releases) and install it via "Add Widgets..." -> "Get New Widgets..." -> "Install Widget From Local file"    
 
 ## License
 
