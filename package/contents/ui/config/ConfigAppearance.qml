@@ -42,6 +42,7 @@ KCM.SimpleKCM {
     property alias cfg_widgetElements: widgetElements.elements
     property alias cfg_overrideElementsMaximized: overrideElementsMaximized.checked
     property alias cfg_widgetElementsMaximized: widgetElementsMaximized.elements
+    property alias cfg_windowTitleSourceMaximized: windowTitleSourceMaximized.currentIndex
 
     Kirigami.FormLayout {
         anchors.left: parent.left
@@ -60,98 +61,6 @@ KCM.SimpleKCM {
             text: kWinConfig.lastError
             type: Kirigami.MessageType.Error
             visible: kWinConfig.lastError !== ""
-        }
-
-        Kirigami.Separator {
-            Kirigami.FormData.isSection: true
-            Kirigami.FormData.label: i18n("Window Control Buttons")
-        }
-
-        ComboBox {
-            id: widgetButtonsIconsTheme
-
-            Kirigami.FormData.label: i18n("Button icons source:")
-            Layout.minimumWidth: Kirigami.Units.gridUnit * 15
-            model: [i18n("Plasma: Global icon theme"), i18n("Breeze: Implicit Breeze icons"), i18n("Aurorae: Window decorations theme")]
-        }
-
-        RowLayout {
-            Kirigami.FormData.label: i18n("Aurorae theme:")
-
-            ComboBox {
-                id: widgetButtonsAuroraeTheme
-
-                function updateCurrentIndex() {
-                    currentIndex = indexOfValue(cfg_widgetButtonsAuroraeTheme);
-                }
-
-                Layout.minimumWidth: Kirigami.Units.gridUnit * 15
-                enabled: widgetButtonsIconsTheme.currentIndex == 2 && model.count > 0
-                Component.onCompleted: updateCurrentIndex()
-                onActivated: cfg_widgetButtonsAuroraeTheme = currentValue
-                displayText: !!currentText ? currentText : (model.count > 0) ? i18n("<Select Aurorae theme>") : i18n("<Aurorae themes not found>")
-                textRole: "name"
-                valueRole: "folder"
-                model: kWinConfig.auroraeThemes
-            }
-
-            KCM.ContextualHelpButton {
-                visible: widgetButtonsAuroraeTheme.model.count == 0
-                toolTipText: i18n("Some window decorations themes, e.g. Breeze or Plastik, could be installed in your system as binary libraries and thus be visible and usable in System settings, but they are not detectable and cannot be used by this widget. There are no plans to support such binary themes due to technical complications.
--
-Regular Aurorae themes for window decorations are supported by this widget and you can install them in System settings through \"Window decorations\" page or use \"Breeze\" or \"Plasma\" options in \"Button icons source\" field above instead")
-            }
-
-            KCM.ContextualHelpButton {
-                visible: widgetButtonsAuroraeTheme.model.count > 0
-                toolTipText: i18n("Some window decorations themes, e.g. Breeze or Plastik, could be installed in your system as binary libraries and thus be visible and usable in System settings, but they are not detectable and cannot be used by this widget. There are no plans to support such binary themes due to technical complications.
--
-You can install more of regular Aurorae themes for window decorations in System settings through \"Window decorations\" page or use \"Breeze\" or \"Plasma\" options in \"Button icons source\" field above instead")
-            }
-        }
-        Label {
-            text: i18n("<p>Missing your theme? <a href=\"https://github.com/antroids/application-title-bar/issues/25\">Report here.</a></p>")
-            onLinkActivated: function (link) {
-                Qt.openUrlExternally(link);
-            }
-        }
-
-        SpinBox {
-            id: widgetButtonsMargins
-
-            Kirigami.FormData.label: i18n("Buttons margins:")
-            from: 0
-            to: 32
-        }
-
-        RowLayout {
-            Kirigami.FormData.label: i18n("Buttons width/height ratio:")
-
-            SpinBox {
-                id: widgetButtonsAspectRatio
-
-                from: 0
-                to: 200
-            }
-
-            KCM.ContextualHelpButton {
-                toolTipText: i18n("The ratio of button width in percent to 100% of its height. If you need wider buttons, the value should be >100, otherwise less.")
-            }
-        }
-
-        RowLayout {
-            Kirigami.FormData.label: i18n("Animation speed in ms:")
-
-            SpinBox {
-                id: widgetButtonsAnimation
-
-                from: 0
-                to: 10000
-            }
-
-            KCM.ContextualHelpButton {
-                toolTipText: i18n("Animation speed of buttons transitions in milliseconds.")
-            }
         }
 
         Kirigami.Separator {
@@ -278,32 +187,93 @@ You can install more of regular Aurorae themes for window decorations in System 
 
         Kirigami.Separator {
             Kirigami.FormData.isSection: true
-            Kirigami.FormData.label: i18n("Override widget elements for maximized windows")
+            Kirigami.FormData.label: i18n("Window Control Buttons")
         }
 
-        CheckBox {
-            id: overrideElementsMaximized
+        ComboBox {
+            id: widgetButtonsIconsTheme
 
-            text: i18n("override")
+            Kirigami.FormData.label: i18n("Button icons source:")
+            Layout.minimumWidth: Kirigami.Units.gridUnit * 15
+            model: [i18n("Plasma: Global icon theme"), i18n("Breeze: Implicit Breeze icons"), i18n("Aurorae: Window decorations theme")]
         }
 
-        WidgetElements {
-            id: widgetElementsMaximized
+        RowLayout {
+            Kirigami.FormData.label: i18n("Aurorae theme:")
 
-            Kirigami.FormData.label: i18n("Elements:")
-            enabled: overrideElementsMaximized.checked
-        }
+            ComboBox {
+                id: widgetButtonsAuroraeTheme
 
-        AddWidgetElement {
-            enabled: overrideElementsMaximized.checked
-
-            onCurrentValueChanged: function () {
-                if (currentValue) {
-                    widgetElementsMaximized.model.append({
-                        "value": currentValue
-                    });
-                    currentIndex = 0;
+                function updateCurrentIndex() {
+                    currentIndex = indexOfValue(cfg_widgetButtonsAuroraeTheme);
                 }
+
+                Layout.minimumWidth: Kirigami.Units.gridUnit * 15
+                enabled: widgetButtonsIconsTheme.currentIndex == 2 && model.count > 0
+                Component.onCompleted: updateCurrentIndex()
+                onActivated: cfg_widgetButtonsAuroraeTheme = currentValue
+                displayText: !!currentText ? currentText : (model.count > 0) ? i18n("<Select Aurorae theme>") : i18n("<Aurorae themes not found>")
+                textRole: "name"
+                valueRole: "folder"
+                model: kWinConfig.auroraeThemes
+            }
+
+            KCM.ContextualHelpButton {
+                visible: widgetButtonsAuroraeTheme.model.count == 0
+                toolTipText: i18n("Some window decorations themes, e.g. Breeze or Plastik, could be installed in your system as binary libraries and thus be visible and usable in System settings, but they are not detectable and cannot be used by this widget. There are no plans to support such binary themes due to technical complications.
+-
+Regular Aurorae themes for window decorations are supported by this widget and you can install them in System settings through \"Window decorations\" page or use \"Breeze\" or \"Plasma\" options in \"Button icons source\" field above instead")
+            }
+
+            KCM.ContextualHelpButton {
+                visible: widgetButtonsAuroraeTheme.model.count > 0
+                toolTipText: i18n("Some window decorations themes, e.g. Breeze or Plastik, could be installed in your system as binary libraries and thus be visible and usable in System settings, but they are not detectable and cannot be used by this widget. There are no plans to support such binary themes due to technical complications.
+-
+You can install more of regular Aurorae themes for window decorations in System settings through \"Window decorations\" page or use \"Breeze\" or \"Plasma\" options in \"Button icons source\" field above instead")
+            }
+        }
+        Label {
+            text: i18n("<p>Missing your theme? <a href=\"https://github.com/antroids/application-title-bar/issues/25\">Report here.</a></p>")
+            onLinkActivated: function (link) {
+                Qt.openUrlExternally(link);
+            }
+        }
+
+        SpinBox {
+            id: widgetButtonsMargins
+
+            Kirigami.FormData.label: i18n("Buttons margins:")
+            from: 0
+            to: 32
+        }
+
+        RowLayout {
+            Kirigami.FormData.label: i18n("Buttons width/height ratio:")
+
+            SpinBox {
+                id: widgetButtonsAspectRatio
+
+                from: 0
+                to: 200
+            }
+
+            KCM.ContextualHelpButton {
+                toolTipText: i18n("The ratio of button width in percent to 100% of its height. If you need wider buttons, the value should be >100, otherwise less.")
+            }
+        }
+
+        RowLayout {
+            Kirigami.FormData.label: i18n("Animation speed in ms:")
+
+            SpinBox {
+                id: widgetButtonsAnimation
+
+                from: 0
+                to: 10000
+            }
+
+            KCM.ContextualHelpButton {
+                toolTipText: i18n("Animation speed of buttons transitions in milliseconds.")
             }
         }
 
@@ -414,6 +384,45 @@ You can install more of regular Aurorae themes for window decorations in System 
                 from: 0
                 to: 64
             }
+        }
+
+        Kirigami.Separator {
+            Kirigami.FormData.isSection: true
+            Kirigami.FormData.label: i18n("Override for maximized windows")
+        }
+
+        CheckBox {
+            id: overrideElementsMaximized
+
+            text: i18n("override")
+        }
+
+        WidgetElements {
+            id: widgetElementsMaximized
+
+            Kirigami.FormData.label: i18n("Elements:")
+            enabled: overrideElementsMaximized.checked
+        }
+
+        AddWidgetElement {
+            enabled: overrideElementsMaximized.checked
+
+            onCurrentValueChanged: function () {
+                if (currentValue) {
+                    widgetElementsMaximized.model.append({
+                        "value": currentValue
+                    });
+                    currentIndex = 0;
+                }
+            }
+        }
+
+        ComboBox {
+            id: windowTitleSourceMaximized
+
+            enabled: overrideElementsMaximized.checked
+            Kirigami.FormData.label: i18n("Window title source:")
+            model: [i18n("Application name"), i18n("Decoration"), i18n("Generic Application name"), i18n("Always undefined")]
         }
     }
 }

@@ -234,8 +234,9 @@ PlasmoidItem {
             property var modelData
             property bool empty: text === undefined || text === ""
             property bool hideEmpty: empty && plasmoid.configuration.windowTitleHideEmpty
+            property int windowTitleSource: plasmoid.configuration.overrideElementsMaximized && tasksModel.activeWindow.maximized ? plasmoid.configuration.windowTitleSourceMaximized : plasmoid.configuration.windowTitleSource
 
-            function titleText(activeWindow, windowTitleSource) {
+            function titleText(windowTitleSource) {
                 switch (windowTitleSource) {
                 case 0:
                     return tasksModel.activeWindow.appName;
@@ -256,7 +257,7 @@ PlasmoidItem {
             Layout.maximumWidth: !hideEmpty ? plasmoid.configuration.windowTitleMaximumWidth : 0
             Layout.alignment: root.widgetAlignment
             Layout.fillWidth: plasmoid.configuration.widgetFillWidth
-            text: titleText(tasksModel.activeWindow, plasmoid.configuration.windowTitleSource) || plasmoid.configuration.windowTitleUndefined
+            text: titleText(windowTitleSource) || plasmoid.configuration.windowTitleUndefined
             font.pointSize: plasmoid.configuration.windowTitleFontSize
             font.bold: plasmoid.configuration.windowTitleFontBold
             fontSizeMode: plasmoid.configuration.windowTitleFontSizeMode

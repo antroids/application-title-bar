@@ -52,11 +52,21 @@
         <entry name="widgetElements" type="StringList">
             <default>windowCloseButton,windowMaximizeButton,windowMinimizeButton,windowIcon,windowTitle</default>
         </entry>
+        
         <entry name="overrideElementsMaximized" type="Bool">
             <default>false</default>
         </entry>
         <entry name="widgetElementsMaximized" type="StringList">
             <default>windowCloseButton,windowMaximizeButton,windowMinimizeButton,windowIcon,windowTitle</default>
+        </entry>
+        <entry name="windowTitleSourceMaximized" type="Enum">
+            <choices>
+                <choice name="AppName" />
+                <choice name="Decoration" />
+                <choice name="GenericAppName" />
+                <choice name="AlwaysUndefined" />
+            </choices>
+            <default>2</default>
         </entry>
 
         <entry name="windowTitleMinimumWidth" type="Int">
