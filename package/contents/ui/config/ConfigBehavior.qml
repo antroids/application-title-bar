@@ -50,7 +50,7 @@ KCM.SimpleKCM {
 
             onBorderlessMaximizedWindowsChanged: {
                 borderlessMaximizedWindowsCheckBox.checked = borderlessMaximizedWindows;
-                borderlessMaximizedWindowsCheckBox.enabled = true;
+                borderlessMaximizedWindowsCheckBox.enabled = kWinConfig.kwriteconfigCommandName !== "" && kWinConfig.kreadconfigCommandName !== "";
             }
         }
 
@@ -60,6 +60,30 @@ KCM.SimpleKCM {
             text: i18n("Some functionality is unsupported or can work unstable in X11 sessions.")
             type: Kirigami.MessageType.Warning
             visible: Utils.isX11()
+        }
+
+        Kirigami.InlineMessage {
+            anchors.left: parent.left
+            anchors.right: parent.right
+            text: "QDbus command is missing in the system!"
+            type: Kirigami.MessageType.Error
+            visible: kWinConfig.qdbusCommandName === ""
+        }
+
+        Kirigami.InlineMessage {
+            anchors.left: parent.left
+            anchors.right: parent.right
+            text: "Kwriteconfig command is missing in the system!"
+            type: Kirigami.MessageType.Error
+            visible: kWinConfig.kwriteconfigCommandName === ""
+        }
+
+        Kirigami.InlineMessage {
+            anchors.left: parent.left
+            anchors.right: parent.right
+            text: "Kreadconfig command is missing in the system!"
+            type: Kirigami.MessageType.Error
+            visible: kWinConfig.kreadconfigCommandName === ""
         }
 
         Kirigami.InlineMessage {
@@ -88,7 +112,7 @@ KCM.SimpleKCM {
             id: borderlessMaximizedWindowsCheckBox
 
             Kirigami.FormData.label: i18n("Borderless maximized windows:")
-            text: i18n("enabled")
+            text: i18n("enabled (Will be applied immediately)")
             enabled: false
             onToggled: function () {
                 enabled = false;

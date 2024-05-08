@@ -12,21 +12,37 @@ Item {
     id: kWinConfig
 
     readonly property string auroraeThemesPath: "aurorae/themes/"
-    readonly property string setBorderlessMaximizedWindowsCommand: "kwriteconfig6 --file kwinrc --group Windows --key BorderlessMaximizedWindows "
-    readonly property string getBorderlessMaximizedWindowsCommand: "kreadconfig6 --file kwinrc --group Windows --key BorderlessMaximizedWindows --default false"
-    readonly property string checkQdbusApplicationNameCommand: "if command -v qdbus > /dev/null; then echo qdbus; elif command -v qdbus6 > /dev/null; then echo qdbus6; else exit 1; fi"
-    property string reconfigureCommand: qdbusApplicationName + " org.kde.KWin /KWin reconfigure"
-    property string getAllKWinShortcutNamesCommand: qdbusApplicationName + " org.kde.kglobalaccel /component/kwin org.kde.kglobalaccel.Component.shortcutNames"
-    property string invokeKWinShortcutCommand: qdbusApplicationName + " org.kde.kglobalaccel /component/kwin org.kde.kglobalaccel.Component.invokeShortcut "
+    property string setBorderlessMaximizedWindowsCommand: kwriteconfigCommandName !== "" ? kwriteconfigCommandName + " --file kwinrc --group Windows --key BorderlessMaximizedWindows " : ""
+    property string getBorderlessMaximizedWindowsCommand: kreadconfigCommandName !== "" ? kreadconfigCommandName + " --file kwinrc --group Windows --key BorderlessMaximizedWindows --default false" : ""
+    property string reconfigureCommand: qdbusCommandName !== "" ? qdbusCommandName + " org.kde.KWin /KWin reconfigure" : ""
+    property string getAllKWinShortcutNamesCommand: qdbusCommandName !== "" ? qdbusCommandName + " org.kde.kglobalaccel /component/kwin org.kde.kglobalaccel.Component.shortcutNames" : ""
+    property string invokeKWinShortcutCommand: qdbusCommandName !== "" ? qdbusCommandName + " org.kde.kglobalaccel /component/kwin org.kde.kglobalaccel.Component.invokeShortcut " : ""
     property var borderlessMaximizedWindows
     property var callbacksOnExited: []
     property var auroraeThemesLocations: StandardPaths.locateAll(StandardPaths.GenericDataLocation, auroraeThemesPath, StandardPaths.LocateDirectory)
     property ListModel auroraeThemes
     property var shortcutNames: []
-    property string qdbusApplicationName: "qdbus"
+    property string qdbusCommandName: "qdbus"
+    property string kwriteconfigCommandName: "kwriteconfig6"
+    property string kreadconfigCommandName: "kreadconfig6"
     property string lastError: ""
 
+    function findExistingFromListCommand(commandsList) {
+        let cmd = "";
+        if (commandsList) {
+            cmd += "if command -v " + commandsList[0] + " > /dev/null; then echo " + commandsList[0] + "; ";
+            for (const c of commandsList.slice(1)) {
+                cmd += "elif command -v " + c + " > /dev/null; then echo " + c + "; ";
+            }
+            cmd += "else exit 1; fi";
+        }
+        return cmd;
+    }
+
     function setBorderlessMaximizedWindows(val) {
+        if (setBorderlessMaximizedWindowsCommand === "") {
+            return;
+        }
         let cmd = setBorderlessMaximizedWindowsCommand + val + " && " + reconfigureCommand + " && " + getBorderlessMaximizedWindowsCommand;
         callbacksOnExited.push({
             "cmd": cmd,
@@ -42,6 +58,9 @@ Item {
     }
 
     function updateBorderlessMaximizedWindows() {
+        if (getBorderlessMaximizedWindowsCommand === "") {
+            return;
+        }
         let cmd = getBorderlessMaximizedWindowsCommand;
         callbacksOnExited.push({
             "cmd": cmd,
@@ -73,6 +92,9 @@ Item {
     }
 
     function updateKWinShortcutNames() {
+        if (getAllKWinShortcutNamesCommand === "") {
+            return;
+        }
         let cmd = getAllKWinShortcutNamesCommand;
         callbacksOnExited.push({
             "cmd": cmd,
@@ -96,16 +118,37 @@ Item {
             print("Error: shortcut '" + trimmedShortcut + "' not found in the list!");
     }
 
-    function updateQdbusApplicationName() {
-        let cmd = checkQdbusApplicationNameCommand;
+    function updateQdbusCommandName() {
+        updateCommandName(["qdbus", "qdbus6"], function (commandName) {
+            qdbusCommandName = commandName;
+            qdbusCommandNameChanged();
+        });
+    }
+
+    function updateKwriteconfigCommandName() {
+        updateCommandName(["kwriteconfig6", "kwriteconfig"], function (commandName) {
+            kwriteconfigCommandName = commandName;
+            kwriteconfigCommandNameChanged();
+        });
+    }
+
+    function updateKreadconfigCommandName() {
+        updateCommandName(["kreadconfig6", "kreadconfig"], function (commandName) {
+            kreadconfigCommandName = commandName;
+            kreadconfigCommandNameChanged();
+        });
+    }
+
+    function updateCommandName(commandsList, setCommandNameCallback) {
+        const cmd = findExistingFromListCommand(commandsList);
         callbacksOnExited.push({
             "cmd": cmd,
             "callback": function (cmd, exitCode, exitStatus, stdout, stderr) {
                 if (exitCode == 0) {
-                    qdbusApplicationName = stdout.trim();
-                    qdbusApplicationNameChanged();
+                    setCommandNameCallback(stdout.trim());
                 } else {
-                    lastError = "Unable to find QDbus command";
+                    setCommandNameCallback("");
+                    lastError = "Unable to find command from list: " + commandsList;
                 }
             }
         });
@@ -161,15 +204,19 @@ Item {
         }
     }
 
-    auroraeThemes: ListModel {
-    }
+    auroraeThemes: ListModel {}
 
     Component.onCompleted: function () {
-        updateQdbusApplicationName();
+        updateQdbusCommandName();
+        updateKwriteconfigCommandName();
+        updateKreadconfigCommandName();
     }
 
-    onQdbusApplicationNameChanged: function () {
-        updateBorderlessMaximizedWindows();
+    onQdbusCommandNameChanged: function () {
         updateKWinShortcutNames();
+    }
+
+    onKreadconfigCommandNameChanged: function () {
+        updateBorderlessMaximizedWindows();
     }
 }
