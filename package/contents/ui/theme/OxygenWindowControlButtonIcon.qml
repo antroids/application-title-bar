@@ -28,6 +28,7 @@ Canvas {
     property color negativeForegroundColor: Kirigami.Theme.negativeTextColor
     property color hoverForegroundColor: Kirigami.Theme.hoverColor
     property color checkedForegroundColor: Kirigami.Theme.focusColor
+    property bool toggleButton: isToggleButton()
 
     onPaint: function () {
         let ctx = getContext("2d");
@@ -38,11 +39,11 @@ Canvas {
         ctx.lineWidth = 1.2;
         ctx.lineCap = "round";
         ctx.lineJoin = "round";
-        if (hovered || checked) {
+        if (hovered || (toggleButton && checked)) {
             let glowColor = calcGlowColor();
-            if (hovered !== checked) {
+            if (hovered !== (toggleButton && checked)) {
                 color = glowColor;
-            } else if (checked) {
+            } else if (toggleButton && checked) {
                 color = Kirigami.ColorUtils.linearInterpolation(inactiveForegroundColor, color, 0.7);
             }
             drawButtonGlow(ctx, glowColor);
@@ -261,9 +262,9 @@ Canvas {
     function calcGlowColor() {
         if (buttonType === WindowControlButton.Type.CloseButton) {
             return negativeForegroundColor;
-        } else if (hovered && checked) {
+        } else if (hovered && (toggleButton && checked)) {
             return inactiveForegroundColor;
-        } else if (checked) {
+        } else if (toggleButton && checked) {
             return checkedForegroundColor;
         } else {
             return hoverForegroundColor;
@@ -283,6 +284,17 @@ Canvas {
         ctx.beginPath();
         ctx.ellipse(x - radius, y - radius, ctx.lineWidth, ctx.lineWidth);
         ctx.fill();
+    }
+
+    function isToggleButton() {
+        switch (buttonType) {
+        case WindowControlButton.Type.AllDesktopsButton:
+        case WindowControlButton.Type.KeepAboveButton:
+        case WindowControlButton.Type.KeepBelowButton:
+            return true;
+        default:
+            return false;
+        }
     }
 
     onHoveredChanged: requestPaint()
