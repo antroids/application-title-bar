@@ -18,7 +18,7 @@ Canvas {
     property int buttonType: 0
 
     property color inactiveForegroundColor: palette.inactive.buttonText
-    property var colors: active ? palette.active : palette.inactive
+    property var colors: disabled ? palette.disabled : active ? palette.active : palette.inactive
     property color backgroundColor: colors.button
     property color foregroundColor: colors.buttonText
     property color lightBackgroundColor: colors.light
@@ -297,12 +297,12 @@ Canvas {
         }
     }
 
-    onHoveredChanged: requestPaint()
-    onActiveChanged: requestPaint()
-    onPressedChanged: requestPaint()
-    onCheckedChanged: requestPaint()
-    onWidthChanged: requestPaint()
-    onHeightChanged: requestPaint()
-    onColorsChanged: requestPaint()
-    onButtonTypeChanged: requestPaint()
+    onHoveredChanged: Qt.callLater(requestPaint)
+    onActiveChanged: Qt.callLater(requestPaint)
+    onPressedChanged: Qt.callLater(requestPaint)
+    onCheckedChanged: Qt.callLater(requestPaint)
+    onWidthChanged: Qt.callLater(requestPaint)
+    onHeightChanged: Qt.callLater(requestPaint)
+    onColorsChanged: Qt.callLater(requestPaint)
+    onButtonTypeChanged: Qt.callLater(requestPaint)
 }

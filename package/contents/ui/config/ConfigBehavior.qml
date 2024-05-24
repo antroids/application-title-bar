@@ -21,6 +21,7 @@ KCM.SimpleKCM {
     property alias cfg_widgetActiveTaskFilterByScreen: widgetActiveTaskFilterByScreen.checked
     property alias cfg_widgetActiveTaskFilterByVirtualDesktop: widgetActiveTaskFilterByVirtualDesktop.checked
     property alias cfg_widgetActiveTaskFilterNotMaximized: widgetActiveTaskFilterNotMaximized.checked
+    property alias cfg_disableButtonsForNotHoveredWidget: disableButtonsForNotHoveredWidget.checked
     property alias cfg_windowTitleDragEnabled: windowTitleDragEnabled.checked
     property alias cfg_widgetMouseAreaClickEnabled: widgetMouseAreaClickEnabled.checked
     property alias cfg_widgetMouseAreaWheelEnabled: widgetMouseAreaWheelEnabled.checked
@@ -146,6 +147,13 @@ KCM.SimpleKCM {
 
             enabled: widgetActiveTaskSource.currentIndex !== ActiveTasksModel.ActiveTaskSource.LastActiveMaximized
             Kirigami.FormData.label: i18n("Disable for not maximized:")
+            text: i18n("enabled")
+        }
+
+        CheckBox {
+            id: disableButtonsForNotHoveredWidget
+
+            Kirigami.FormData.label: i18n("Disable buttons for not hovered widget:")
             text: i18n("enabled")
         }
 

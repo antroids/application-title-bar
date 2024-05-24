@@ -24,6 +24,7 @@ PlasmoidItem {
     property real buttonHeight: elementHeight - buttonMargins * 2
     property var widgetAlignment: plasmoid.configuration.widgetHorizontalAlignment | plasmoid.configuration.widgetVerticalAlignment
     property KWinConfig kWinConfig
+    property bool widgetHovered: widgetHoverHandler.hovered
 
     signal invokeKWinShortcut(string shortcut)
 
@@ -165,7 +166,7 @@ PlasmoidItem {
             onActionCall: action => {
                 return tasksModel.activeWindow.actionCall(action);
             }
-            enabled: tasksModel.hasActiveWindow && tasksModel.activeWindow.actionSupported(action)
+            enabled: tasksModel.hasActiveWindow && tasksModel.activeWindow.actionSupported(action) && (!plasmoid.configuration.disableButtonsForNotHoveredWidget || root.widgetHovered)
             checked: tasksModel.hasActiveWindow && tasksModel.activeWindow.buttonChecked(modelData.windowControlButtonType)
             active: tasksModel.hasActiveWindow && tasksModel.activeWindow.active
         }
@@ -306,6 +307,11 @@ PlasmoidItem {
 
     tasksModel: ActiveTasksModel {
         id: tasksModel
+    }
+
+    HoverHandler {
+        id: widgetHoverHandler
+        enabled: plasmoid.configuration.disableButtonsForNotHoveredWidget
     }
 
     fullRepresentation: RowLayout {

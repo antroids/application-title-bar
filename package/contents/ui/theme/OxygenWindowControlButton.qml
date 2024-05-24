@@ -15,6 +15,7 @@ OxygenWindowControlButtonIcon {
     Behavior on opacity {
         NumberAnimation {
             duration: animationDuration
+            easing.type: Easing.OutQuint
         }
     }
 }

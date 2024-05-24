@@ -197,16 +197,16 @@ Canvas {
         return fontColor;
     }
 
-    onHoveredChanged: requestPaint()
-    onActiveChanged: requestPaint()
-    onPressedChanged: requestPaint()
-    onCheckedChanged: requestPaint()
-    onWidthChanged: requestPaint()
-    onHeightChanged: requestPaint()
-    onTitleBarColorChanged: requestPaint()
-    onFontColorChanged: requestPaint()
-    onForegroundWarningColorChanged: requestPaint()
-    onButtonTypeChanged: requestPaint()
+    onHoveredChanged: Qt.callLater(requestPaint)
+    onActiveChanged: Qt.callLater(requestPaint)
+    onPressedChanged: Qt.callLater(requestPaint)
+    onCheckedChanged: Qt.callLater(requestPaint)
+    onWidthChanged: Qt.callLater(requestPaint)
+    onHeightChanged: Qt.callLater(requestPaint)
+    onTitleBarColorChanged: Qt.callLater(requestPaint)
+    onFontColorChanged: Qt.callLater(requestPaint)
+    onForegroundWarningColorChanged: Qt.callLater(requestPaint)
+    onButtonTypeChanged: Qt.callLater(requestPaint)
     anchors.fill: parent
     antialiasing: true
     onPaint: function () {

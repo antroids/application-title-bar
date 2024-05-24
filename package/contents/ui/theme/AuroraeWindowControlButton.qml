@@ -17,7 +17,7 @@ Item {
 
     anchors.fill: parent
 
-    readonly property var iconStatesPrefixes: ["active", "hover", "pressed", "pressed", "pressed", "deactivated", "inactive", "hover-inactive", "pressed-inactive", "pressed-inactive", "pressed-inactive", "deactivated-inactive"]
+    readonly property var iconStatesPrefixes: ["active", "hover", "pressed", "pressed", "pressed", "deactivated", "deactivated", "inactive", "hover-inactive", "pressed-inactive", "pressed-inactive", "pressed-inactive", "deactivated-inactive", "deactivated-inactive"]
     readonly property string themesPath: "aurorae/themes/"
     readonly property string svgExt: "svg"
     readonly property string svgzExt: "svgz"

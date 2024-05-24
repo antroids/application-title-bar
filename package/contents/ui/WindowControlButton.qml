@@ -35,12 +35,14 @@ Item {
         ActivePressed,
         ActiveChecked,
         ActiveHoverChecked,
+        ActiveCheckedDisabled,
         ActiveDisabled,
         Inactive,
         InactiveHover,
         InactivePressed,
         InactiveChecked,
         InactiveHoverChecked,
+        InactiveCheckedDisabled,
         InactiveDisabled
     }
 
@@ -61,10 +63,20 @@ Item {
     property int iconTheme: WindowControlButton.IconTheme.Plasma
     property int animationDuration: 100
     property MouseArea mouseArea: buttonMouseArea
-    property int iconState: WCB.calculateIconState(this)
+    property int iconState: WindowControlButton.IconState.Active
     property alias mouseAreaEnabled: buttonMouseArea.enabled
 
     signal actionCall(int action)
+
+    function updateIconState() {
+        iconState = WCB.calculateIconState(button);
+    }
+
+    onEnabledChanged: Qt.callLater(updateIconState)
+    onActiveChanged: Qt.callLater(updateIconState)
+    onHoveredChanged: Qt.callLater(updateIconState)
+    onPressedChanged: Qt.callLater(updateIconState)
+    onCheckedChanged: Qt.callLater(updateIconState)
 
     MouseArea {
         id: buttonMouseArea

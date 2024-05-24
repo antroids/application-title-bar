@@ -10,12 +10,14 @@ const statePropertiesMap = [
     { active: true, pressed: true, checked: false, hovered: false, disabled: false }, // ActivePressed
     { active: true, pressed: false, checked: true, hovered: false, disabled: false }, // ActiveChecked
     { active: true, pressed: false, checked: true, hovered: true, disabled: false }, // ActiveHoverChecked
+    { active: true, pressed: false, checked: true, hovered: false, disabled: true }, // ActiveCheckedDisabled
     { active: true, pressed: false, checked: false, hovered: false, disabled: true }, // ActiveDisabled
     { active: false, pressed: false, checked: false, hovered: false, disabled: false }, // Inactive
     { active: false, pressed: false, checked: false, hovered: true, disabled: false }, // InactiveHover
     { active: false, pressed: true, checked: false, hovered: false, disabled: false }, // InactivePressed
     { active: false, pressed: false, checked: true, hovered: false, disabled: false }, // InactiveChecked
     { active: false, pressed: false, checked: true, hovered: true, disabled: false }, // InactiveHoverChecked
+    { active: false, pressed: false, checked: true, hovered: false, disabled: true }, // InactiveCheckedDisabled
     { active: false, pressed: false, checked: false, hovered: false, disabled: true }, // InactiveDisabled
 ];
 
@@ -23,6 +25,8 @@ function calculateIconState(button) {
     if (button.active) {
         if (button.pressed)
             return WindowControlButton.IconState.ActivePressed;
+        else if (button.checked && !button.enabled)
+            return WindowControlButton.IconState.ActiveCheckedDisabled;
         else if (button.checked && button.hovered)
             return WindowControlButton.IconState.ActiveHoverChecked;
         else if (button.checked)
@@ -36,6 +40,8 @@ function calculateIconState(button) {
     } else {
         if (button.pressed)
             return WindowControlButton.IconState.InactivePressed;
+        else if (button.checked && !button.enabled)
+            return WindowControlButton.IconState.InactiveCheckedDisabled;
         else if (button.checked && button.hovered)
             return WindowControlButton.IconState.InactiveHoverChecked;
         else if (button.checked)
