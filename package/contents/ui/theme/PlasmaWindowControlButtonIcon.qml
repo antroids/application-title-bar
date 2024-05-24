@@ -10,6 +10,7 @@ import QtQuick.Controls
 import QtQuick.Effects
 import QtQuick.Shapes
 import org.kde.kirigami as Kirigami
+import "../"
 
 Item {
     id: iconRoot
@@ -17,8 +18,8 @@ Item {
     property bool active: true
     property bool hovered: false
     property bool pressed: false
-    property bool toggled: false
-    property alias source: icon.source
+    property bool checked: false
+    property int buttonType: WindowControlButton.Type.MinimizeButton
 
     anchors.fill: parent
 
@@ -27,7 +28,7 @@ Item {
 
         layer.enabled: true
         anchors.fill: parent
-        opacity: hovered ? 0.25 : pressed || toggled ? 0.15 : 0
+        opacity: hovered ? 0.25 : pressed || checked ? 0.15 : 0
 
         ShapePath {
             startX: 0
@@ -83,6 +84,7 @@ Item {
         id: icon
 
         anchors.fill: parent
+        source: plasmaIconName(iconRoot.buttonType)
     }
 
     MultiEffect {
@@ -90,8 +92,8 @@ Item {
         source: icon
         blurEnabled: true
         blurMax: 8
-        brightness: hovered ? 0.6 : pressed || toggled ? 0.3 : 0
-        blur: hovered ? 4 : pressed || toggled ? 2 : 0
+        brightness: hovered ? 0.6 : pressed || checked ? 0.3 : 0
+        blur: hovered ? 4 : pressed || checked ? 2 : 0
         saturation: active ? 0 : -0.5
 
         Behavior on blur {
@@ -104,6 +106,35 @@ Item {
             NumberAnimation {
                 duration: button.animationDuration
             }
+        }
+    }
+
+    function plasmaIconName(type) {
+        switch (type) {
+        case WindowControlButton.Type.MinimizeButton:
+            return "window-minimize";
+        case WindowControlButton.Type.MaximizeButton:
+            return "window-maximize";
+        case WindowControlButton.Type.RestoreButton:
+            return "window-restore";
+        case WindowControlButton.Type.CloseButton:
+            return "window-close";
+        case WindowControlButton.Type.AllDesktopsButton:
+            return "window-pin";
+        case WindowControlButton.Type.KeepAboveButton:
+            return "window-keep-above";
+        case WindowControlButton.Type.KeepBelowButton:
+            return "window-keep-below";
+        case WindowControlButton.Type.ShadeButton:
+            return "window-shade";
+        case WindowControlButton.Type.HelpButton:
+            return "question";
+        case WindowControlButton.Type.MenuButton:
+            return "plasma-symbolic";
+        case WindowControlButton.Type.AppMenuButton:
+            return "application-menu";
+        default:
+            return "";
         }
     }
 }

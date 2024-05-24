@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 import QtQuick
-import org.kde.kirigami as Kirigami
+import "../"
 
 Canvas {
     property color titleBarColor: "gray"
@@ -206,6 +206,7 @@ Canvas {
     onTitleBarColorChanged: requestPaint()
     onFontColorChanged: requestPaint()
     onForegroundWarningColorChanged: requestPaint()
+    onButtonTypeChanged: requestPaint()
     anchors.fill: parent
     antialiasing: true
     onPaint: function () {

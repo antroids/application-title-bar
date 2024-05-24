@@ -72,7 +72,7 @@ QtObject {
         }
     }
 
-    function buttonToggled(windowControlButtonType) {
+    function buttonChecked(windowControlButtonType) {
         switch (windowControlButtonType) {
         case WindowControlButton.Type.MinimizeButton:
             return minimized;

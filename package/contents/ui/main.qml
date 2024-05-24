@@ -165,8 +165,8 @@ PlasmoidItem {
             onActionCall: action => {
                 return tasksModel.activeWindow.actionCall(action);
             }
-            enabled: tasksModel.hasActiveWindow && tasksModel.activeWindow.actionSupported(getAction())
-            toggled: tasksModel.hasActiveWindow && tasksModel.activeWindow.buttonToggled(modelData.windowControlButtonType)
+            enabled: tasksModel.hasActiveWindow && tasksModel.activeWindow.actionSupported(action)
+            checked: tasksModel.hasActiveWindow && tasksModel.activeWindow.buttonChecked(modelData.windowControlButtonType)
             active: tasksModel.hasActiveWindow && tasksModel.activeWindow.active
         }
     }

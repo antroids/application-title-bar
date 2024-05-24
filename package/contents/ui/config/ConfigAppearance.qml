@@ -195,7 +195,7 @@ KCM.SimpleKCM {
 
             Kirigami.FormData.label: i18n("Button icons source:")
             Layout.minimumWidth: Kirigami.Units.gridUnit * 15
-            model: [i18n("Plasma: Global icon theme"), i18n("Breeze: Implicit Breeze icons"), i18n("Aurorae: Window decorations theme")]
+            model: [i18n("Plasma: Global icon theme"), i18n("Breeze: Implicit Breeze icons"), i18n("Aurorae: Window decorations theme"), i18n("Oxygen: Implicit Oxygen icons")]
         }
 
         RowLayout {
