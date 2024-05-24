@@ -262,7 +262,7 @@ Canvas {
     function calcGlowColor() {
         if (buttonType === WindowControlButton.Type.CloseButton) {
             return negativeForegroundColor;
-        } else if (hovered && (toggleButton && checked)) {
+        } else if (hovered && toggleButton && checked) {
             return inactiveForegroundColor;
         } else if (toggleButton && checked) {
             return checkedForegroundColor;

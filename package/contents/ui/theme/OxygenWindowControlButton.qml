@@ -10,7 +10,6 @@ OxygenWindowControlButtonIcon {
     property int animationDuration: 0
 
     anchors.fill: parent
-    anchors.margins: 3
     opacity: 0
 
     Behavior on opacity {
