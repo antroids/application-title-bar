@@ -18,18 +18,22 @@ PlasmoidItem {
     id: root
 
     property TaskManager.TasksModel tasksModel
-    property real elementHeight: height - plasmoid.configuration.widgetMargins * 2
+    property real widgetHeight: (vertical ? width : height)
+    property real elementHeight: widgetHeight - plasmoid.configuration.widgetMargins * 2
     property real buttonMargins: plasmoid.configuration.widgetButtonsMargins
     property real buttonWidth: plasmoid.configuration.widgetButtonsAspectRatio / 100 * buttonHeight
     property real buttonHeight: elementHeight - buttonMargins * 2
     property var widgetAlignment: plasmoid.configuration.widgetHorizontalAlignment | plasmoid.configuration.widgetVerticalAlignment
     property KWinConfig kWinConfig
     property bool widgetHovered: widgetHoverHandler.hovered
+    property bool vertical: plasmoid.formFactor === PlasmaCore.Types.Vertical
+    property bool leftEdgeLocation: plasmoid.location === PlasmaCore.Types.LeftEdge
 
     signal invokeKWinShortcut(string shortcut)
 
     Plasmoid.constraintHints: Plasmoid.CanFillArea
-    Layout.fillWidth: plasmoid.configuration.widgetFillWidth
+    Layout.fillWidth: !vertical && plasmoid.configuration.widgetFillWidth
+    Layout.fillHeight: vertical && plasmoid.configuration.widgetFillWidth
     preferredRepresentation: fullRepresentation
     onInvokeKWinShortcut: function (shortcut) {
         if (tasksModel.hasActiveWindow)
@@ -103,6 +107,7 @@ PlasmoidItem {
         Loader {
             id: widgetElementLoader
 
+            required property int index
             required property var modelData
             property bool repeaterVisible: false
 
@@ -314,60 +319,84 @@ PlasmoidItem {
         enabled: plasmoid.configuration.disableButtonsForNotHoveredWidget
     }
 
-    fullRepresentation: RowLayout {
-        id: widgetRow
+    fullRepresentation: Item {
+        Layout.fillWidth: root.vertical ? null : plasmoid.configuration.widgetFillWidth
+        Layout.fillHeight: root.vertical ? plasmoid.configuration.widgetFillWidth : null
 
-        spacing: plasmoid.configuration.widgetSpacing
-        Layout.margins: plasmoid.configuration.widgetMargins
-        Layout.fillWidth: plasmoid.configuration.widgetFillWidth
+        Layout.minimumWidth: root.vertical ? widgetRow.Layout.minimumHeight : widgetRow.Layout.minimumWidth
+        Layout.minimumHeight: root.vertical ? widgetRow.Layout.minimumWidth : widgetRow.Layout.minimumHeight
 
-        Rectangle {
-            id: emptyWidgetPlaceholder
+        Layout.maximumWidth: root.vertical ? widgetRow.Layout.maximumHeight : widgetRow.Layout.maximumWidth
+        Layout.maximumHeight: root.vertical ? widgetRow.Layout.maximumWidth : widgetRow.Layout.maximumHeight
 
-            color: "transparent"
-            Layout.maximumWidth: Kirigami.Units.smallSpacing
-            Layout.minimumWidth: Kirigami.Units.smallSpacing
-            visible: widgetRow.Layout.minimumWidth <= Kirigami.Units.smallSpacing
-        }
+        RowLayout {
+            id: widgetRow
 
-        Repeater {
-            id: widgetElementsRepeater
-            property var elements: plasmoid.configuration.widgetElements
+            spacing: plasmoid.configuration.widgetSpacing
+            anchors.left: parent.left
+            anchors.verticalCenter: root.vertical ? undefined : parent.verticalCenter
 
-            onElementsChanged: function () {
-                let array = [];
-                for (var i = 0; i < elements.length; i++) {
-                    array.push(Utils.widgetElementModelFromName(elements[i]));
+            transform: [
+                Rotation {
+                    angle: root.vertical ? 90 : 0
+                    origin.x: widgetHeight / 2 - plasmoid.configuration.widgetMargins / 2 // IDK why
+                    origin.y: widgetHeight / 2 - plasmoid.configuration.widgetMargins / 2
+                },
+                Rotation {
+                    angle: root.leftEdgeLocation ? 180 : 0
+                    origin.x: width / 2
+                    origin.y: height / 2
                 }
-                model = array;
-            }
-            model: []
-            delegate: widgetElementLoaderDelegate
-            visible: !plasmoid.configuration.overrideElementsMaximized || !tasksModel.activeWindow.maximized
-            onItemAdded: function (index, item) {
-                item.repeaterVisible = Qt.binding(function () {
-                    return visible;
-                });
-            }
-        }
+            ]
 
-        Repeater {
-            property var elements: plasmoid.configuration.overrideElementsMaximized ? plasmoid.configuration.widgetElementsMaximized : []
+            Rectangle {
+                id: emptyWidgetPlaceholder
 
-            onElementsChanged: function () {
-                let array = [];
-                for (var i = 0; i < elements.length; i++) {
-                    array.push(Utils.widgetElementModelFromName(elements[i]));
+                color: "transparent"
+                Layout.maximumWidth: Kirigami.Units.smallSpacing
+                Layout.minimumWidth: Kirigami.Units.smallSpacing
+                visible: widgetRow.Layout.minimumWidth <= Kirigami.Units.smallSpacing
+            }
+
+            Repeater {
+                id: widgetElementsRepeater
+                property var elements: plasmoid.configuration.widgetElements
+
+                onElementsChanged: function () {
+                    let array = [];
+                    for (var i = 0; i < elements.length; i++) {
+                        array.push(Utils.widgetElementModelFromName(elements[i]));
+                    }
+                    model = array;
                 }
-                model = array;
+                model: []
+                delegate: widgetElementLoaderDelegate
+                visible: !plasmoid.configuration.overrideElementsMaximized || !tasksModel.activeWindow.maximized
+                onItemAdded: function (index, item) {
+                    item.repeaterVisible = Qt.binding(function () {
+                        return visible;
+                    });
+                }
             }
-            model: []
-            delegate: widgetElementLoaderDelegate
-            visible: !widgetElementsRepeater.visible
-            onItemAdded: function (index, item) {
-                item.repeaterVisible = Qt.binding(function () {
-                    return visible;
-                });
+
+            Repeater {
+                property var elements: plasmoid.configuration.overrideElementsMaximized ? plasmoid.configuration.widgetElementsMaximized : []
+
+                onElementsChanged: function () {
+                    let array = [];
+                    for (var i = 0; i < elements.length; i++) {
+                        array.push(Utils.widgetElementModelFromName(elements[i]));
+                    }
+                    model = array;
+                }
+                model: []
+                delegate: widgetElementLoaderDelegate
+                visible: !widgetElementsRepeater.visible
+                onItemAdded: function (index, item) {
+                    item.repeaterVisible = Qt.binding(function () {
+                        return visible;
+                    });
+                }
             }
         }
     }
