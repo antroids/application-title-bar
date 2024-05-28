@@ -10,6 +10,19 @@ KDE plasmoid compatible with Qt6 with window title and buttons.
 I like minimalistic display layout and used Active Window Control plasmoid, but it's abandoned for several years and now incompatible with Plasma6.
 So, I decided to create my own widget with the minimal set of features.
 
+<p float="left">
+    <a style="vertical-align: top;" href="docs/Screens_24_5/8.png"><img src="docs/Screens_24_5/8.png" width="100" /></a>
+    <a style="vertical-align: top;" href="docs/Screens_24_5/5.png"><img src="docs/Screens_24_5/5.png" width="100" /></a>
+    <a style="vertical-align: top;" href="docs/Screens_24_5/6.png"><img src="docs/Screens_24_5/6.png" width="100" /></a>
+    <a style="vertical-align: top;" href="docs/Screens_24_5/7.png"><img src="docs/Screens_24_5/7.png" width="100" /></a>
+    <p>
+        <a href="docs/Screens_24_5/1.png"><img src="docs/Screens_24_5/1.png" width="100" /></a>
+        <a href="docs/Screens_24_5/2.png"><img src="docs/Screens_24_5/2.png" width="100" /></a>
+        <a href="docs/Screens_24_5/3.png"><img src="docs/Screens_24_5/3.png" width="100" /></a>
+        <a href="docs/Screens_24_5/4.png"><img src="docs/Screens_24_5/4.png" width="100" /></a>
+    </p>
+</p>
+
 ### Goal
 
 Stable and fast widget with control buttons and window title, ideally with the same functionality as Unity panel.
