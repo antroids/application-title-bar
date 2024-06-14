@@ -262,6 +262,8 @@ PlasmoidItem {
     }
 
     fullRepresentation: Item {
+        id: representationProxy
+
         Layout.fillWidth: root.vertical ? null : plasmoid.configuration.widgetFillWidth
         Layout.fillHeight: root.vertical ? plasmoid.configuration.widgetFillWidth : null
 
@@ -277,6 +279,9 @@ PlasmoidItem {
             spacing: plasmoid.configuration.widgetSpacing
             anchors.left: parent.left
             anchors.verticalCenter: root.vertical ? undefined : parent.verticalCenter
+            anchors.horizontalCenter: root.vertical ? parent.horizontalCenter : undefined
+            width: root.vertical ? representationProxy.height : representationProxy.width
+            height: root.vertical ? representationProxy.width : representationProxy.height
 
             transform: [
                 Rotation {
