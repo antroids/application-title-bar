@@ -40,7 +40,24 @@ Disadvantages of pure QML widget:
 2. Manual with Plasma UI
     - Install via "Add Widgets..." -> "Get New Widgets..." -> "Download..."
     - Install from [KDE Store](https://store.kde.org/p/2135509)
-    - Download Latest \*.plasmoid from [Releases page](https://github.com/antroids/application-title-bar/releases) and install it via "Add Widgets..." -> "Get New Widgets..." -> "Install Widget From Local file"    
+    - Download Latest \*.plasmoid from [Releases page](https://github.com/antroids/application-title-bar/releases) and install it via "Add Widgets..." -> "Get New Widgets..." -> "Install Widget From Local file"
+
+3. Nix (needs Nixpkgs unstable 24.11 or later)
+
+    On NixOS:
+    ```nix
+    environment.systemPackages = with pkgs; [
+        application-title-bar
+    ];
+    ```
+   Other distros:
+   ```
+   # without flakes:
+   nix-env -iA nixpkgs.application-title-bar
+   # with flakes:
+   nix profile install nixpkgs#application-title-bar
+   ```
+
 
 ## License
 
