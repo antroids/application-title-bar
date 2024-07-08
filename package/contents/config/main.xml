@@ -207,4 +207,13 @@
             <default></default>
         </entry>
     </group>
+
+    <group name="TitleReplacements">
+        <entry name="titleReplacementsPatterns" type="StringList">
+        </entry>
+        <entry name="titleReplacementsTemplates" type="StringList">
+        </entry>
+        <entry name="titleReplacementsTypes" type="IntList">
+        </entry>
+    </group>
 </kcfg>

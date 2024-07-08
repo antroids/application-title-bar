@@ -20,4 +20,9 @@ ConfigModel {
         source: "config/ConfigBehavior.qml"
     }
 
+    ConfigCategory {
+        name: i18n("Replacements")
+        icon: "document-replace"
+        source: "config/TitleReplacements.qml"
+    }
 }

@@ -183,18 +183,25 @@ PlasmoidItem {
             property bool empty: text === undefined || text === ""
             property bool hideEmpty: empty && plasmoid.configuration.windowTitleHideEmpty
             property int windowTitleSource: plasmoid.configuration.overrideElementsMaximized && tasksModel.activeWindow.maximized ? plasmoid.configuration.windowTitleSourceMaximized : plasmoid.configuration.windowTitleSource
+            property var titleTextReplacements: Utils.Replacement.createReplacementList(plasmoid.configuration.titleReplacementsTypes, plasmoid.configuration.titleReplacementsPatterns, plasmoid.configuration.titleReplacementsTemplates)
 
             function titleText(windowTitleSource) {
+                let titleTextResult = "";
                 switch (windowTitleSource) {
                 case 0:
-                    return tasksModel.activeWindow.appName;
+                    titleTextResult = tasksModel.activeWindow.appName;
+                    break;
                 case 1:
-                    return tasksModel.activeWindow.decoration;
+                    titleTextResult = tasksModel.activeWindow.decoration;
+                    break;
                 case 2:
-                    return tasksModel.activeWindow.genericAppName;
+                    titleTextResult = tasksModel.activeWindow.genericAppName;
+                    break;
                 case 3:
-                    return plasmoid.configuration.windowTitleUndefined;
+                    titleTextResult = plasmoid.configuration.windowTitleUndefined;
+                    break;
                 }
+                return Utils.Replacement.applyReplacementList(titleTextResult, titleTextReplacements);
             }
 
             Layout.leftMargin: !hideEmpty ? plasmoid.configuration.windowTitleMarginsLeft : 0
