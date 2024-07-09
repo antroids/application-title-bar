@@ -21,6 +21,21 @@ TaskManager.TasksModel {
     property TaskManager.ActivityInfo activityInfo
     property Repeater filteredTasksRepeater
     property var activeTaskIndex: getInvalidIndex()
+    property Loader showingDesktopStateListener: Loader {
+        property bool showingDesktop: false
+
+        source: "KWindowSystemAdapter.qml"
+        onStatusChanged: function () {
+            if (status == Loader.Ready) {
+                showingDesktop = Qt.binding(function () {
+                    return item.showingDesktop;
+                });
+            } else {
+                showingDesktop = false;
+            }
+        }
+        onShowingDesktopChanged: updateActiveTaskIndex()
+    }
 
     function getInvalidIndex() {
         return index(-1, -1);
@@ -31,14 +46,18 @@ TaskManager.TasksModel {
     }
 
     function updateActiveTaskIndex() {
-        switch (plasmoid.configuration.widgetActiveTaskSource) {
-        case ActiveTasksModel.ActiveTaskSource.ActiveTask:
-            activeTaskIndex = filterTask(activeTask) ? activeTask : getInvalidIndex();
-            break;
-        case ActiveTasksModel.ActiveTaskSource.LastActiveTask:
-        case ActiveTasksModel.ActiveTaskSource.LastActiveMaximized:
-            activeTaskIndex = hasIndex(0, 0) && filterTask(getFirstRowIndex()) ? getFirstRowIndex() : getInvalidIndex();
-            break;
+        if (showingDesktopStateListener.showingDesktop) {
+            activeTaskIndex = getInvalidIndex();
+        } else {
+            switch (plasmoid.configuration.widgetActiveTaskSource) {
+            case ActiveTasksModel.ActiveTaskSource.ActiveTask:
+                activeTaskIndex = filterTask(activeTask) ? activeTask : getInvalidIndex();
+                break;
+            case ActiveTasksModel.ActiveTaskSource.LastActiveTask:
+            case ActiveTasksModel.ActiveTaskSource.LastActiveMaximized:
+                activeTaskIndex = hasIndex(0, 0) && filterTask(getFirstRowIndex()) ? getFirstRowIndex() : getInvalidIndex();
+                break;
+            }
         }
         activeWindow.update();
     }
@@ -72,8 +91,7 @@ TaskManager.TasksModel {
     groupMode: TaskManager.TasksModel.GroupDisabled
     Component.onCompleted: updateActiveTaskIndex()
 
-    virtualDesktopInfo: TaskManager.VirtualDesktopInfo {
-    }
+    virtualDesktopInfo: TaskManager.VirtualDesktopInfo {}
 
     activityInfo: TaskManager.ActivityInfo {
         readonly property string nullUuid: "00000000-0000-0000-0000-000000000000"

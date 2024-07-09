@@ -201,7 +201,10 @@ PlasmoidItem {
                     titleTextResult = plasmoid.configuration.windowTitleUndefined;
                     break;
                 }
-                return Utils.Replacement.applyReplacementList(titleTextResult, titleTextReplacements);
+                if (titleTextResult) {
+                    titleTextResult = Utils.Replacement.applyReplacementList(titleTextResult, titleTextReplacements);
+                }
+                return titleTextResult;
             }
 
             Layout.leftMargin: !hideEmpty ? plasmoid.configuration.windowTitleMarginsLeft : 0
