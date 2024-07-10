@@ -22,3 +22,4 @@ jobs:
       with:
         artifacts: "package/application-title-bar.plasmoid"
         token: ${{ secrets.GITHUB_TOKEN }}
+        generateReleaseNotes: true
