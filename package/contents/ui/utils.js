@@ -120,13 +120,16 @@ class Replacement {
 
     static createReplacementList(types, patterns, templates) {
         const length = types.length;
-        if (length !== patterns.length || length !== templates.length) {
-            return [];
-        }
-
-        let result = new Array(length);
+        let result = new Array();
         for (let i = 0; i < length; i++) {
-            result[i] = Replacement.createReplacement(types[i], patterns[i], templates[i]);
+            const type = types[i];
+            const pattern = patterns[i];
+            const template = templates[i];
+            if (type === undefined || pattern === undefined || template === undefined) {
+                break; // Inconsistent state
+            } else {
+                result.push(Replacement.createReplacement(type, pattern, template));
+            }
         }
         return result;
     }

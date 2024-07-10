@@ -183,32 +183,10 @@ PlasmoidItem {
             property bool empty: text === undefined || text === ""
             property bool hideEmpty: empty && plasmoid.configuration.windowTitleHideEmpty
             property int windowTitleSource: plasmoid.configuration.overrideElementsMaximized && tasksModel.activeWindow.maximized ? plasmoid.configuration.windowTitleSourceMaximized : plasmoid.configuration.windowTitleSource
-            property var titleTextReplacements: Utils.Replacement.createReplacementList(plasmoid.configuration.titleReplacementsTypes, plasmoid.configuration.titleReplacementsPatterns, plasmoid.configuration.titleReplacementsTemplates)
-
-            function titleText(windowTitleSource) {
-                let titleTextResult = "";
-                switch (windowTitleSource) {
-                case 0:
-                    titleTextResult = tasksModel.activeWindow.appName;
-                    break;
-                case 1:
-                    titleTextResult = tasksModel.activeWindow.decoration;
-                    break;
-                case 2:
-                    titleTextResult = tasksModel.activeWindow.genericAppName;
-                    break;
-                case 3:
-                    titleTextResult = plasmoid.configuration.windowTitleUndefined;
-                    break;
-                }
-                if (titleTextResult) {
-                    titleTextResult = Utils.Replacement.applyReplacementList(titleTextResult, titleTextReplacements);
-                }
-                return titleTextResult;
-            }
+            property var titleTextReplacements: []
 
             Layout.leftMargin: !hideEmpty ? plasmoid.configuration.windowTitleMarginsLeft : 0
-            Layout.topMargin: !hideEmpty ? plasmoid.configuration.windowTitleMarginsTop : 0
+            Layout.topMargin: !hideEmpty ? plasmoid.configuration.windowTitleMarginsTotitleReplacementsTypesp : 0
             Layout.bottomMargin: !hideEmpty ? plasmoid.configuration.windowTitleMarginsBottom : 0
             Layout.rightMargin: !hideEmpty ? plasmoid.configuration.windowTitleMarginsRight : 0
             Layout.minimumWidth: plasmoid.configuration.windowTitleMinimumWidth
@@ -223,6 +201,22 @@ PlasmoidItem {
             elide: Text.ElideRight
             wrapMode: Text.WrapAnywhere
             enabled: tasksModel.hasActiveWindow
+
+            Connections {
+                target: plasmoid.configuration
+
+                function onTitleReplacementsTypesChanged() {
+                    updateTitleTextReplacements();
+                }
+
+                function onTitleReplacementsPatternsChanged() {
+                    updateTitleTextReplacements();
+                }
+
+                function onTitleReplacementsTemplatesChanged() {
+                    updateTitleTextReplacements();
+                }
+            }
 
             WidgetDragHandler {
                 Component.onCompleted: {
@@ -248,6 +242,36 @@ PlasmoidItem {
                 Component.onCompleted: {
                     invokeKWinShortcut.connect(root.invokeKWinShortcut);
                 }
+            }
+
+            function titleText(windowTitleSource) {
+                let titleTextResult = "";
+                switch (windowTitleSource) {
+                case 0:
+                    titleTextResult = tasksModel.activeWindow.appName;
+                    break;
+                case 1:
+                    titleTextResult = tasksModel.activeWindow.decoration;
+                    break;
+                case 2:
+                    titleTextResult = tasksModel.activeWindow.genericAppName;
+                    break;
+                case 3:
+                    titleTextResult = plasmoid.configuration.windowTitleUndefined;
+                    break;
+                }
+                if (titleTextResult) {
+                    titleTextResult = Utils.Replacement.applyReplacementList(titleTextResult, titleTextReplacements);
+                }
+                return titleTextResult;
+            }
+
+            function updateTitleTextReplacements() {
+                Qt.callLater(_updateTitleTextReplacements);
+            }
+
+            function _updateTitleTextReplacements() {
+                titleTextReplacements = Utils.Replacement.createReplacementList(plasmoid.configuration.titleReplacementsTypes, plasmoid.configuration.titleReplacementsPatterns, plasmoid.configuration.titleReplacementsTemplates);
             }
         }
     }
