@@ -57,7 +57,13 @@ Disadvantages of pure QML widget:
    # with flakes:
    nix profile install nixpkgs#application-title-bar
    ```
+### Additional packages
 
+- Debian, Ubuntu, Kali Linux, Raspbian: `apt-get install qdbus`
+- Alpine: `apk add qt5-qttools`
+- Arch Linux: `pacman -S qdbus-qt5`
+- CentOS: `yum install qdbus-qt5`
+- Fedora: `dnf install qt5-qttools`
 
 ## License
 
