@@ -218,6 +218,8 @@ PlasmoidItem {
                 }
             }
 
+            Component.onCompleted: updateTitleTextReplacements()
+
             WidgetDragHandler {
                 Component.onCompleted: {
                     invokeKWinShortcut.connect(root.invokeKWinShortcut);
