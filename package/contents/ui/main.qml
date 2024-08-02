@@ -30,6 +30,7 @@ PlasmoidItem {
     property bool leftEdgeLocation: plasmoid.location === PlasmaCore.Types.LeftEdge
 
     signal invokeKWinShortcut(string shortcut)
+    signal widgetElementsLayoutUpdated
 
     Plasmoid.constraintHints: Plasmoid.CanFillArea
     Layout.fillWidth: !vertical && plasmoid.configuration.widgetFillWidth
@@ -55,6 +56,7 @@ PlasmoidItem {
 
             onLoaded: function () {
                 Utils.copyLayoutConstraint(item, widgetElementLoader);
+                widgetElementLoader.Layout.preferredWidthChanged.connect(root.widgetElementsLayoutUpdated);
                 item.modelData = modelData;
             }
             sourceComponent: {
@@ -126,8 +128,9 @@ PlasmoidItem {
             property var modelData
 
             height: root.elementHeight
-            Layout.alignment: root.widgetAlignment
             width: height
+            Layout.alignment: root.widgetAlignment
+            Layout.preferredWidth: width
             source: tasksModel.activeWindow.icon || "window"
             enabled: tasksModel.hasActiveWindow && !!tasksModel.activeWindow.icon
 
@@ -166,8 +169,9 @@ PlasmoidItem {
             property var modelData
 
             height: root.elementHeight
-            Layout.alignment: root.widgetAlignment
             width: height / 3
+            Layout.alignment: root.widgetAlignment
+            Layout.preferredWidth: width
             color: "transparent"
             enabled: tasksModel.hasActiveWindow
         }
@@ -193,6 +197,7 @@ PlasmoidItem {
             Layout.maximumWidth: !hideEmpty ? plasmoid.configuration.windowTitleMaximumWidth : 0
             Layout.alignment: root.widgetAlignment
             Layout.fillWidth: plasmoid.configuration.widgetFillWidth
+            Layout.preferredWidth: textMetrics.width + leftPadding + rightPadding + 1 // Magic number
             text: titleText(windowTitleSource) || plasmoid.configuration.windowTitleUndefined
             font.pointSize: plasmoid.configuration.windowTitleFontSize
             font.bold: plasmoid.configuration.windowTitleFontBold
@@ -201,6 +206,12 @@ PlasmoidItem {
             elide: Text.ElideRight
             wrapMode: Text.WrapAnywhere
             enabled: tasksModel.hasActiveWindow
+
+            TextMetrics {
+                id: textMetrics
+                font: windowTitleLabel.font
+                text: windowTitleLabel.text
+            }
 
             Connections {
                 target: plasmoid.configuration
@@ -309,6 +320,9 @@ PlasmoidItem {
         Layout.maximumWidth: root.vertical ? widgetRow.Layout.maximumHeight : widgetRow.Layout.maximumWidth
         Layout.maximumHeight: root.vertical ? widgetRow.Layout.maximumWidth : widgetRow.Layout.maximumHeight
 
+        Layout.preferredWidth: root.vertical ? widgetRow.Layout.preferredHeight : widgetRow.Layout.preferredWidth
+        Layout.preferredHeight: root.vertical ? widgetRow.Layout.preferredWidth : widgetRow.Layout.preferredHeight
+
         RowLayout {
             id: widgetRow
 
@@ -363,6 +377,7 @@ PlasmoidItem {
             }
 
             Repeater {
+                id: widgetElementsMaximizedRepeater
                 property var elements: plasmoid.configuration.overrideElementsMaximized ? plasmoid.configuration.widgetElementsMaximized : []
 
                 onElementsChanged: function () {
@@ -379,6 +394,30 @@ PlasmoidItem {
                     item.repeaterVisible = Qt.binding(function () {
                         return visible;
                     });
+                }
+            }
+
+            Connections {
+                target: root
+
+                function onWidgetElementsLayoutUpdated() {
+                    widgetRow.updatePreferredWidth();
+                }
+            }
+
+            function updatePreferredWidth() {
+                var repeater = widgetElementsRepeater.visible ? widgetElementsRepeater : widgetElementsMaximizedRepeater;
+                var preferredWidth = (repeater.count - 1) * widgetRow.spacing;
+                for (var i = 0; i < repeater.count; i++) {
+                    var item = repeater.itemAt(i);
+                    preferredWidth += Utils.calculateItemPreferredWidth(item);
+                }
+                if (preferredWidth < widgetRow.Layout.minimumWidth) {
+                    widgetRow.Layout.preferredWidth = widgetRow.Layout.minimumWidth;
+                } else if (preferredWidth > widgetRow.Layout.maximumWidth) {
+                    widgetRow.Layout.preferredWidth = widgetRow.Layout.maximumWidth;
+                } else {
+                    widgetRow.Layout.preferredWidth = preferredWidth;
                 }
             }
         }

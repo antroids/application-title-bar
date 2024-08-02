@@ -33,6 +33,18 @@ function copyLayoutConstraint(from, to) {
     })
 }
 
+function calculateItemPreferredWidth(item) {
+    var preferredWidth = 0;
+
+    if (item && item.Layout) {
+        preferredWidth += item.Layout.preferredWidth || 0;
+        preferredWidth += item.Layout.leftMargin || 0;
+        preferredWidth += item.Layout.rightMargin || 0;
+    }
+
+    return preferredWidth;
+}
+
 function widgetElementModelFromName(name) {
     switch (name) {
         case "windowCloseButton":
