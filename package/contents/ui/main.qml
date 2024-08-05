@@ -401,11 +401,12 @@ PlasmoidItem {
                 target: root
 
                 function onWidgetElementsLayoutUpdated() {
-                    widgetRow.updatePreferredWidth();
+                    var preferredWidth = plasmoid.configuration.widgetFillWidth ? widgetRow.calculatePreferredWidth() : -1;
+                    widgetRow.Layout.preferredWidth = preferredWidth;
                 }
             }
 
-            function updatePreferredWidth() {
+            function calculatePreferredWidth() {
                 var repeater = widgetElementsRepeater.visible ? widgetElementsRepeater : widgetElementsMaximizedRepeater;
                 var preferredWidth = (repeater.count - 1) * widgetRow.spacing;
                 for (var i = 0; i < repeater.count; i++) {
@@ -413,11 +414,11 @@ PlasmoidItem {
                     preferredWidth += Utils.calculateItemPreferredWidth(item);
                 }
                 if (preferredWidth < widgetRow.Layout.minimumWidth) {
-                    widgetRow.Layout.preferredWidth = widgetRow.Layout.minimumWidth;
+                    return widgetRow.Layout.minimumWidth;
                 } else if (preferredWidth > widgetRow.Layout.maximumWidth) {
-                    widgetRow.Layout.preferredWidth = widgetRow.Layout.maximumWidth;
+                    return widgetRow.Layout.maximumWidth;
                 } else {
-                    widgetRow.Layout.preferredWidth = preferredWidth;
+                    return preferredWidth;
                 }
             }
         }
