@@ -21,8 +21,8 @@ PlasmoidItem {
     property real widgetHeight: (vertical ? width : height)
     property real elementHeight: widgetHeight - plasmoid.configuration.widgetMargins * 2
     property real buttonMargins: plasmoid.configuration.widgetButtonsMargins
-    property real buttonWidth: plasmoid.configuration.widgetButtonsAspectRatio / 100 * buttonHeight
     property real buttonHeight: elementHeight - buttonMargins * 2
+    property real buttonWidth: plasmoid.configuration.widgetButtonsAspectRatio / 100 * buttonHeight
     property var widgetAlignment: plasmoid.configuration.widgetHorizontalAlignment | plasmoid.configuration.widgetVerticalAlignment
     property KWinConfig kWinConfig
     property bool widgetHovered: widgetHoverHandler.hovered
@@ -197,7 +197,7 @@ PlasmoidItem {
             Layout.maximumWidth: !hideEmpty ? plasmoid.configuration.windowTitleMaximumWidth : 0
             Layout.alignment: root.widgetAlignment
             Layout.fillWidth: plasmoid.configuration.widgetFillWidth
-            Layout.preferredWidth: textMetrics.width + leftPadding + rightPadding + 1 // Magic number
+            Layout.preferredWidth: textMetrics.advanceWidth + leftPadding + rightPadding + 1 // Magic number
             text: titleText(windowTitleSource) || plasmoid.configuration.windowTitleUndefined
             font.pointSize: plasmoid.configuration.windowTitleFontSize
             font.bold: plasmoid.configuration.windowTitleFontBold
