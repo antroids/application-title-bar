@@ -25,6 +25,35 @@ Item {
         AppMenuButton
     }
 
+    function getAccessibleName(type) {
+        switch (type) {
+        case WindowControlButton.Type.MinimizeButton:
+            return "Minimize";
+        case WindowControlButton.Type.MaximizeButton:
+            return "Maximize";
+        case WindowControlButton.Type.RestoreButton:
+            return "Restore";
+        case WindowControlButton.Type.CloseButton:
+            return "Close";
+        case WindowControlButton.Type.AllDesktopsButton:
+            return "All Desktops";
+        case WindowControlButton.Type.KeepAboveButton:
+            return "Keep Above";
+        case WindowControlButton.Type.KeepBelowButton:
+            return "Keep Below";
+        case WindowControlButton.Type.ShadeButton:
+            return "Shade";
+        case WindowControlButton.Type.HelpButton:
+            return "Help";
+        case WindowControlButton.Type.MenuButton:
+            return "Menu";
+        case WindowControlButton.Type.AppMenuButton:
+            return "Application Menu";
+        default:
+            return "";
+        }
+    }
+
     /*
     *  Active* - icons for active windows.
     *  *Disabled - disabled non-interactive buttons
@@ -66,6 +95,13 @@ Item {
     property int iconState: WindowControlButton.IconState.Active
     property alias mouseAreaEnabled: buttonMouseArea.enabled
 
+    Accessible.role: Accessible.Button
+    Accessible.focusable: true
+    Accessible.name: i18n(getAccessibleName(buttonType))
+    Accessible.onPressAction: buttonActionCall()
+    Accessible.checked: checked
+    Accessible.pressed: pressed
+
     signal actionCall(int action)
 
     function updateIconState() {
@@ -78,6 +114,10 @@ Item {
     onPressedChanged: Qt.callLater(updateIconState)
     onCheckedChanged: Qt.callLater(updateIconState)
 
+    function buttonActionCall() {
+        button.actionCall(WCB.getAction(button.buttonType));
+    }
+
     MouseArea {
         id: buttonMouseArea
 
@@ -89,9 +129,7 @@ Item {
         onExited: button.hovered = false
         onPressed: button.pressed = true
         onReleased: button.pressed = false
-        onClicked: function () {
-            button.actionCall(WCB.getAction(button.buttonType));
-        }
+        onClicked: buttonActionCall()
     }
 
     Repeater {

@@ -207,6 +207,9 @@ PlasmoidItem {
             wrapMode: Text.WrapAnywhere
             enabled: tasksModel.hasActiveWindow
 
+            Accessible.role: Accessible.TitleBar
+            Accessible.name: text
+
             TextMetrics {
                 id: textMetrics
                 font: windowTitleLabel.font
@@ -332,6 +335,9 @@ PlasmoidItem {
             anchors.horizontalCenter: root.vertical ? parent.horizontalCenter : undefined
             width: root.vertical ? representationProxy.height : representationProxy.width
             height: root.vertical ? representationProxy.width : representationProxy.height
+
+            Accessible.role: Accessible.Grouping
+            Accessible.name: i18n("Application title bar")
 
             transform: [
                 Rotation {
