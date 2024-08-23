@@ -95,21 +95,9 @@ Item {
         return path && path.toString() !== "" ? path : undefined;
     }
 
+    // https://invent.kde.org/plasma/kwin/-/blob/master/src/plugins/kdecorations/aurorae/src/qml/AuroraeButton.qml
     function calculateAuroraeIconState(button) {
-        if (button.active) {
-            if (button.pressed && button.hasActivePressed)
-                return WindowControlButton.IconState.ActivePressed;
-            else if (button.checked && button.hovered && button.hasActiveChecked && button.hasActiveHover)
-                return WindowControlButton.IconState.ActiveHoverChecked;
-            else if (button.checked && button.hasActiveChecked)
-                return WindowControlButton.IconState.ActiveChecked;
-            else if (button.hovered && button.hasActiveHover)
-                return WindowControlButton.IconState.ActiveHover;
-            else if (!button.enabled && button.hasActiveDisabled)
-                return WindowControlButton.IconState.ActiveDisabled;
-            else
-                return WindowControlButton.IconState.Active;
-        } else {
+        if (!button.active) {
             if (button.pressed && button.hasInactivePressed)
                 return WindowControlButton.IconState.InactivePressed;
             else if (button.checked && button.hovered && button.hasInactiveChecked && button.hasInactiveHover)
@@ -120,9 +108,21 @@ Item {
                 return WindowControlButton.IconState.InactiveHover;
             else if (!button.enabled && button.hasInactiveDisabled)
                 return WindowControlButton.IconState.InactiveDisabled;
-            else
+            else if (button.hasInactive && !button.pressed && !button.checked && !button.hovered && button.enabled)
                 return WindowControlButton.IconState.Inactive;
         }
+        if (button.pressed && button.hasActivePressed && (button.active || !button.hasInactivePressed))
+            return WindowControlButton.IconState.ActivePressed;
+        else if (button.checked && button.hover && button.hasActiveChecked && button.hasActiveHover && (button.active || !button.hasInactiveChecked || !button.hasInactiveHover))
+            return WindowControlButton.IconState.ActiveHoverChecked;
+        else if (button.checked && button.hasActiveChecked && (button.active || !button.hasInactiveChecked))
+            return WindowControlButton.IconState.ActiveChecked;
+        else if (button.hovered && button.hasActiveHover && (button.active || !button.hasInactiveHover))
+            return WindowControlButton.IconState.ActiveHover;
+        else if (!button.enabled && button.hasActiveDisabled && (button.active || !button.hasInactiveDisabled))
+            return WindowControlButton.IconState.ActiveDisabled;
+        else
+            return WindowControlButton.IconState.Active;
     }
 
     function mapButtonToName(type) {
