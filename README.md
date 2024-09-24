@@ -74,7 +74,7 @@ In such cases you can use the following script to downgrade the panel version:
 wget https://github.com/antroids/application-title-bar/releases/download/v0.6.8/application-title-bar.plasmoid -O ${TMPDIR:-/tmp}/application-title-bar.plasmoid && kpackagetool6 -t Plasma/Applet -u ${TMPDIR:-/tmp}/application-title-bar.plasmoid && systemctl --user restart plasma-plasmashell.service
 `
 
-Or you can remove the widget: `kpackagetool6 --type Plasma/Applet --show com.github.antroids.application-title-bar`
+Or you can remove the widget: `kpackagetool6 --type Plasma/Applet --remove com.github.antroids.application-title-bar`
 
 Please, don't forget to fill the report about the issues.
 
