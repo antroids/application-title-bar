@@ -65,6 +65,19 @@ Disadvantages of pure QML widget:
 - CentOS: `yum install qdbus-qt5`
 - Fedora: `dnf install qt5-qttools`
 
+## 🆘 In cases of panel freezes or crashes 🆘
+
+Although the widget is being used by me and a lot of other people, there is still a chance that it would be incompatible with your OS distribution. The worst that can happen is some Binding loop that can freeze your Plasma panel.
+
+In such cases you can use the following script to downgrade the panel version:
+`
+wget https://github.com/antroids/application-title-bar/releases/download/v0.6.8/application-title-bar.plasmoid -O ${TMPDIR:-/tmp}/application-title-bar.plasmoid && kpackagetool6 -t Plasma/Applet -u ${TMPDIR:-/tmp}/application-title-bar.plasmoid && systemctl --user restart plasma-plasmashell.service
+`
+
+Or you can remove the widget: `kpackagetool6 --type Plasma/Applet --show com.github.antroids.application-title-bar`
+
+Please, don't forget to fill the report about the issues.
+
 ## License
 
 This project is licensed under the GPL-3.0-or-later License - see the LICENSE.md file for details
