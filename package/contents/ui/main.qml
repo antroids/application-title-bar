@@ -184,6 +184,7 @@ PlasmoidItem {
             id: windowTitleLabel
 
             readonly property var horizontalAlignmentValues: [Text.AlignLeft, Text.AlignRight, Text.AlignHCenter, Text.AlignJustify]
+            readonly property var verticalAlignmentValues: [Text.AlignTop, Text.AlignBottom, Text.AlignVCenter]
 
             property var modelData
             property bool empty: text === undefined || text === ""
@@ -191,14 +192,11 @@ PlasmoidItem {
             property int windowTitleSource: plasmoid.configuration.overrideElementsMaximized && tasksModel.activeWindow.maximized ? plasmoid.configuration.windowTitleSourceMaximized : plasmoid.configuration.windowTitleSource
             property var titleTextReplacements: []
 
-            Layout.leftMargin: !hideEmpty ? plasmoid.configuration.windowTitleMarginsLeft : 0
-            Layout.topMargin: !hideEmpty ? plasmoid.configuration.windowTitleMarginsTotitleReplacementsTypesp : 0
-            Layout.bottomMargin: !hideEmpty ? plasmoid.configuration.windowTitleMarginsBottom : 0
-            Layout.rightMargin: !hideEmpty ? plasmoid.configuration.windowTitleMarginsRight : 0
             Layout.minimumWidth: plasmoid.configuration.windowTitleMinimumWidth
             Layout.maximumWidth: !hideEmpty ? plasmoid.configuration.windowTitleMaximumWidth : 0
             Layout.alignment: root.widgetAlignment
             Layout.fillWidth: plasmoid.configuration.widgetFillWidth
+            Layout.fillHeight: true
             Layout.preferredWidth: textMetrics.advanceWidth + leftPadding + rightPadding + 1 // Magic number
             text: titleText(windowTitleSource) || plasmoid.configuration.windowTitleUndefined
             font.pointSize: plasmoid.configuration.windowTitleFontSize
@@ -209,6 +207,12 @@ PlasmoidItem {
             wrapMode: Text.WrapAnywhere
             enabled: tasksModel.hasActiveWindow
             horizontalAlignment: horizontalAlignmentValues[plasmoid.configuration.windowTitleHorizontalAlignment]
+            verticalAlignment: verticalAlignmentValues[plasmoid.configuration.windowTitleVerticalAlignment]
+
+            bottomPadding: !hideEmpty ? plasmoid.configuration.windowTitleMarginsBottom : 0
+            leftPadding: !hideEmpty ? plasmoid.configuration.windowTitleMarginsLeft : 0
+            rightPadding: !hideEmpty ? plasmoid.configuration.windowTitleMarginsRight : 0
+            topPadding: !hideEmpty ? plasmoid.configuration.windowTitleMarginsTop : 0
 
             Accessible.role: Accessible.TitleBar
             Accessible.name: text

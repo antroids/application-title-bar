@@ -34,6 +34,7 @@ KCM.SimpleKCM {
     property alias cfg_windowTitleFontSizeMode: windowTitleFontSizeMode.currentIndex
     property alias cfg_windowTitleSource: windowTitleSource.currentIndex
     property alias cfg_windowTitleHorizontalAlignment: windowTitleHorizontalAlignment.currentIndex
+    property alias cfg_windowTitleVerticalAlignment: windowTitleVerticalAlignment.currentIndex
     property alias cfg_windowTitleHideEmpty: windowTitleHideEmpty.checked
     property alias cfg_windowTitleUndefined: windowTitleUndefined.text
     property alias cfg_windowTitleMarginsLeft: windowTitleMarginsLeft.value
@@ -344,6 +345,13 @@ You can install more of regular Aurorae themes for window decorations in System 
 
             Kirigami.FormData.label: i18n("Horizontal alignment:")
             model: [i18n("Left"), i18n("Right"), i18n("Center"), i18n("Justify")]
+        }
+
+        ComboBox {
+            id: windowTitleVerticalAlignment
+
+            Kirigami.FormData.label: i18n("Vertical alignment:")
+            model: [i18n("Top"), i18n("Bottom"), i18n("Center")]
         }
 
         RowLayout {
