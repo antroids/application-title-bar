@@ -183,6 +183,8 @@ PlasmoidItem {
         PlasmaComponents.Label {
             id: windowTitleLabel
 
+            readonly property var horizontalAlignmentValues: [Text.AlignLeft, Text.AlignRight, Text.AlignHCenter, Text.AlignJustify]
+
             property var modelData
             property bool empty: text === undefined || text === ""
             property bool hideEmpty: empty && plasmoid.configuration.windowTitleHideEmpty
@@ -206,6 +208,7 @@ PlasmoidItem {
             elide: Text.ElideRight
             wrapMode: Text.WrapAnywhere
             enabled: tasksModel.hasActiveWindow
+            horizontalAlignment: horizontalAlignmentValues[plasmoid.configuration.windowTitleHorizontalAlignment]
 
             Accessible.role: Accessible.TitleBar
             Accessible.name: text

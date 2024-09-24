@@ -100,6 +100,15 @@
             </choices>
             <default>2</default>
         </entry>
+        <entry name="windowTitleHorizontalAlignment" type="Enum">
+            <choices>
+                <choice name="Left" />
+                <choice name="Right" />
+                <choice name="Center" />
+                <choice name="Justify" />
+            </choices>
+            <default>0</default>
+        </entry>
         <entry name="windowTitleHideEmpty" type="Bool">
             <default>false</default>
         </entry>
