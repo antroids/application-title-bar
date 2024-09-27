@@ -34,12 +34,7 @@ TaskManager.TasksModel {
                 showingDesktop = false;
             }
         }
-        onShowingDesktopChanged: syncActiveTaskIndex()
-    }
-    property Timer syncActiveTaskTimer: Timer {
-        interval: 500
-        onTriggered: updateActiveTaskIndex()
-        triggeredOnStart: true
+        onShowingDesktopChanged: updateActiveTaskIndex()
     }
 
     function getInvalidIndex() {
@@ -67,10 +62,6 @@ TaskManager.TasksModel {
         activeWindow.update();
     }
 
-    function syncActiveTaskIndex() {
-        syncActiveTaskTimer.restart();
-    }
-
     function filterTask(index) {
         if (!index || !index.valid)
             return false;
@@ -90,15 +81,15 @@ TaskManager.TasksModel {
     filterNotMaximized: plasmoid.configuration.widgetActiveTaskSource == ActiveTasksModel.ActiveTaskSource.LastActiveMaximized
     onDataChanged: function (from, to, roles) {
         if (hasActiveWindow && activeTaskIndex >= from && activeTaskIndex <= to)
-            syncActiveTaskIndex();
+            updateActiveTaskIndex();
         else if (!hasActiveWindow && getFirstRowIndex() >= from && getFirstRowIndex() <= to)
-            syncActiveTaskIndex();
+            updateActiveTaskIndex();
     }
-    onActiveTaskChanged: syncActiveTaskIndex()
-    onCountChanged: syncActiveTaskIndex()
+    onActiveTaskChanged: updateActiveTaskIndex()
+    onCountChanged: updateActiveTaskIndex()
     sortMode: TaskManager.TasksModel.SortLastActivated
     groupMode: TaskManager.TasksModel.GroupDisabled
-    Component.onCompleted: syncActiveTaskIndex()
+    Component.onCompleted: updateActiveTaskIndex()
 
     virtualDesktopInfo: TaskManager.VirtualDesktopInfo {}
 
