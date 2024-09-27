@@ -134,27 +134,7 @@ PlasmoidItem {
             source: tasksModel.activeWindow.icon || "window"
             enabled: tasksModel.hasActiveWindow && !!tasksModel.activeWindow.icon
 
-            WidgetDragHandler {
-                Component.onCompleted: {
-                    invokeKWinShortcut.connect(root.invokeKWinShortcut);
-                }
-            }
-
-            WidgetTapHandler {
-                Component.onCompleted: {
-                    invokeKWinShortcut.connect(root.invokeKWinShortcut);
-                }
-            }
-
-            WidgetWheelHandler {
-                orientation: Qt.Vertical
-                Component.onCompleted: {
-                    invokeKWinShortcut.connect(root.invokeKWinShortcut);
-                }
-            }
-
-            WidgetWheelHandler {
-                orientation: Qt.Horizontal
+            MouseHandlers {
                 Component.onCompleted: {
                     invokeKWinShortcut.connect(root.invokeKWinShortcut);
                 }
@@ -174,6 +154,12 @@ PlasmoidItem {
             Layout.preferredWidth: width
             color: "transparent"
             enabled: tasksModel.hasActiveWindow
+
+            MouseHandlers {
+                Component.onCompleted: {
+                    invokeKWinShortcut.connect(root.invokeKWinShortcut);
+                }
+            }
         }
     }
 
@@ -241,27 +227,7 @@ PlasmoidItem {
 
             Component.onCompleted: updateTitleTextReplacements()
 
-            WidgetDragHandler {
-                Component.onCompleted: {
-                    invokeKWinShortcut.connect(root.invokeKWinShortcut);
-                }
-            }
-
-            WidgetTapHandler {
-                Component.onCompleted: {
-                    invokeKWinShortcut.connect(root.invokeKWinShortcut);
-                }
-            }
-
-            WidgetWheelHandler {
-                orientation: Qt.Vertical
-                Component.onCompleted: {
-                    invokeKWinShortcut.connect(root.invokeKWinShortcut);
-                }
-            }
-
-            WidgetWheelHandler {
-                orientation: Qt.Horizontal
+            MouseHandlers {
                 Component.onCompleted: {
                     invokeKWinShortcut.connect(root.invokeKWinShortcut);
                 }
