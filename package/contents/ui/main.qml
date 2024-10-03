@@ -28,11 +28,15 @@ PlasmoidItem {
     property bool widgetHovered: widgetHoverHandler.hovered
     property bool vertical: plasmoid.formFactor === PlasmaCore.Types.Vertical
     property bool leftEdgeLocation: plasmoid.location === PlasmaCore.Types.LeftEdge
+    property bool hideWidget: !tasksModel.hasActiveWindow && plasmoid.configuration.widgetElementsDisabledMode === WidgetElement.DisabledMode.Hide
 
     signal invokeKWinShortcut(string shortcut)
     signal widgetElementsLayoutUpdated
 
     Plasmoid.constraintHints: Plasmoid.CanFillArea
+    Plasmoid.status: hideWidget
+        ? PlasmaCore.Types.HiddenStatus
+        : PlasmaCore.Types.ActiveStatus
     Layout.fillWidth: !vertical && plasmoid.configuration.widgetFillWidth
     Layout.fillHeight: vertical && plasmoid.configuration.widgetFillWidth
     preferredRepresentation: fullRepresentation
