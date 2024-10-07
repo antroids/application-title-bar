@@ -28,11 +28,16 @@ PlasmoidItem {
     property bool widgetHovered: widgetHoverHandler.hovered
     property bool vertical: plasmoid.formFactor === PlasmaCore.Types.Vertical
     property bool leftEdgeLocation: plasmoid.location === PlasmaCore.Types.LeftEdge
+    property bool hideWidget: !tasksModel.hasActiveWindow && plasmoid.configuration.widgetElementsDisabledMode === WidgetElement.DisabledMode.Hide
+    property bool editMode: Plasmoid.containment.corona?.editMode ?? false
 
     signal invokeKWinShortcut(string shortcut)
     signal widgetElementsLayoutUpdated
 
     Plasmoid.constraintHints: Plasmoid.CanFillArea
+    Plasmoid.status: hideWidget
+        ? PlasmaCore.Types.HiddenStatus
+        : PlasmaCore.Types.ActiveStatus
     Layout.fillWidth: !vertical && plasmoid.configuration.widgetFillWidth
     Layout.fillHeight: vertical && plasmoid.configuration.widgetFillWidth
     preferredRepresentation: fullRepresentation
@@ -325,13 +330,10 @@ PlasmoidItem {
                 }
             ]
 
-            Rectangle {
-                id: emptyWidgetPlaceholder
-
-                color: "transparent"
-                Layout.maximumWidth: Kirigami.Units.smallSpacing
-                Layout.minimumWidth: Kirigami.Units.smallSpacing
-                visible: widgetRow.Layout.minimumWidth <= Kirigami.Units.smallSpacing
+            PlasmaComponents.Label {
+                id: editModePlaceholder
+                text: Plasmoid.metaData.name
+                visible: editMode
             }
 
             Repeater {
