@@ -86,14 +86,13 @@ Item {
     property int buttonType
     property string action: WCB.getAction(buttonType)
     property bool active: true
-    property bool hovered: false
-    property bool pressed: false
+    property bool hovered: hoverHandler.hovered
+    property bool pressed: tapHandler.pressed
     property bool checked: false
     property int iconTheme: WindowControlButton.IconTheme.Plasma
     property int animationDuration: 100
-    property MouseArea mouseArea: buttonMouseArea
     property int iconState: WindowControlButton.IconState.Active
-    property alias mouseAreaEnabled: buttonMouseArea.enabled
+    property bool mouseAreaEnabled: enabled
 
     Accessible.role: Accessible.Button
     Accessible.focusable: true
@@ -118,18 +117,21 @@ Item {
         button.actionCall(WCB.getAction(button.buttonType));
     }
 
-    MouseArea {
-        id: buttonMouseArea
+    HoverHandler {
+        id: hoverHandler
+        enabled: button.mouseAreaEnabled
+    }
 
-        anchors.fill: parent
+    TapHandler {
+        id: tapHandler
+        enabled: button.mouseAreaEnabled
         acceptedButtons: Qt.LeftButton
-        enabled: button.enabled
-        hoverEnabled: true
-        onEntered: button.hovered = true
-        onExited: button.hovered = false
-        onPressed: button.pressed = true
-        onReleased: button.pressed = false
-        onClicked: buttonActionCall()
+        gesturePolicy: TapHandler.WithinBounds
+        exclusiveSignals: TapHandler.SingleTap
+
+        onTapped: function () {
+            buttonActionCall();
+        }
     }
 
     Repeater {

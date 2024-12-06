@@ -35,9 +35,7 @@ PlasmoidItem {
     signal widgetElementsLayoutUpdated
 
     Plasmoid.constraintHints: Plasmoid.CanFillArea
-    Plasmoid.status: hideWidget
-        ? PlasmaCore.Types.HiddenStatus
-        : PlasmaCore.Types.ActiveStatus
+    Plasmoid.status: hideWidget ? PlasmaCore.Types.HiddenStatus : PlasmaCore.Types.ActiveStatus
     Layout.fillWidth: !vertical && plasmoid.configuration.widgetFillWidth
     Layout.fillHeight: vertical && plasmoid.configuration.widgetFillWidth
     preferredRepresentation: fullRepresentation
@@ -138,12 +136,6 @@ PlasmoidItem {
             Layout.preferredWidth: width
             source: tasksModel.activeWindow.icon || "window"
             enabled: tasksModel.hasActiveWindow && !!tasksModel.activeWindow.icon
-
-            MouseHandlers {
-                Component.onCompleted: {
-                    invokeKWinShortcut.connect(root.invokeKWinShortcut);
-                }
-            }
         }
     }
 
@@ -159,12 +151,6 @@ PlasmoidItem {
             Layout.preferredWidth: width
             color: "transparent"
             enabled: tasksModel.hasActiveWindow
-
-            MouseHandlers {
-                Component.onCompleted: {
-                    invokeKWinShortcut.connect(root.invokeKWinShortcut);
-                }
-            }
         }
     }
 
@@ -232,12 +218,6 @@ PlasmoidItem {
 
             Component.onCompleted: updateTitleTextReplacements()
 
-            MouseHandlers {
-                Component.onCompleted: {
-                    invokeKWinShortcut.connect(root.invokeKWinShortcut);
-                }
-            }
-
             function titleText(windowTitleSource) {
                 let titleTextResult = "";
                 switch (windowTitleSource) {
@@ -303,6 +283,12 @@ PlasmoidItem {
 
         Layout.preferredWidth: root.vertical ? widgetRow.Layout.preferredHeight : widgetRow.Layout.preferredWidth
         Layout.preferredHeight: root.vertical ? widgetRow.Layout.preferredWidth : widgetRow.Layout.preferredHeight
+
+        MouseHandlers {
+            Component.onCompleted: {
+                invokeKWinShortcut.connect(root.invokeKWinShortcut);
+            }
+        }
 
         RowLayout {
             id: widgetRow
