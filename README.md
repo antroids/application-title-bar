@@ -29,6 +29,7 @@ Disadvantages of pure QML widget:
 * Configurable elements set and order.
 * Different theming options. Internal Breeze icons, System icons and Aurorae theme.
 * Configurable layout and geometry.
+* Click and drag widget to reposition window (as if you'd dragged the window's integrated title bar)
 
 ## Installing
 
