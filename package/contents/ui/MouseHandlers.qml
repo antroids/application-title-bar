@@ -13,15 +13,19 @@ Item {
     signal invokeKWinShortcut(string shortcut)
 
     WidgetDragHandler {
+        id: dragHandler
         Component.onCompleted: {
             invokeKWinShortcut.connect(handlers.invokeKWinShortcut);
         }
+        onInvokeKWinShortcut: tapHandler.stopLongPressTimer()
     }
 
     WidgetTapHandler {
+        id: tapHandler
         Component.onCompleted: {
             invokeKWinShortcut.connect(handlers.invokeKWinShortcut);
         }
+        onInvokeKWinShortcut: dragHandler.stopDrag()
     }
 
     WidgetWheelHandler {

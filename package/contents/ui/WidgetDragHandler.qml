@@ -7,6 +7,9 @@
 import QtQuick
 import org.kde.plasma.plasmoid
 
+/*
+* Drag handler implemented in that strange way as workaround for cases, when window layout changed during the drag interaction.
+*/
 PointHandler {
     property bool dragInProgress: false
     property var cfg: plasmoid.configuration
@@ -19,19 +22,23 @@ PointHandler {
         return Math.sqrt(dx * dx + dy * dy);
     }
 
+    function stopDrag() {
+        dragInProgress = false;
+    }
+
     enabled: cfg.windowTitleDragEnabled
     dragThreshold: cfg.windowTitleDragThreshold
     acceptedButtons: Qt.LeftButton | Qt.MiddleButton
     onActiveChanged: function () {
-        if (active && (!cfg.windowTitleDragOnlyMaximized || tasksModel.activeWindow.maximized) && tasksModel.activeWindow.movable)
+        if (active && (!cfg.windowTitleDragOnlyMaximized || tasksModel.activeWindow.maximized))
             dragInProgress = true;
         else
-            dragInProgress = false;
+            stopDrag();
     }
     onPointChanged: function () {
         if (active && dragInProgress && point && point.pressPosition && point.position) {
             if (distance(point.pressPosition, point.position) > dragThreshold) {
-                dragInProgress = false;
+                stopDrag();
                 if (point.pressedButtons & Qt.LeftButton && cfg.widgetMouseAreaLeftDragAction != "")
                     invokeKWinShortcut(cfg.widgetMouseAreaLeftDragAction);
                 else if (point.pressedButtons & Qt.MiddleButton && cfg.widgetMouseAreaMiddleDragAction != "")
