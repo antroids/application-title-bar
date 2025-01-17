@@ -233,4 +233,11 @@
         <entry name="titleReplacementsTypes" type="IntList">
         </entry>
     </group>
+
+    <group name="Effects">
+        <entry name="effects" type="StringList">
+        </entry>
+        <entry name="effectRules" type="StringList">
+        </entry>
+    </group>
 </kcfg>

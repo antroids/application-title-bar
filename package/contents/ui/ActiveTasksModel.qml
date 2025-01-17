@@ -15,6 +15,8 @@ TaskManager.TasksModel {
         LastActiveMaximized
     }
 
+    signal activeWindowUpdated
+
     property ActiveWindow activeWindow
     property bool hasActiveWindow: activeTaskIndex.valid
     property TaskManager.VirtualDesktopInfo virtualDesktopInfo
@@ -119,6 +121,7 @@ TaskManager.TasksModel {
             genericAppName = tasksModel.data(activeTaskIndex, TaskManager.AbstractTasksModel.GenericAppName);
             decoration = tasksModel.data(activeTaskIndex, TaskManager.AbstractTasksModel.Decoration);
             icon = tasksModel.data(activeTaskIndex, Qt.DecorationRole);
+            tasksModel.activeWindowUpdated();
         }
 
         onActionCall: function (action) {

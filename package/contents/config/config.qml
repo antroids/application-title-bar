@@ -25,4 +25,10 @@ ConfigModel {
         icon: "document-replace"
         source: "config/TitleReplacements.qml"
     }
+
+    ConfigCategory {
+        name: i18n("Effects")
+        icon: "document-replace"
+        source: "config/effect/ConfigEffects.qml"
+    }
 }

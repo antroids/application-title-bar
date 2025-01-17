@@ -13,6 +13,8 @@ import org.kde.plasma.extras as PlasmaExtras
 import org.kde.plasma.plasmoid
 import org.kde.taskmanager as TaskManager
 import "utils.js" as Utils
+import "config/effect/"
+import "config/effect/effect.js" as EffectUtils
 
 PlasmoidItem {
     id: root
@@ -387,6 +389,26 @@ PlasmoidItem {
                 } else {
                     return preferredWidth;
                 }
+            }
+        }
+
+        WidgetEffectsRepeater {
+            id: effectsRepeater
+        }
+
+        Component.onCompleted: effectsRepeater.updateEffectRules()
+
+        Connections {
+            target: root.tasksModel
+            function onActiveWindowUpdated() {
+                effectsRepeater.updateEffectsState();
+            }
+        }
+
+        Connections {
+            target: plasmoid.configuration
+            function onEffectRulesChanged() {
+                effectsRepeater.updateEffectRules();
             }
         }
     }
