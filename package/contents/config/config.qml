@@ -28,7 +28,7 @@ ConfigModel {
 
     ConfigCategory {
         name: i18n("Effects")
-        icon: "document-replace"
+        icon: "special-effects-symbolic"
         source: "config/effect/ConfigEffects.qml"
     }
 }

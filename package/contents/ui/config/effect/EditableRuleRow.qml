@@ -27,6 +27,7 @@ RowLayout {
         model: effects
         currentIndex: ruleModel.effectIndex
         textRole: "name"
+        wheelEnabled: false
         onActivated: function (index) {
             ruleModel.effectIndex = index;
         }
@@ -35,6 +36,7 @@ RowLayout {
     ComboBox {
         Kirigami.FormData.label: i18n("Type:")
         Layout.preferredWidth: Kirigami.Units.gridUnit * 4
+        wheelEnabled: false
         model: [i18n("Flag"), i18n("Value"), i18n("Regex")]
         currentIndex: ruleModel.conditionType
         onActivated: function (index) {

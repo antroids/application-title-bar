@@ -22,6 +22,9 @@ KCM.SimpleKCM {
     property alias cfg_effects: effectsListModel.stringListModel
     property alias cfg_effectRules: rulesListModel.stringListModel
 
+    verticalScrollBarPolicy: ScrollBar.AlwaysOff
+    verticalScrollBarInteractive: false
+
     JsonListModel {
         id: effectsListModel
         tempModel: EffectModel {}
@@ -62,43 +65,59 @@ KCM.SimpleKCM {
         }
     }
 
-    ColumnLayout {
-        spacing: 0
+    TabBar {
+        id: bar
 
-        TabBar {
-            id: bar
-            Layout.fillWidth: true
-            Layout.bottomMargin: 0
-            TabButton {
-                text: i18n("Effects")
-                contentItem: tabsLayout
-            }
-            TabButton {
-                text: i18n("Rules")
-                contentItem: tabsLayout
-            }
+        anchors.top: parent.top
+        width: page.width
+        TabButton {
+            text: i18n("Effects")
+            contentItem: tabsLayout
         }
+        TabButton {
+            text: i18n("Rules")
+            contentItem: tabsLayout
+        }
+    }
 
-        Frame {
-            Layout.fillWidth: true
-            Layout.margins: 0
+    Frame {
+        anchors.top: bar.bottom
+        width: parent.width
+        height: page.height - bar.height - Kirigami.Units.mediumSpacing
 
-            StackLayout {
-                id: tabsLayout
-                anchors.left: parent.left
-                anchors.right: parent.right
-                currentIndex: bar.currentIndex
+        StackLayout {
+            id: tabsLayout
+            anchors.fill: parent
+            currentIndex: bar.currentIndex
+
+            ScrollView {
+                id: effectsScrollView
+
+                Layout.fillWidth: true
+                Layout.fillHeight: true
 
                 ColumnLayout {
-                    Button {
-                        text: i18n("Add Effect")
-                        onClicked: function () {
-                            const effectName = effectsRepeater.getUniqueEffectName();
-                            effectsListModel.pushModel({
-                                name: effectName,
-                                maskEnabled: false,
-                                maskInverted: false
-                            });
+                    width: effectsScrollView.availableWidth
+                    RowLayout {
+                        Button {
+                            text: i18n("Add Effect")
+                            onClicked: function () {
+                                const effectName = effectsRepeater.getUniqueEffectName();
+                                effectsListModel.pushModel({
+                                    name: effectName,
+                                    maskEnabled: false,
+                                    maskInverted: false
+                                });
+                            }
+                        }
+                        AddPresetEffect {
+                            Layout.preferredWidth: Kirigami.Units.gridUnit * 10
+                            onActivated: function (index) {
+                                const effectName = effectsRepeater.getUniqueEffectName(textAt(index));
+                                const effectModel = valueAt(index);
+                                effectModel.name = effectName;
+                                effectsListModel.pushModel(effectModel);
+                            }
                         }
                     }
 
@@ -111,13 +130,14 @@ KCM.SimpleKCM {
                             item.effectModel.updateFromJsonObject(model.get(index));
                         }
 
-                        function getUniqueEffectName() {
-                            const prefix = "Effect ";
+                        function getUniqueEffectName(effectPrefix) {
+                            const prefix = effectPrefix || "Effect";
+                            let name = prefix;
 
                             outer: for (let i = 1; i < Number.MAX_SAFE_INTEGER; i++) {
-                                const name = prefix + i;
                                 for (let index = 0; index < count; index++) {
                                     if (model.get(index).name == name) {
+                                        name = prefix + " " + i;
                                         continue outer;
                                     }
                                 }
@@ -172,7 +192,15 @@ KCM.SimpleKCM {
                         }
                     }
                 }
+            }
+            ScrollView {
+                id: rulesScrollView
+
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+
                 ColumnLayout {
+                    width: rulesScrollView.availableWidth
                     Button {
                         text: i18n("Add Effect Rule")
                         onClicked: function () {

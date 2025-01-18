@@ -410,6 +410,9 @@ PlasmoidItem {
             function onEffectRulesChanged() {
                 effectsRepeater.updateEffectRules();
             }
+            function onEffectsChanged() {
+                effectsRepeater.updateEffectRules();
+            }
         }
     }
 }

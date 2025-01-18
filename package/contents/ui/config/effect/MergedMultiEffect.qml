@@ -6,7 +6,10 @@
 import QtQuick.Effects
 
 MultiEffect {
-    readonly property MultiEffect defaultEffectModel: MultiEffect {}
+    readonly property MultiEffect defaultEffectModel: MultiEffect {
+        visible: false
+        enabled: false
+    }
     property EffectModel effectModel: EffectModel {}
 
     brightness: effectModel.brightness !== undefined ? effectModel.brightness : defaultEffectModel.brightness

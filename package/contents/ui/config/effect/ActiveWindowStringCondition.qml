@@ -28,6 +28,7 @@ RowLayout {
 
         textRole: "name"
         valueRole: "value"
+        wheelEnabled: false
 
         model: [
             {

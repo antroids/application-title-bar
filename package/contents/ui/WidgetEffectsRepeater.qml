@@ -45,6 +45,7 @@ Repeater {
         anchors.fill: widgetRow
         source: widgetRow
         opacity: 0.0
+        visible: opacity !== 0.0
 
         required property int index
         required property var modelData

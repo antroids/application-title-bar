@@ -27,6 +27,7 @@ RowLayout {
 
         textRole: "name"
         valueRole: "value"
+        wheelEnabled: false
 
         currentIndex: indexOfValue(arg0)
         onActivated: arg0Updated(currentValue)
