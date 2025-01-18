@@ -37,7 +37,7 @@ class ActiveWindowCondition extends Condition {
     }
 
     checkCondition(widget) {
-        return this.checkActiveWindowCondition(widget.tasksModel.activeWindow);
+        return widget.tasksModel.hasActiveWindow && this.checkActiveWindowCondition(widget.tasksModel.activeWindow);
     }
 
     checkActiveWindowCondition(_activeWindow) {
