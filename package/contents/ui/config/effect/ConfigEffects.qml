@@ -23,7 +23,6 @@ KCM.SimpleKCM {
     property alias cfg_effectRules: rulesListModel.stringListModel
 
     verticalScrollBarPolicy: ScrollBar.AlwaysOff
-    verticalScrollBarInteractive: false
 
     JsonListModel {
         id: effectsListModel

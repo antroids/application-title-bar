@@ -12,7 +12,7 @@
         "Id": "com.github.antroids.application-title-bar",
         "Name": "Application Title Bar",
         "License": "GPL-3.0+",
-        "Version": "0.8.2",
+        "Version": "0.8.3",
         "Website": "https://github.com/antroids/application-title-bar",
         "FormFactors": [
             "desktop"
