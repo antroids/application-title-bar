@@ -3,6 +3,18 @@
 [![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
 ![GitHub Release](https://img.shields.io/github/v/release/antroids/application-title-bar)
 
+### NOTE: Plasma 6.3 Compatibility issues
+A Drag action handler does not work properly on Plasma 6.3+ with ButtonsRebind KWin plugin enabled.
+The plugin can be disabled with the following command:
+```bash
+writeconfig6 --file ~/.config/kwinrc --group Plugins --key buttonsrebindEnabled false && qdbus6 org.kde.KWin /Plugins UnloadPlugin "buttonsrebind"
+```
+The names of `writeconfig6` and `qdbus6` utilities can be different for your distribution.
+
+To enable the plugin again:
+```bash
+writeconfig6 --file ~/.config/kwinrc --group Plugins --key buttonsrebindEnabled true && qdbus6 org.kde.KWin /Plugins LoadPlugin "buttonsrebind"
+```
 
 ## Description
 
