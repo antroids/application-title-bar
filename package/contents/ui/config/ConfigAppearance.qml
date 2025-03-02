@@ -27,6 +27,7 @@ KCM.SimpleKCM {
     property int cfg_widgetHorizontalAlignment
     property int cfg_widgetVerticalAlignment
     property alias cfg_widgetFillWidth: widgetFillWidth.checked
+    property alias cfg_widgetToolTipMode: widgetToolTipMode.currentIndex
     property alias cfg_windowTitleMinimumWidth: windowTitleMinimumWidth.value
     property alias cfg_windowTitleMaximumWidth: windowTitleMaximumWidth.value
     property alias cfg_windowTitleFontSize: windowTitleFontSize.value
@@ -168,6 +169,13 @@ KCM.SimpleKCM {
             id: widgetFillWidth
 
             Kirigami.FormData.label: i18n("Fill free space on Panel:")
+        }
+
+        ComboBox {
+            id: widgetToolTipMode
+
+            Kirigami.FormData.label: i18n("Tooltip Mode:")
+            model: [i18n("Disabled"), i18n("Only for maximized windows"), i18n("Enabled")]
         }
 
         WidgetElements {

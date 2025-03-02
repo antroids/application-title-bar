@@ -252,12 +252,6 @@ PlasmoidItem {
         }
     }
 
-    PlasmaCore.ToolTipArea {
-        anchors.fill: parent
-        active: tasksModel.hasActiveWindow
-        mainText: tasksModel.activeWindow.genericAppName || ""
-    }
-
     kWinConfig: KWinConfig {
         Component.onCompleted: updateKWinShortcutNames()
     }
@@ -290,6 +284,11 @@ PlasmoidItem {
             Component.onCompleted: {
                 invokeKWinShortcut.connect(root.invokeKWinShortcut);
             }
+        }
+
+        WidgetToolTip {
+            anchors.fill: parent
+            tasksModel: root.tasksModel
         }
 
         RowLayout {
