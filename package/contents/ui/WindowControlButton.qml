@@ -144,8 +144,9 @@ Item {
             required property int index
             required property var modelData
             anchors.fill: parent
+            anchors.topMargin: root.buttonMargins
+            anchors.bottomMargin: root.buttonMargins
             source: WCB.getButtonComponentSourcePath(button.iconTheme)
-
             onLoaded: function () {
                 let buttonComponent = item;
                 let buttonState = index;
