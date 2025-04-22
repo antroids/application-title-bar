@@ -23,8 +23,8 @@ PlasmoidItem {
     property real widgetHeight: (vertical ? width : height)
     property real elementHeight: widgetHeight - plasmoid.configuration.widgetMargins * 2
     property real buttonMargins: plasmoid.configuration.widgetButtonsMargins
-    property real buttonHeight: elementHeight - buttonMargins * 2
-    property real buttonWidth: plasmoid.configuration.widgetButtonsAspectRatio / 100 * buttonHeight
+    property real buttonHeight: elementHeight
+    property real buttonWidth: (plasmoid.configuration.widgetButtonsAspectRatio) / 100 * (buttonHeight - buttonMargins * 2)
     property var widgetAlignment: plasmoid.configuration.widgetHorizontalAlignment | plasmoid.configuration.widgetVerticalAlignment
     property KWinConfig kWinConfig
     property bool widgetHovered: widgetHoverHandler.hovered
@@ -44,6 +44,7 @@ PlasmoidItem {
     onInvokeKWinShortcut: function (shortcut) {
         if (tasksModel.hasActiveWindow)
             tasksModel.activeWindow.actionCall(ActiveWindow.Action.Activate);
+
         kWinConfig.invokeKWinShortcut(shortcut);
     }
 
@@ -109,10 +110,10 @@ PlasmoidItem {
             id: windowControlButton
 
             property var modelData
-
             Layout.alignment: root.widgetAlignment
             Layout.preferredWidth: root.buttonWidth
             Layout.preferredHeight: root.buttonHeight
+            verticalPadding: root.buttonMargins
             buttonType: modelData.windowControlButtonType
             themeName: plasmoid.configuration.widgetButtonsAuroraeTheme
             iconTheme: plasmoid.configuration.widgetButtonsIconsTheme
