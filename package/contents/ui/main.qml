@@ -113,6 +113,7 @@ PlasmoidItem {
             Layout.alignment: root.widgetAlignment
             Layout.preferredWidth: root.buttonWidth
             Layout.preferredHeight: root.buttonHeight
+            verticalPadding: root.buttonMargins
             buttonType: modelData.windowControlButtonType
             themeName: plasmoid.configuration.widgetButtonsAuroraeTheme
             iconTheme: plasmoid.configuration.widgetButtonsIconsTheme

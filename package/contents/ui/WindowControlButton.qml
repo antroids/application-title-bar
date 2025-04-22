@@ -93,6 +93,7 @@ Item {
     property int animationDuration: 100
     property int iconState: WindowControlButton.IconState.Active
     property bool mouseAreaEnabled: enabled
+    property int verticalPadding: 0
 
     Accessible.role: Accessible.Button
     Accessible.focusable: true
@@ -144,8 +145,8 @@ Item {
             required property int index
             required property var modelData
             anchors.fill: parent
-            anchors.topMargin: root.buttonMargins
-            anchors.bottomMargin: root.buttonMargins
+            anchors.topMargin: button.verticalPadding
+            anchors.bottomMargin: button.verticalPadding
             source: WCB.getButtonComponentSourcePath(button.iconTheme)
             onLoaded: function () {
                 let buttonComponent = item;
