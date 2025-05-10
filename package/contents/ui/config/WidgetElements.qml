@@ -165,6 +165,22 @@ RowLayout {
         Layout.margins: 1
         radius: 2
 
+        property bool dragActive: false
+
+        MouseArea {
+            id: cursorShapeMouseArea
+            anchors.fill: parent
+            enabled: false
+
+            states: State {
+                when: elementRemoveArea.dragActive
+
+                PropertyChanges {
+                    cursorShapeMouseArea.cursorShape: Qt.DragMoveCursor
+                }
+            }
+        }
+
         Kirigami.Icon {
             anchors.fill: parent
             source: "delete"
@@ -179,11 +195,13 @@ RowLayout {
             anchors.margins: 5
             onEntered: dragEvent => {
                 dragSource = dragEvent.source;
+                elementRemoveArea.dragActive = true;
             }
             onExited: () => {
                 if (dragSource && !dragSource.pressed)
                     widgetElements.model.remove(dragSource.DelegateModel.itemsIndex);
                 dragSource = undefined;
+                elementRemoveArea.dragActive = false;
             }
 
             states: State {

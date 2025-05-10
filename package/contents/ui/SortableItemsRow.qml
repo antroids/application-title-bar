@@ -13,6 +13,21 @@ Item {
 
     property alias model: listItemsRepeater.model
     property Component sourceComponent
+    property bool dragActive: false
+
+    MouseArea {
+        id: backgroundCursorShapeMouseArea
+        anchors.fill: parent
+        enabled: false
+
+        states: State {
+            when: listItemsContainer.dragActive
+
+            PropertyChanges {
+                backgroundCursorShapeMouseArea.cursorShape: Qt.DragMoveCursor
+            }
+        }
+    }
 
     RowLayout {
         Component {
@@ -27,6 +42,7 @@ Item {
                 drag.target: contentLoader
                 Layout.preferredWidth: contentLoader.width
                 Layout.preferredHeight: contentLoader.height
+                cursorShape: listItemsContainer.dragActive ? backgroundCursorShapeMouseArea.cursorShape : Qt.OpenHandCursor
 
                 DropArea {
                     anchors.fill: parent
@@ -45,6 +61,12 @@ Item {
                     Drag.hotSpot.y: height / 2
                     onLoaded: item.modelData = modelData
                     sourceComponent: listItemsContainer.sourceComponent
+                }
+
+                Binding {
+                    target: listItemsContainer
+                    property: "dragActive"
+                    value: dragArea.drag.active
                 }
 
                 states: State {
