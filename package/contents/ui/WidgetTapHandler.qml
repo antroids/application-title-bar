@@ -17,12 +17,14 @@ TapHandler {
         property int pressedButtons: 0
         interval: Qt.styleHints.mousePressAndHoldInterval
         onTriggered: function () {
+            longPressEventHandled = true;
             if (pressedButtons & Qt.LeftButton && cfg.widgetMouseAreaLeftLongPressAction != "")
                 invokeKWinShortcut(cfg.widgetMouseAreaLeftLongPressAction);
             else if (pressedButtons & Qt.MiddleButton && cfg.widgetMouseAreaMiddleLongPressAction != "")
                 invokeKWinShortcut(cfg.widgetMouseAreaMiddleLongPressAction);
         }
     }
+    property bool longPressEventHandled: true
 
     signal invokeKWinShortcut(string shortcut)
 
@@ -31,16 +33,21 @@ TapHandler {
     longPressThreshold: 0
     exclusiveSignals: TapHandler.SingleTap | TapHandler.DoubleTap
     onSingleTapped: function (eventPoint, button) {
-        if (button === Qt.LeftButton && cfg.widgetMouseAreaLeftClickAction != "")
-            invokeKWinShortcut(cfg.widgetMouseAreaLeftClickAction);
-        else if (button === Qt.MiddleButton && cfg.widgetMouseAreaMiddleClickAction != "")
-            invokeKWinShortcut(cfg.widgetMouseAreaMiddleClickAction);
+        if (!isLongPressEventHandled()) {
+            if (button === Qt.LeftButton && cfg.widgetMouseAreaLeftClickAction != "")
+                invokeKWinShortcut(cfg.widgetMouseAreaLeftClickAction);
+            else if (button === Qt.MiddleButton && cfg.widgetMouseAreaMiddleClickAction != "")
+                invokeKWinShortcut(cfg.widgetMouseAreaMiddleClickAction);
+        }
     }
     onDoubleTapped: function (eventPoint, button) {
-        if (button === Qt.LeftButton && cfg.widgetMouseAreaLeftDoubleClickAction != "")
-            invokeKWinShortcut(cfg.widgetMouseAreaLeftDoubleClickAction);
-        else if (button === Qt.MiddleButton && cfg.widgetMouseAreaMiddleDoubleClickAction != "")
-            invokeKWinShortcut(cfg.widgetMouseAreaMiddleDoubleClickAction);
+        if (!isLongPressEventHandled()) {
+            stopLongPressTimer();
+            if (button === Qt.LeftButton && cfg.widgetMouseAreaLeftDoubleClickAction != "")
+                invokeKWinShortcut(cfg.widgetMouseAreaLeftDoubleClickAction);
+            else if (button === Qt.MiddleButton && cfg.widgetMouseAreaMiddleDoubleClickAction != "")
+                invokeKWinShortcut(cfg.widgetMouseAreaMiddleDoubleClickAction);
+        }
     }
 
     onPointChanged: function () {
@@ -53,10 +60,15 @@ TapHandler {
 
     function restartLongPressTimer(pressedButtons) {
         longPressTimer.restart();
+        longPressEventHandled = false;
         longPressTimer.pressedButtons = pressedButtons;
     }
 
     function stopLongPressTimer() {
         longPressTimer.stop();
+    }
+
+    function isLongPressEventHandled() {
+        return longPressEventHandled;
     }
 }
