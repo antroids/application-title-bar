@@ -97,6 +97,11 @@ function widgetElementModelFromName(name) {
                 "type": WidgetElement.Type.WindowControlButton,
                 "windowControlButtonType": WindowControlButton.Type.AppMenuButton
             };
+        case "excludeFromCaptureButton":
+            return {
+                "type": WidgetElement.Type.WindowControlButton,
+                "windowControlButtonType": WindowControlButton.Type.ExcludeFromCaptureButton
+            };
         case "windowTitle":
             return {
                 "type": WidgetElement.Type.WindowTitle

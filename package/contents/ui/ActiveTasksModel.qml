@@ -116,6 +116,7 @@ TaskManager.TasksModel {
             fullScreenable = tasksModel.data(activeTaskIndex, TaskManager.AbstractTasksModel.IsFullScreenable) || false;
             fullScreen = tasksModel.data(activeTaskIndex, TaskManager.AbstractTasksModel.IsFullScreen) || false;
             resizable = tasksModel.data(activeTaskIndex, TaskManager.AbstractTasksModel.IsResizable) || false;
+            excludedFromCapture = tasksModel.data(activeTaskIndex, TaskManager.AbstractTasksModel.IsExcludedFromCapture) || false;
             active = tasksModel.data(activeTaskIndex, TaskManager.AbstractTasksModel.IsActive) || false;
             appName = tasksModel.data(activeTaskIndex, TaskManager.AbstractTasksModel.AppName);
             genericAppName = tasksModel.data(activeTaskIndex, TaskManager.AbstractTasksModel.GenericAppName);
@@ -146,6 +147,8 @@ TaskManager.TasksModel {
                 return tasksModel.requestToggleFullScreen(activeTaskIndex);
             case ActiveWindow.Action.Resize:
                 return tasksModel.requestResize(activeTaskIndex);
+            case ActiveWindow.Action.ExcludeFromCapture:
+                return tasksModel.requestToggleExcludeFromCapture(activeTaskIndex);
             }
         }
     }

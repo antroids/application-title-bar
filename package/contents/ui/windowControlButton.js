@@ -79,6 +79,8 @@ function getAction(buttonType) {
             return ActiveWindow.Action.Menu;
         case WindowControlButton.Type.AppMenuButton:
             return ActiveWindow.Action.AppMenu;
+        case WindowControlButton.Type.ExcludeFromCaptureButton:
+            return ActiveWindow.Action.ExcludeFromCapture;
         default:
             return "";
     }

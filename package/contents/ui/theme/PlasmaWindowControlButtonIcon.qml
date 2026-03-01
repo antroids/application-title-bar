@@ -133,6 +133,8 @@ Item {
             return "plasma-symbolic";
         case WindowControlButton.Type.AppMenuButton:
             return "application-menu";
+        case WindowControlButton.Type.ExcludeFromCaptureButton:
+            return "view-private";
         default:
             return "";
         }

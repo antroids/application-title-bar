@@ -23,7 +23,8 @@ QtObject {
         AppMenu,
         Activate,
         FullScreen,
-        Resize
+        Resize,
+        ExcludeFromCapture
     }
 
     property bool minimizable: false
@@ -42,6 +43,7 @@ QtObject {
     property bool fullScreen: false
     property bool resizable: false
     property bool active: false
+    property bool excludedFromCapture: false
     property var appName
     property var genericAppName
     property var decoration
@@ -84,6 +86,8 @@ QtObject {
             return keepBelow;
         case WindowControlButton.Type.ShadeButton:
             return shaded;
+        case WindowControlButton.Type.ExcludeFromCaptureButton:
+            return excludedFromCapture;
         default:
             return false;
         }

@@ -22,7 +22,8 @@ Item {
         ShadeButton,
         HelpButton,
         MenuButton,
-        AppMenuButton
+        AppMenuButton,
+        ExcludeFromCaptureButton
     }
 
     function getAccessibleName(type) {
@@ -49,6 +50,8 @@ Item {
             return "Menu";
         case WindowControlButton.Type.AppMenuButton:
             return "Application Menu";
+        case WindowControlButton.Type.ExcludeFromCaptureButton:
+            return "Hide from Screencast";
         default:
             return "";
         }

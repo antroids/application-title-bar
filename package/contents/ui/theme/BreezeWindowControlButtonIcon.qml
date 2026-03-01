@@ -9,6 +9,7 @@ import "../"
 Canvas {
     property color titleBarColor: "gray"
     property color fontColor: "white"
+    property color redColor: "red"
     property color foregroundWarningColor: "red"
     property bool outlineCloseButton: false
     property color backgroundColor: calculateBackgroundColor()
@@ -141,6 +142,26 @@ Canvas {
             ctx.rect(3.5, 12.5, 11, 1);
             ctx.stroke();
             break;
+        case WindowControlButton.Type.ExcludeFromCaptureButton:
+            ctx.moveTo(4.9, 6.5);
+            ctx.lineTo(5.8, 2.9);
+            ctx.lineTo(9, 4);
+            ctx.lineTo(12.2, 2.9);
+            ctx.lineTo(13.1, 6.5);
+            ctx.closePath();
+            ctx.fill();
+
+            ctx.moveTo(2.8, 8.5);
+            ctx.lineTo(15.2, 8.5);
+
+            ctx.ellipse(5 - 2.3, 10.5, 4.6, 4.6);
+            ctx.ellipse(13 - 2.3, 10.5, 4.6, 4.6);
+
+            ctx.moveTo(7.5, 12.8);
+            ctx.lineTo(10.5, 12.8);
+
+            ctx.stroke();
+            break;
         }
     }
 
@@ -181,6 +202,8 @@ Canvas {
                 return fontColor;
         } else if (buttonType == WindowControlButton.Type.CloseButton && outlineCloseButton) {
             return active ? foregroundWarningColor : fontColor;
+        } else if (buttonType == WindowControlButton.Type.ExcludeFromCaptureButton && checked) {
+            return redColor;
         }
         return Qt.rgba(0, 0, 0, 0);
     }
@@ -190,7 +213,7 @@ Canvas {
             return titleBarColor;
         else if (buttonType == WindowControlButton.Type.CloseButton && outlineCloseButton)
             return titleBarColor;
-        else if ((buttonType == WindowControlButton.Type.KeepAboveButton || buttonType == WindowControlButton.Type.KeepBelowButton || buttonType == WindowControlButton.Type.ShadeButton) && checked)
+        else if ((buttonType == WindowControlButton.Type.KeepAboveButton || buttonType == WindowControlButton.Type.KeepBelowButton || buttonType == WindowControlButton.Type.ShadeButton || buttonType == WindowControlButton.Type.ExcludeFromCaptureButton) && checked)
             return titleBarColor;
         else if (hovered)
             return titleBarColor;
