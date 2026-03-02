@@ -35,6 +35,20 @@ QtObject {
             onTriggered: tasksModel.activeWindow.actionCall(ActiveWindow.Action.Minimize)
         },
         PlasmaCore.Action {
+            text: i18n("&Move")
+            icon.name: "transform-move"
+            enabled: tasksModel.activeTask.movable
+            checkable: false
+            onTriggered: tasksModel.activeWindow.actionCall(ActiveWindow.Action.Move)
+        },
+        PlasmaCore.Action {
+            text: i18n("&Resize")
+            icon.name: "image-resize-symbolic"
+            enabled: tasksModel.activeTask.resizable
+            checkable: false
+            onTriggered: tasksModel.activeWindow.actionCall(ActiveWindow.Action.Resize)
+        },
+        PlasmaCore.Action {
             text: i18n("Keep &Above Others")
             checked: tasksModel.activeWindow.keepAbove
             icon.name: "window-keep-above"
@@ -57,18 +71,11 @@ QtObject {
             onTriggered: tasksModel.activeWindow.actionCall(ActiveWindow.Action.FullScreen)
         },
         PlasmaCore.Action {
-            text: i18n("&Move")
-            icon.name: "transform-move"
-            enabled: tasksModel.activeTask.movable
-            checkable: false
-            onTriggered: tasksModel.activeWindow.actionCall(ActiveWindow.Action.Move)
-        },
-        PlasmaCore.Action {
-            text: i18n("&Resize")
-            icon.name: "image-resize-symbolic"
-            enabled: tasksModel.activeTask.resizable
-            checkable: false
-            onTriggered: tasksModel.activeWindow.actionCall(ActiveWindow.Action.Resize)
+            text: i18n("&Hide from Screencast")
+            checked: tasksModel.activeWindow.excludedFromCapture
+            icon.name: "view-private"
+            checkable: true
+            onTriggered: tasksModel.activeWindow.actionCall(ActiveWindow.Action.ExcludeFromCapture)
         },
         PlasmaCore.Action {
             text: i18n("&Close")
