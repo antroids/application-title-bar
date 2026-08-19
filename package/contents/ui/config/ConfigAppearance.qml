@@ -37,6 +37,7 @@ KCM.SimpleKCM {
     property alias cfg_windowTitleHorizontalAlignment: windowTitleHorizontalAlignment.currentIndex
     property alias cfg_windowTitleVerticalAlignment: windowTitleVerticalAlignment.currentIndex
     property alias cfg_windowTitleHideEmpty: windowTitleHideEmpty.checked
+    property alias cfg_windowTitleKeepEnabledWithoutActiveWindow: windowTitleKeepEnabledWithoutActiveWindow.checked
     property alias cfg_windowTitleUndefined: windowTitleUndefined.text
     property alias cfg_windowTitleMarginsLeft: windowTitleMarginsLeft.value
     property alias cfg_windowTitleMarginsTop: windowTitleMarginsTop.value
@@ -332,6 +333,11 @@ You can install more of regular Aurorae themes for window decorations in System 
             id: windowTitleHideEmpty
 
             Kirigami.FormData.label: i18n("Hide empty title:")
+        }
+
+        CheckBox {
+            id: windowTitleKeepEnabledWithoutActiveWindow
+            Kirigami.FormData.label: i18n("Enable title without an active window:")
         }
 
         TextField {

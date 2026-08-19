@@ -185,7 +185,8 @@ PlasmoidItem {
             maximumLineCount: 1
             elide: Text.ElideRight
             wrapMode: Text.WrapAnywhere
-            enabled: tasksModel.hasActiveWindow
+            enabled: tasksModel.hasActiveWindow ||
+                plasmoid.configuration.windowTitleKeepEnabledWithoutActiveWindow
             horizontalAlignment: horizontalAlignmentValues[plasmoid.configuration.windowTitleHorizontalAlignment]
             verticalAlignment: verticalAlignmentValues[plasmoid.configuration.windowTitleVerticalAlignment]
 
