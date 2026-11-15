@@ -91,6 +91,14 @@ Or you can remove the widget: `kpackagetool6 --type Plasma/Applet --remove com.g
 
 Please, don't forget to fill the report about the issues.
 
+## Translations
+
+The widget is available in:
+
+* Chinese (Simplified)
+
+If you would like to add or improve a translation, see [translate/ReadMe.md](translate/ReadMe.md).
+
 ## License
 
 This project is licensed under the GPL-3.0-or-later License - see the LICENSE.md file for details

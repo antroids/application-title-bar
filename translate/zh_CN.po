@@ -1,0 +1,901 @@
+# Chinese (Simplified) translation for the Application Title Bar widget.
+msgid ""
+msgstr ""
+"Project-Id-Version: plasma_applet_com.github.antroids.application-title-bar "
+"0.10.0\n"
+"Report-Msgid-Bugs-To: https://github.com/antroids/application-title-bar/"
+"issues\n"
+"POT-Creation-Date: 2026-11-15 11:56+0800\n"
+"PO-Revision-Date: 2026-11-15 11:55+0800\n"
+"Last-Translator: Whaleplane <whaleplane@163.com>\n"
+"Language-Team: Chinese (Simplified)\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: contents/config/config.qml:12
+msgid "Appearance"
+msgstr "外观"
+
+#: contents/config/config.qml:18
+msgid "Behavior"
+msgstr "行为"
+
+#: contents/config/config.qml:24
+msgid "Replacements"
+msgstr "替换"
+
+#: contents/config/config.qml:30 contents/ui/config/effect/ConfigEffects.qml:73
+msgid "Effects"
+msgstr "效果"
+
+#: contents/ui/config/ConfigAppearance.qml:71
+msgid "Widget Layout"
+msgstr "部件布局"
+
+#: contents/ui/config/ConfigAppearance.qml:77
+msgid "Widget margins:"
+msgstr "部件边距："
+
+#: contents/ui/config/ConfigAppearance.qml:85
+msgid "Spacing between elements:"
+msgstr "元素间距："
+
+#: contents/ui/config/ConfigAppearance.qml:97
+#: contents/ui/config/ConfigAppearance.qml:354
+msgid "Horizontal alignment:"
+msgstr "水平对齐："
+
+#: contents/ui/config/ConfigAppearance.qml:101
+#: contents/ui/config/ConfigAppearance.qml:355
+msgid "Left"
+msgstr "左"
+
+#: contents/ui/config/ConfigAppearance.qml:105
+#: contents/ui/config/ConfigAppearance.qml:133
+#: contents/ui/config/ConfigAppearance.qml:355
+#: contents/ui/config/ConfigAppearance.qml:362
+msgid "Center"
+msgstr "居中"
+
+#: contents/ui/config/ConfigAppearance.qml:109
+#: contents/ui/config/ConfigAppearance.qml:355
+msgid "Right"
+msgstr "右"
+
+#: contents/ui/config/ConfigAppearance.qml:113
+#: contents/ui/config/ConfigAppearance.qml:355
+msgid "Justify"
+msgstr "两端对齐"
+
+#: contents/ui/config/ConfigAppearance.qml:125
+#: contents/ui/config/ConfigAppearance.qml:361
+msgid "Vertical alignment:"
+msgstr "垂直对齐："
+
+#: contents/ui/config/ConfigAppearance.qml:129
+#: contents/ui/config/ConfigAppearance.qml:362
+msgid "Top"
+msgstr "顶部"
+
+#: contents/ui/config/ConfigAppearance.qml:137
+#: contents/ui/config/ConfigAppearance.qml:362
+msgid "Bottom"
+msgstr "底部"
+
+#: contents/ui/config/ConfigAppearance.qml:141
+msgid "Baseline"
+msgstr "基线"
+
+#: contents/ui/config/ConfigAppearance.qml:151
+msgid "Show disabled elements:"
+msgstr "显示已禁用的元素："
+
+#: contents/ui/config/ConfigAppearance.qml:155
+msgid "Deactivated"
+msgstr "停用"
+
+#: contents/ui/config/ConfigAppearance.qml:159
+msgid "Hide, keep space"
+msgstr "隐藏，保留空间"
+
+#: contents/ui/config/ConfigAppearance.qml:163
+msgid "Hide"
+msgstr "隐藏"
+
+#: contents/ui/config/ConfigAppearance.qml:171
+msgid "Fill free space on Panel:"
+msgstr "填满面板的剩余空间："
+
+#: contents/ui/config/ConfigAppearance.qml:177
+msgid "Tooltip Mode:"
+msgstr "工具提示模式："
+
+#: contents/ui/config/ConfigAppearance.qml:178
+msgid "Disabled"
+msgstr "已禁用"
+
+#: contents/ui/config/ConfigAppearance.qml:178
+msgid "Only for maximized windows"
+msgstr "仅最大化窗口"
+
+#: contents/ui/config/ConfigAppearance.qml:178
+msgid "Enabled"
+msgstr "已启用"
+
+#: contents/ui/config/ConfigAppearance.qml:184
+#: contents/ui/config/ConfigAppearance.qml:427
+msgid "Elements:"
+msgstr "元素："
+
+#: contents/ui/config/ConfigAppearance.qml:200
+msgid "Window Control Buttons"
+msgstr "窗口控制按钮"
+
+#: contents/ui/config/ConfigAppearance.qml:206
+msgid "Button icons source:"
+msgstr "按钮图标来源："
+
+#: contents/ui/config/ConfigAppearance.qml:208
+msgid "Plasma: Global icon theme"
+msgstr "Plasma：全局图标主题"
+
+#: contents/ui/config/ConfigAppearance.qml:208
+msgid "Breeze: Implicit Breeze icons"
+msgstr "Breeze：内置 Breeze 图标"
+
+#: contents/ui/config/ConfigAppearance.qml:208
+msgid "Aurorae: Window decorations theme"
+msgstr "Aurorae：窗口装饰主题"
+
+#: contents/ui/config/ConfigAppearance.qml:208
+msgid "Oxygen: Implicit Oxygen icons"
+msgstr "Oxygen：内置 Oxygen 图标"
+
+#: contents/ui/config/ConfigAppearance.qml:212
+msgid "Aurorae theme:"
+msgstr "Aurorae 主题："
+
+#: contents/ui/config/ConfigAppearance.qml:225
+msgid "<Select Aurorae theme>"
+msgstr "<选择 Aurorae 主题>"
+
+#: contents/ui/config/ConfigAppearance.qml:225
+msgid "<Aurorae themes not found>"
+msgstr "<未找到 Aurorae 主题>"
+
+#: contents/ui/config/ConfigAppearance.qml:246
+msgid ""
+"<p>Missing your theme? <a href=\"https://github.com/antroids/application-"
+"title-bar/issues/25\">Report here.</a></p>"
+msgstr ""
+"<p>没有找到你的主题？<a href=\"https://github.com/antroids/application-title-"
+"bar/issues/25\">在这里报告。</a></p>"
+
+#: contents/ui/config/ConfigAppearance.qml:255
+msgid "Buttons margins:"
+msgstr "按钮边距："
+
+#: contents/ui/config/ConfigAppearance.qml:261
+msgid "Buttons width/height ratio:"
+msgstr "按钮宽度/高度比："
+
+#: contents/ui/config/ConfigAppearance.qml:271
+msgid ""
+"The ratio of button width in percent to 100% of its height. If you need "
+"wider buttons, the value should be >100, otherwise less."
+msgstr ""
+"按钮宽度相对于其高度 100% 的百分比。如果需要更宽的按钮，该值应大于 100，反之"
+"则更小。"
+
+#: contents/ui/config/ConfigAppearance.qml:276
+msgid "Animation speed in ms:"
+msgstr "动画速度（毫秒）："
+
+#: contents/ui/config/ConfigAppearance.qml:286
+msgid "Animation speed of buttons transitions in milliseconds."
+msgstr "按钮过渡动画的速度，单位为毫秒。"
+
+#: contents/ui/config/ConfigAppearance.qml:292
+msgid "Window Title"
+msgstr "窗口标题"
+
+#: contents/ui/config/ConfigAppearance.qml:299
+msgid "Minimum width:"
+msgstr "最小宽度："
+
+#: contents/ui/config/ConfigAppearance.qml:307
+msgid "Maximum width:"
+msgstr "最大宽度："
+
+#: contents/ui/config/ConfigAppearance.qml:313
+msgid "Font size:"
+msgstr "字体大小："
+
+#: contents/ui/config/ConfigAppearance.qml:321
+msgid "Font fit:"
+msgstr "字体适配："
+
+#: contents/ui/config/ConfigAppearance.qml:322
+msgid "Fixed size"
+msgstr "固定大小"
+
+#: contents/ui/config/ConfigAppearance.qml:322
+msgid "Horizontal fit"
+msgstr "水平适应"
+
+#: contents/ui/config/ConfigAppearance.qml:322
+msgid "Vertical fit"
+msgstr "垂直适应"
+
+#: contents/ui/config/ConfigAppearance.qml:322
+msgid "Fit"
+msgstr "适应"
+
+#: contents/ui/config/ConfigAppearance.qml:328
+msgid "Font bold:"
+msgstr "粗体："
+
+#: contents/ui/config/ConfigAppearance.qml:334
+msgid "Hide empty title:"
+msgstr "隐藏空标题："
+
+#: contents/ui/config/ConfigAppearance.qml:340
+msgid "Window title undefined:"
+msgstr "窗口标题未定义时："
+
+#: contents/ui/config/ConfigAppearance.qml:347
+#: contents/ui/config/ConfigAppearance.qml:448
+msgid "Window title source:"
+msgstr "窗口标题来源："
+
+#: contents/ui/config/ConfigAppearance.qml:348
+#: contents/ui/config/ConfigAppearance.qml:449
+msgid "Application name"
+msgstr "应用程序名称"
+
+#: contents/ui/config/ConfigAppearance.qml:348
+#: contents/ui/config/ConfigAppearance.qml:449
+msgid "Decoration"
+msgstr "窗口装饰"
+
+#: contents/ui/config/ConfigAppearance.qml:348
+#: contents/ui/config/ConfigAppearance.qml:449
+msgid "Generic Application name"
+msgstr "通用应用程序名称"
+
+#: contents/ui/config/ConfigAppearance.qml:348
+#: contents/ui/config/ConfigAppearance.qml:449
+msgid "Always undefined"
+msgstr "始终未定义"
+
+#: contents/ui/config/ConfigAppearance.qml:366
+msgid "Window title margins:"
+msgstr "窗口标题边距："
+
+#: contents/ui/config/ConfigAppearance.qml:369
+msgid "top:"
+msgstr "上："
+
+#: contents/ui/config/ConfigAppearance.qml:380
+msgid "left:"
+msgstr "左："
+
+#: contents/ui/config/ConfigAppearance.qml:391
+msgid "bottom:"
+msgstr "下："
+
+#: contents/ui/config/ConfigAppearance.qml:402
+msgid "right:"
+msgstr "右："
+
+#: contents/ui/config/ConfigAppearance.qml:415
+msgid "Override for maximized windows"
+msgstr "最大化窗口的覆盖设置"
+
+#: contents/ui/config/ConfigAppearance.qml:421
+msgid "override"
+msgstr "覆盖"
+
+#: contents/ui/config/ConfigBehavior.qml:61
+msgid "Some functionality is unsupported or can work unstable in X11 sessions."
+msgstr "部分功能在 X11 会话中不受支持或可能工作不稳定。"
+
+#: contents/ui/config/ConfigBehavior.qml:99
+msgid "Active task source:"
+msgstr "活动任务来源："
+
+#: contents/ui/config/ConfigBehavior.qml:104
+msgid "Active task"
+msgstr "活动任务"
+
+#: contents/ui/config/ConfigBehavior.qml:104
+msgid "Last active task"
+msgstr "最近活动的任务"
+
+#: contents/ui/config/ConfigBehavior.qml:104
+msgid "Last active maximized task"
+msgstr "最近活动的最大化任务"
+
+#: contents/ui/config/ConfigBehavior.qml:108
+msgid ""
+"<p>How to obtain the active task from tasks manager: <br><b>Active task</b>: "
+"current active task after filtering. The widget will be disabled if the "
+"current active task is on another screen, regardless whether there are "
+"another tasks on this screen or not.<br/><b>Last active task</b>: show "
+"widget for the last active task after filters applied.<br/><b>Last active "
+"maximized task</b>: show widget for the last active maximized task after "
+"filters applied.</p>"
+msgstr ""
+"<p>如何从任务管理器获取活动任务：<br><b>活动任务</b>：过滤后的当前活动任务。"
+"如果当前活动任务位于其他屏幕，无论本屏幕是否有其他任务，部件都将被禁用。<br/"
+"><b>最近活动的任务</b>：为过滤后最近活动的任务显示部件。<br/><b>最近活动的最"
+"大化任务</b>：为过滤后最近活动的最大化任务显示部件。</p>"
+
+#: contents/ui/config/ConfigBehavior.qml:115
+msgid "Borderless maximized windows:"
+msgstr "最大化窗口无边框："
+
+#: contents/ui/config/ConfigBehavior.qml:116
+msgid "enabled (Will be applied immediately)"
+msgstr "已启用（将立即应用）"
+
+#: contents/ui/config/ConfigBehavior.qml:127
+msgid "Filter active task by activity:"
+msgstr "按活动筛选活动任务："
+
+#: contents/ui/config/ConfigBehavior.qml:128
+#: contents/ui/config/ConfigBehavior.qml:135
+#: contents/ui/config/ConfigBehavior.qml:142
+#: contents/ui/config/ConfigBehavior.qml:150
+#: contents/ui/config/ConfigBehavior.qml:157
+#: contents/ui/config/ConfigBehavior.qml:168
+#: contents/ui/config/ConfigBehavior.qml:176
+#: contents/ui/config/ConfigBehavior.qml:230
+#: contents/ui/config/ConfigBehavior.qml:283
+msgid "enabled"
+msgstr "已启用"
+
+#: contents/ui/config/ConfigBehavior.qml:134
+msgid "Filter active task by screen:"
+msgstr "按屏幕筛选活动任务："
+
+#: contents/ui/config/ConfigBehavior.qml:141
+msgid "Filter active task by virtual desktop:"
+msgstr "按虚拟桌面筛选活动任务："
+
+#: contents/ui/config/ConfigBehavior.qml:149
+msgid "Disable for not maximized:"
+msgstr "未最大化时禁用："
+
+#: contents/ui/config/ConfigBehavior.qml:156
+msgid "Disable buttons for not hovered widget:"
+msgstr "未悬停在部件上时禁用按钮："
+
+#: contents/ui/config/ConfigBehavior.qml:162
+msgid "Mouse area drag"
+msgstr "鼠标区域拖拽"
+
+#: contents/ui/config/ConfigBehavior.qml:175
+msgid "Only maximized:"
+msgstr "仅最大化时："
+
+#: contents/ui/config/ConfigBehavior.qml:183
+msgid "Threshold:"
+msgstr "阈值："
+
+#: contents/ui/config/ConfigBehavior.qml:191
+#: contents/ui/config/ConfigBehavior.qml:208
+msgid "Window Move action is incompatible with Mouse Drag in X11 sessions."
+msgstr "在 X11 会话中，“窗口移动”操作与鼠标拖拽不兼容。"
+
+#: contents/ui/config/ConfigBehavior.qml:199
+msgid "Left button drag:"
+msgstr "左键拖拽："
+
+#: contents/ui/config/ConfigBehavior.qml:216
+msgid "Middle button drag:"
+msgstr "中键拖拽："
+
+#: contents/ui/config/ConfigBehavior.qml:224
+msgid "Mouse area click"
+msgstr "鼠标区域点击"
+
+#: contents/ui/config/ConfigBehavior.qml:235
+msgid "Left button click:"
+msgstr "左键单击："
+
+#: contents/ui/config/ConfigBehavior.qml:242
+msgid "Left button double-click:"
+msgstr "左键双击："
+
+#: contents/ui/config/ConfigBehavior.qml:249
+msgid "Left button long press:"
+msgstr "左键长按："
+
+#: contents/ui/config/ConfigBehavior.qml:256
+msgid "Middle button click:"
+msgstr "中键单击："
+
+#: contents/ui/config/ConfigBehavior.qml:263
+msgid "Middle button double-click:"
+msgstr "中键双击："
+
+#: contents/ui/config/ConfigBehavior.qml:270
+msgid "Middle button long press:"
+msgstr "中键长按："
+
+#: contents/ui/config/ConfigBehavior.qml:277
+msgid "Mouse area wheel"
+msgstr "鼠标区域滚轮"
+
+#: contents/ui/config/ConfigBehavior.qml:290
+msgid "First event distance:"
+msgstr "首次事件距离："
+
+#: contents/ui/config/ConfigBehavior.qml:299
+msgid "Next event distance:"
+msgstr "后续事件距离："
+
+#: contents/ui/config/ConfigBehavior.qml:306
+msgid "Wheel up:"
+msgstr "滚轮向上："
+
+#: contents/ui/config/ConfigBehavior.qml:313
+msgid "Wheel down:"
+msgstr "滚轮向下："
+
+#: contents/ui/config/ConfigBehavior.qml:320
+msgid "Wheel left:"
+msgstr "滚轮向左："
+
+#: contents/ui/config/ConfigBehavior.qml:327
+msgid "Wheel right:"
+msgstr "滚轮向右："
+
+#: contents/ui/config/effect/ActiveWindowFlagCondition.qml:37
+msgid "Minimizable"
+msgstr "可最小化"
+
+#: contents/ui/config/effect/ActiveWindowFlagCondition.qml:41
+msgid "Maximizable"
+msgstr "可最大化"
+
+#: contents/ui/config/effect/ActiveWindowFlagCondition.qml:45
+msgid "Closable"
+msgstr "可关闭"
+
+#: contents/ui/config/effect/ActiveWindowFlagCondition.qml:49
+msgid "Movable"
+msgstr "可移动"
+
+#: contents/ui/config/effect/ActiveWindowFlagCondition.qml:53
+msgid "Minimized"
+msgstr "已最小化"
+
+#: contents/ui/config/effect/ActiveWindowFlagCondition.qml:57
+msgid "Maximized"
+msgstr "已最大化"
+
+#: contents/ui/config/effect/ActiveWindowFlagCondition.qml:61
+msgid "Shadeable"
+msgstr "可卷起"
+
+#: contents/ui/config/effect/ActiveWindowFlagCondition.qml:65
+msgid "Shaded"
+msgstr "已卷起"
+
+#: contents/ui/config/effect/ActiveWindowFlagCondition.qml:69
+msgid "Has App Menu"
+msgstr "有应用菜单"
+
+#: contents/ui/config/effect/ActiveWindowFlagCondition.qml:73
+msgid "On all Virtual Desktops"
+msgstr "位于所有虚拟桌面"
+
+#: contents/ui/config/effect/ActiveWindowFlagCondition.qml:77
+msgid "Keep Above"
+msgstr "置顶"
+
+#: contents/ui/config/effect/ActiveWindowFlagCondition.qml:81
+msgid "Keep Below"
+msgstr "置底"
+
+#: contents/ui/config/effect/ActiveWindowFlagCondition.qml:85
+msgid "Full Screenable"
+msgstr "可全屏"
+
+#: contents/ui/config/effect/ActiveWindowFlagCondition.qml:89
+msgid "Full Screen"
+msgstr "全屏"
+
+#: contents/ui/config/effect/ActiveWindowFlagCondition.qml:93
+msgid "Resizable"
+msgstr "可调整大小"
+
+#: contents/ui/config/effect/ActiveWindowFlagCondition.qml:97
+msgid "Active"
+msgstr "活动"
+
+#: contents/ui/config/effect/ActiveWindowFlagCondition.qml:109
+msgid "value"
+msgstr "值"
+
+#: contents/ui/config/effect/ActiveWindowRegExpCondition.qml:35
+#: contents/ui/config/effect/ActiveWindowStringCondition.qml:35
+msgid "App Name"
+msgstr "应用名称"
+
+#: contents/ui/config/effect/ActiveWindowRegExpCondition.qml:39
+#: contents/ui/config/effect/ActiveWindowStringCondition.qml:39
+msgid "Generic App Name"
+msgstr "通用应用名称"
+
+#: contents/ui/config/effect/ActiveWindowRegExpCondition.qml:43
+#: contents/ui/config/effect/ActiveWindowStringCondition.qml:43
+msgid "Full App Name"
+msgstr "完整应用名称"
+
+#: contents/ui/config/effect/ActiveWindowRegExpCondition.qml:47
+#: contents/ui/config/effect/ActiveWindowStringCondition.qml:47
+msgid "Icon"
+msgstr "图标"
+
+#: contents/ui/config/effect/AddPresetEffect.qml:13
+msgid "Add Preset Effect"
+msgstr "添加预设效果"
+
+#: contents/ui/config/effect/AddPresetEffect.qml:17
+msgid "White Glow"
+msgstr "白色辉光"
+
+#: contents/ui/config/effect/AddPresetEffect.qml:26
+#: contents/ui/config/effect/EditEffect.qml:53
+#: contents/ui/config/effect/EditEffect.qml:126
+msgid "Blur"
+msgstr "模糊"
+
+#: contents/ui/config/effect/AddPresetEffect.qml:34
+msgid "Desaturate"
+msgstr "降低饱和度"
+
+#: contents/ui/config/effect/ConfigEffects.qml:51
+msgid "Remove Effect and connected Rules"
+msgstr "移除效果及关联的规则"
+
+#: contents/ui/config/effect/ConfigEffects.qml:63
+msgid "%1 Rules are connected to the Effect and will be removed."
+msgstr "%1 条规则已关联到此效果，将被一并移除。"
+
+#: contents/ui/config/effect/ConfigEffects.qml:77
+msgid "Rules"
+msgstr "规则"
+
+#: contents/ui/config/effect/ConfigEffects.qml:102
+msgid "Add Effect"
+msgstr "添加效果"
+
+#: contents/ui/config/effect/ConfigEffects.qml:204
+msgid "Add Effect Rule"
+msgstr "添加效果规则"
+
+#: contents/ui/config/effect/EditableEffectRow.qml:85
+#: contents/ui/config/effect/EditableEffectRow.qml:89
+msgid "Preview"
+msgstr "预览"
+
+#: contents/ui/config/effect/EditableRuleRow.qml:26
+msgid "Effect:"
+msgstr "效果："
+
+#: contents/ui/config/effect/EditableRuleRow.qml:37
+msgid "Type:"
+msgstr "类型："
+
+#: contents/ui/config/effect/EditableRuleRow.qml:40
+msgid "Flag"
+msgstr "标志"
+
+#: contents/ui/config/effect/EditableRuleRow.qml:40
+msgid "Value"
+msgstr "值"
+
+#: contents/ui/config/effect/EditableRuleRow.qml:40
+msgid "Regex"
+msgstr "正则"
+
+#: contents/ui/config/effect/EditEffect.qml:49
+msgid "Color"
+msgstr "颜色"
+
+#: contents/ui/config/effect/EditEffect.qml:57
+#: contents/ui/config/effect/EditEffect.qml:162
+msgid "Shadow"
+msgstr "阴影"
+
+#: contents/ui/config/effect/EditEffect.qml:61
+msgid "Mask"
+msgstr "蒙版"
+
+#: contents/ui/config/effect/EditEffect.qml:80
+msgid "Brightness"
+msgstr "亮度"
+
+#: contents/ui/config/effect/EditEffect.qml:88
+msgid "Contrast"
+msgstr "对比度"
+
+#: contents/ui/config/effect/EditEffect.qml:96
+msgid "Saturation"
+msgstr "饱和度"
+
+#: contents/ui/config/effect/EditEffect.qml:104
+msgid "Colorization"
+msgstr "着色"
+
+#: contents/ui/config/effect/EditEffect.qml:115
+msgid "Colorization Color"
+msgstr "着色颜色"
+
+#: contents/ui/config/effect/EditEffect.qml:136
+msgid "Blur Max"
+msgstr "最大模糊"
+
+#: contents/ui/config/effect/EditEffect.qml:149
+msgid "Blur Multiplier"
+msgstr "模糊倍数"
+
+#: contents/ui/config/effect/EditEffect.qml:173
+msgid "Shadow Blur"
+msgstr "阴影模糊"
+
+#: contents/ui/config/effect/EditEffect.qml:184
+msgid "Shadow Horizontal Offset"
+msgstr "阴影水平偏移"
+
+#: contents/ui/config/effect/EditEffect.qml:195
+msgid "Shadow Vertical Offset"
+msgstr "阴影垂直偏移"
+
+#: contents/ui/config/effect/EditEffect.qml:206
+msgid "Shadow Scale"
+msgstr "阴影缩放"
+
+#: contents/ui/config/effect/EditEffect.qml:219
+msgid "Shadow Color"
+msgstr "阴影颜色"
+
+#: contents/ui/config/effect/EditEffect.qml:229
+msgid "Mask Enabled"
+msgstr "启用蒙版"
+
+#: contents/ui/config/effect/EditEffect.qml:237
+msgid "Mask Inverted"
+msgstr "反转蒙版"
+
+#: contents/ui/config/effect/EditEffect.qml:245
+msgid "Mask Threshold Min"
+msgstr "蒙版最小阈值"
+
+#: contents/ui/config/effect/EditEffect.qml:255
+msgid "Mask Threshold Max"
+msgstr "蒙版最大阈值"
+
+#: contents/ui/config/effect/EditEffect.qml:266
+msgid "Mask Spread At Min"
+msgstr "蒙版最小扩散程度"
+
+#: contents/ui/config/effect/EditEffect.qml:277
+msgid "Mask Spread At Max"
+msgstr "蒙版最大扩散程度"
+
+#: contents/ui/config/TitleReplacements.qml:106
+#: contents/ui/config/TitleReplacements.qml:213
+msgid "Add Title Replacement"
+msgstr "添加标题替换"
+
+#: contents/ui/config/TitleReplacements.qml:110
+#: contents/ui/config/TitleReplacements.qml:217
+msgid ""
+"<a href=\"https://www.w3schools.com/jsref/jsref_obj_regexp.asp\">JavaScript "
+"RegExp Reference</a>"
+msgstr ""
+"<a href=\"https://www.w3schools.com/jsref/jsref_obj_regexp.asp\">JavaScript "
+"RegExp 参考</a>"
+
+#: contents/ui/config/TitleReplacements.qml:171
+msgid "String"
+msgstr "字符串"
+
+#: contents/ui/config/TitleReplacements.qml:171
+msgid "RegExp"
+msgstr "正则表达式"
+
+#: contents/ui/config/TitleReplacements.qml:229
+msgid "Title Replacements Testing"
+msgstr "标题替换测试"
+
+#: contents/ui/config/TitleReplacements.qml:235
+msgid "Test input:"
+msgstr "测试输入："
+
+#: contents/ui/config/TitleReplacements.qml:245
+msgid "Test output:"
+msgstr "测试输出："
+
+#: contents/ui/config/WidgetElements.qml:119
+msgid "Title"
+msgstr "标题"
+
+#: contents/ui/ContextualActions.qml:23
+msgid "Ma&ximize"
+msgstr "最大化(&X)"
+
+#: contents/ui/ContextualActions.qml:31
+msgid "Mi&nimize"
+msgstr "最小化(&N)"
+
+#: contents/ui/ContextualActions.qml:38
+msgid "&Move"
+msgstr "移动(&M)"
+
+#: contents/ui/ContextualActions.qml:45
+msgid "&Resize"
+msgstr "调整大小(&R)"
+
+#: contents/ui/ContextualActions.qml:52
+msgid "Keep &Above Others"
+msgstr "保持在其他窗口之上(&A)"
+
+#: contents/ui/ContextualActions.qml:59
+msgid "Keep &Below Others"
+msgstr "保持在其他窗口之下(&B)"
+
+#: contents/ui/ContextualActions.qml:66
+msgid "&Fullscreen"
+msgstr "全屏(&F)"
+
+#: contents/ui/ContextualActions.qml:74
+msgid "&Hide from Screencast"
+msgstr "从屏幕录制中隐藏(&H)"
+
+#: contents/ui/ContextualActions.qml:81
+msgid "&Close"
+msgstr "关闭(&C)"
+
+#: contents/ui/ContextualActions.qml:88
+msgid "&Export configuration..."
+msgstr "导出配置(&E)…"
+
+#: contents/ui/ContextualActions.qml:94
+msgid "&Import configuration..."
+msgstr "导入配置(&I)…"
+
+#: contents/ui/main.qml:306
+msgid "Application title bar"
+msgstr "应用程序标题栏"
+
+#. dynamic string
+msgid "Add element..."
+msgstr "添加元素…"
+
+#. dynamic string
+msgid "Window close button"
+msgstr "窗口关闭按钮"
+
+#. dynamic string
+msgid "Window minimize button"
+msgstr "窗口最小化按钮"
+
+#. dynamic string
+msgid "Window maximize button"
+msgstr "窗口最大化按钮"
+
+#. dynamic string
+msgid "Keep window above button"
+msgstr "窗口置顶按钮"
+
+#. dynamic string
+msgid "Keep window below button"
+msgstr "窗口置底按钮"
+
+#. dynamic string
+msgid "Shade window button"
+msgstr "窗口卷起按钮"
+
+#. dynamic string
+msgid "Hide from Screencast button"
+msgstr "从屏幕录制隐藏按钮"
+
+#. dynamic string
+msgid "Window title"
+msgstr "窗口标题"
+
+#. dynamic string
+msgid "Window Icon"
+msgstr "窗口图标"
+
+#. dynamic string
+msgid "Spacer"
+msgstr "间隔"
+
+#. dynamic string
+msgid "Minimize"
+msgstr "最小化"
+
+#. dynamic string
+msgid "Maximize"
+msgstr "最大化"
+
+#. dynamic string
+msgid "Restore"
+msgstr "还原"
+
+#. dynamic string
+msgid "Close"
+msgstr "关闭"
+
+#. dynamic string
+msgid "All Desktops"
+msgstr "所有桌面"
+
+#. dynamic string
+msgid "Shade"
+msgstr "卷起"
+
+#. dynamic string
+msgid "Help"
+msgstr "帮助"
+
+#. dynamic string
+msgid "Menu"
+msgstr "菜单"
+
+#. dynamic string
+msgid "Application Menu"
+msgstr "应用程序菜单"
+
+#. dynamic string
+msgid "Hide from Screencast"
+msgstr "从屏幕录制中隐藏"
+
+#. multiline string, xgettext cannot parse it (see merge.sh)
+msgid ""
+"Some window decorations themes, e.g. Breeze or Plastik, could be installed "
+"in your system as binary libraries and thus be visible and usable in System "
+"settings, but they are not detectable and cannot be used by this widget. "
+"There are no plans to support such binary themes due to technical "
+"complications.\n"
+"-\n"
+"Regular Aurorae themes for window decorations are supported by this widget "
+"and you can install them in System settings through \"Window decorations\" "
+"page or use \"Breeze\" or \"Plasma\" options in \"Button icons source\" "
+"field above instead"
+msgstr ""
+"某些窗口装饰主题（例如 Breeze 或 Plastik）在系统中可能以二进制库形式安装，因"
+"此在系统设置中可见、可用，但本部件无法检测，也不能使用此类主题。由于技术原"
+"因，暂无支持这些二进制主题的计划。\n"
+"-\n"
+"本部件支持常规的 Aurorae 窗口装饰主题，你可以在系统设置的“窗口装饰”页面安装它"
+"们，或改用上方“按钮图标来源”中的“Breeze”或“Plasma”选项。"
+
+#. multiline string, xgettext cannot parse it (see merge.sh)
+msgid ""
+"Some window decorations themes, e.g. Breeze or Plastik, could be installed "
+"in your system as binary libraries and thus be visible and usable in System "
+"settings, but they are not detectable and cannot be used by this widget. "
+"There are no plans to support such binary themes due to technical "
+"complications.\n"
+"-\n"
+"You can install more of regular Aurorae themes for window decorations in "
+"System settings through \"Window decorations\" page or use \"Breeze\" or "
+"\"Plasma\" options in \"Button icons source\" field above instead"
+msgstr ""
+"某些窗口装饰主题（例如 Breeze 或 Plastik）在系统中可能以二进制库形式安装，因"
+"此在系统设置中可见、可用，但本部件无法检测，也不能使用此类主题。由于技术原"
+"因，暂无支持这些二进制主题的计划。\n"
+"-\n"
+"你可以在系统设置的“窗口装饰”页面安装更多常规的 Aurorae 窗口装饰主题，或改用上"
+"方“按钮图标来源”中的“Breeze”或“Plasma”选项。"
