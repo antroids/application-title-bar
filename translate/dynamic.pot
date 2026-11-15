@@ -1,0 +1,102 @@
+# Strings that are translated dynamically at runtime (e.g. i18n(aVariable))
+# and therefore cannot be extracted by xgettext. Keep them in sync with the
+# plain string literals in the QML sources (e.g. AddWidgetElement.qml,
+# WindowControlButton.qml).
+
+#. dynamic string
+msgid "Add element..."
+msgstr ""
+
+#. dynamic string
+msgid "Window close button"
+msgstr ""
+
+#. dynamic string
+msgid "Window minimize button"
+msgstr ""
+
+#. dynamic string
+msgid "Window maximize button"
+msgstr ""
+
+#. dynamic string
+msgid "Keep window above button"
+msgstr ""
+
+#. dynamic string
+msgid "Keep window below button"
+msgstr ""
+
+#. dynamic string
+msgid "Shade window button"
+msgstr ""
+
+#. dynamic string
+msgid "Hide from Screencast button"
+msgstr ""
+
+#. dynamic string
+msgid "Window title"
+msgstr ""
+
+#. dynamic string
+msgid "Window Icon"
+msgstr ""
+
+#. dynamic string
+msgid "Spacer"
+msgstr ""
+
+#. dynamic string
+msgid "Minimize"
+msgstr ""
+
+#. dynamic string
+msgid "Maximize"
+msgstr ""
+
+#. dynamic string
+msgid "Restore"
+msgstr ""
+
+#. dynamic string
+msgid "Close"
+msgstr ""
+
+#. dynamic string
+msgid "All Desktops"
+msgstr ""
+
+#. dynamic string
+msgid "Shade"
+msgstr ""
+
+#. dynamic string
+msgid "Help"
+msgstr ""
+
+#. dynamic string
+msgid "Menu"
+msgstr ""
+
+#. dynamic string
+msgid "Application Menu"
+msgstr ""
+
+#. dynamic string
+msgid "Hide from Screencast"
+msgstr ""
+
+#. multiline string, xgettext cannot parse it (see merge.sh)
+msgid ""
+"Some window decorations themes, e.g. Breeze or Plastik, could be installed in your system as binary libraries and thus be visible and usable in System settings, but they are not detectable and cannot be used by this widget. There are no plans to support such binary themes due to technical complications.\n"
+"-\n"
+"Regular Aurorae themes for window decorations are supported by this widget and you can install them in System settings through \"Window decorations\" page or use \"Breeze\" or \"Plasma\" options in \"Button icons source\" field above instead"
+msgstr ""
+
+#. multiline string, xgettext cannot parse it (see merge.sh)
+msgid ""
+"Some window decorations themes, e.g. Breeze or Plastik, could be installed in your system as binary libraries and thus be visible and usable in System settings, but they are not detectable and cannot be used by this widget. There are no plans to support such binary themes due to technical complications.\n"
+"-\n"
+"You can install more of regular Aurorae themes for window decorations in System settings through \"Window decorations\" page or use \"Breeze\" or \"Plasma\" options in \"Button icons source\" field above instead"
+msgstr ""
